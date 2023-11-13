@@ -77,34 +77,6 @@ export const HubLanding: React.FC = () => {
               info="Staking on Keplr!"
               iconSVG={stakingSVG}
             />
-            <DAppCard
-              label="Airdrop"
-              description="Get $FURY Join Furya Community "
-              info="Let's Go!"
-              iconSVG={airdropSVG}
-              onPress={() => Linking.openURL("https://furya.xyz/airdrop")}
-            />
-            <DAppCard
-              label="Marketplace"
-              description="Trade your NFTs & TNS and rank up on your profile by contributing to expansion"
-              info="Explore Collections"
-              iconSVG={marketplaceSVG}
-              onPress={() => navigation.navigate("Marketplace")}
-            />
-            <DAppCard
-              label="Launchpad"
-              description="Apply to a NFT Launch on Furya Launchpad and get validated & pushed by the community."
-              info="Apply here"
-              iconSVG={launchpadSVG}
-              onPress={() => navigation.navigate("Launchpad")}
-            />
-            <DAppCard
-              label="Fury Labs"
-              description="Get funds to develop, contribute and build new feature for Communities"
-              info="Apply here"
-              iconSVG={labsSVG}
-              onPress={() => Linking.openURL("https://furya.xyz/grants")}
-            />
           </View>
         </Section>
         <Section title="Coming soon dApps">
@@ -136,18 +108,6 @@ Launch"
             />
           </View>
         </Section>
-        <CollectionsCarouselSection
-          title="Upcoming Launches on Furya Launch Pad"
-          req={{
-            upcoming: true,
-            networkId: "",
-            sortDirection: SortDirection.SORT_DIRECTION_UNSPECIFIED,
-            sort: Sort.SORTING_UNSPECIFIED,
-            limit: 16,
-            offset: 0,
-            mintState: MintState.MINT_STATE_UNSPECIFIED,
-          }}
-        />
       </View>
     </View>
   );

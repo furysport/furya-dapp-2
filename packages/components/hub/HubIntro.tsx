@@ -49,11 +49,6 @@ const ConnectedIntro: React.FC = () => {
 
       <ProfileButton touchableStyle={{ marginTop: 40 }} />
 
-      <Section title="Quests" subtitle="4">
-        <FullWidthSeparator />
-        <Quests userId={`furya-${selectedWallet?.address}`} />
-      </Section>
-
       <Section title="Wallets manager">
         <FullWidthSeparator />
         <WalletDashboardHeader />

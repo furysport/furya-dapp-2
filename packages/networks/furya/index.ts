@@ -10,7 +10,7 @@ export const furyaNetwork: NetworkInfo = {
   icon: "icons/networks/furya-circle.svg",
   currencies: furyaCurrencies,
   addressPrefix: "furya",
-  restEndpoint: "https://rest.mainnet.furya.xyz",
+  restEndpoint: "https://api.furya.xyz",
   rpcEndpoint: "https://rpc.furya.xyz",
   stakeCurrency: "ufury",
   gasPriceStep: {
