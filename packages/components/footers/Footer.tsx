@@ -5,9 +5,11 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
+  Image,
 } from "react-native";
 
-import getupSVG from "../../../assets/getup.svg";
+import { LegalFooter } from "./LegalFooter";
+import getUpImage from "../../../assets/getup.png";
 import discordSVG from "../../../assets/icons/discord.svg";
 import mediumSVG from "../../../assets/icons/medium.svg";
 import twitterSVG from "../../../assets/icons/twitter.svg";
@@ -16,23 +18,22 @@ import { secondaryColor } from "../../utils/style/colors";
 import { layout, screenContentMaxWidthLarge } from "../../utils/style/layout";
 import { SVG } from "../SVG";
 import { TertiaryBox } from "../boxes/TertiaryBox";
-import { LegalFooter } from "./LegalFooter";
 
 const FooterSocialNetworks: React.FC = () => {
   return (
     <TertiaryBox
-      mainContainerStyle={{ padding: layout.padding_x1, flexDirection: "row" }}
-      style={{ marginBottom: layout.contentPadding }}
+      mainContainerStyle={{ padding: layout.spacing_x1, flexDirection: "row" }}
+      style={{ marginBottom: layout.contentSpacing }}
     >
       <TouchableOpacity
-        style={{ marginRight: layout.padding_x1 }}
-        onPress={() => Linking.openURL("https://medium.com/furya/")}
+        style={{ marginRight: layout.spacing_x1 }}
+        onPress={() => Linking.openURL("https://medium.com/@blackfuryhub")}
       >
         <TertiaryBox
           mainContainerStyle={{
             borderColor: secondaryColor,
             borderRadius: 12,
-            padding: layout.padding_x1_5,
+            padding: layout.spacing_x1_5,
           }}
         >
           <SVG source={mediumSVG} width={20} height={20} />
@@ -40,14 +41,14 @@ const FooterSocialNetworks: React.FC = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={{ marginRight: layout.padding_x1 }}
-        onPress={() => Linking.openURL("https://twitter.com/FuryaNetwork")}
+        style={{ marginRight: layout.spacing_x1 }}
+        onPress={() => Linking.openURL("https://twitter.com/BlackfuryHub")}
       >
         <TertiaryBox
           mainContainerStyle={{
             borderColor: secondaryColor,
             borderRadius: 12,
-            padding: layout.padding_x1_5,
+            padding: layout.spacing_x1_5,
           }}
         >
           <SVG source={twitterSVG} width={20} height={20} />
@@ -55,13 +56,13 @@ const FooterSocialNetworks: React.FC = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => Linking.openURL("https://discord.gg/furya")}
+        onPress={() => Linking.openURL("https://discord.gg/t86Dg6cWTC")}
       >
         <TertiaryBox
           mainContainerStyle={{
             borderColor: secondaryColor,
             borderRadius: 12,
-            padding: layout.padding_x1_5,
+            padding: layout.spacing_x1_5,
           }}
         >
           <SVG source={discordSVG} width={20} height={20} />
@@ -79,19 +80,37 @@ const FooterGetUp: React.FC = () => {
         width: "100%",
         maxWidth: screenContentMaxWidthLarge,
         justifyContent: "space-between",
-        marginBottom: layout.contentPadding,
+        marginBottom: layout.contentSpacing,
       }}
     >
-      <SVG source={getupSVG} />
-      <SVG source={getupSVG} />
-      <SVG source={getupSVG} />
+      {/* <Image
+        source={{ uri: getUpImage }}
+        style={{
+          width: 323,
+          height: 179,
+        }}
+      />
+      <Image
+        source={{ uri: getUpImage }}
+        style={{
+          width: 323,
+          height: 179,
+        }}
+      /> */}
+      {/* <Image
+        source={{ uri: getUpImage }}
+        style={{
+          width: 323,
+          height: 179,
+        }}
+      /> */}
     </View>
   );
 };
 
 const FooterLogo: React.FC = () => {
   return (
-    <View style={{ marginBottom: layout.padding_x4 }}>
+    <View style={{ marginBottom: layout.spacing_x4 }}>
       <SVG source={logoSVG} width={88} height={88} />
     </View>
   );
@@ -104,7 +123,6 @@ export const Footer: React.FC<{
     <View
       style={[
         {
-          // maxWidth: screenContentMaxWidthLarge,
           width: "100%",
           justifyContent: "center",
           alignItems: "center",
@@ -119,7 +137,7 @@ export const Footer: React.FC<{
 
       <FooterSocialNetworks />
 
-      <LegalFooter>{children}</LegalFooter>
+      {/* <LegalFooter>{children}</LegalFooter> */}
     </View>
   );
 };
