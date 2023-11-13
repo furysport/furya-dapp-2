@@ -35,32 +35,6 @@ export const MarketplaceScreen: ScreenFC<"Marketplace"> = () => {
             mintState: MintState.MINT_STATE_ENDED,
           }}
         />
-
-        <CollectionsCarouselSection
-          title={`${getNetwork(selectedNetworkId)?.displayName} Collections`}
-          req={{
-            networkId: selectedNetworkId,
-            sortDirection: SortDirection.SORT_DIRECTION_DESCENDING,
-            upcoming: false,
-            sort: Sort.SORTING_VOLUME,
-            limit: 16,
-            offset: 0,
-            mintState: MintState.MINT_STATE_UNSPECIFIED,
-          }}
-        />
-
-        <CollectionsCarouselSection
-          title="Upcoming Launches"
-          req={{
-            upcoming: true,
-            networkId: "",
-            sortDirection: SortDirection.SORT_DIRECTION_UNSPECIFIED,
-            sort: Sort.SORTING_UNSPECIFIED,
-            limit: 16,
-            offset: 0,
-            mintState: MintState.MINT_STATE_UNSPECIFIED,
-          }}
-        />
       </View>
     </ScreenContainer>
   );
