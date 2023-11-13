@@ -10,9 +10,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
-	"github.com/FURYA/furya-dapp/go/pkg/contractutil"
-	"github.com/FURYA/furya-dapp/go/pkg/p2e"
+	"github.com/furysport/furya-dapp-2/go/internal/indexerdb"
+	"github.com/furysport/furya-dapp-2/go/pkg/contractutil"
+	"github.com/furysport/furya-dapp-2/go/pkg/p2e"
 	"github.com/go-co-op/gocron"
 	"github.com/peterbourgon/ff/v3"
 	"github.com/pkg/errors"

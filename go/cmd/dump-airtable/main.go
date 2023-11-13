@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 
-	"github.com/FURYA/furya-dapp/go/internal/airtable_fetcher"
+	"github.com/furysport/furya-dapp-2/go/internal/airtable_fetcher"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/peterbourgon/ff/v3"
 	"github.com/pkg/errors"

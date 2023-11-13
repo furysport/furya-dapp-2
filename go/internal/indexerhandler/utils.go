@@ -10,9 +10,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/FURYA/furya-dapp/go/internal/ipfsutil"
-	"github.com/FURYA/furya-dapp/go/pkg/networks"
-	"github.com/FURYA/furya-dapp/go/pkg/pricespb"
+	"github.com/furysport/furya-dapp-2/go/internal/ipfsutil"
+	"github.com/furysport/furya-dapp-2/go/pkg/networks"
+	"github.com/furysport/furya-dapp-2/go/pkg/pricespb"
 	"github.com/allegro/bigcache/v3"
 	"github.com/pkg/errors"
 	abcitypes "github.com/tendermint/tendermint/abci/types"

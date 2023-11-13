@@ -3,9 +3,9 @@ import { NetworkInfo } from "../types";
 import { furyaTestnetCurrencies } from "./currencies";
 
 export const furyaTestnetNetwork: NetworkInfo = {
-  id: "furya-testnet",
+  id: "colney",
   network: Network.Furya,
-  chainId: "furya-testnet",
+  chainId: "colney",
   displayName: "Furya Testnet",
   icon: "icons/networks/furya-circle.svg",
   currencies: furyaTestnetCurrencies,

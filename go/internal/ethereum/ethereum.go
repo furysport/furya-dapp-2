@@ -11,9 +11,9 @@ import (
 	"math/big"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
-	"github.com/FURYA/furya-dapp/go/pkg/marketplacepb"
-	"github.com/FURYA/furya-dapp/go/pkg/thegraph"
+	"github.com/furysport/furya-dapp-2/go/internal/indexerdb"
+	"github.com/furysport/furya-dapp-2/go/pkg/marketplacepb"
+	"github.com/furysport/furya-dapp-2/go/pkg/thegraph"
 	"github.com/dgraph-io/ristretto"
 )
 

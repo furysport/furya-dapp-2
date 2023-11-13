@@ -6,9 +6,9 @@ import (
 	"time"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
-	"github.com/FURYA/furya-dapp/go/pkg/pricespb"
-	"github.com/FURYA/furya-dapp/go/pkg/tmws"
+	"github.com/furysport/furya-dapp-2/go/internal/indexerdb"
+	"github.com/furysport/furya-dapp-2/go/pkg/pricespb"
+	"github.com/furysport/furya-dapp-2/go/pkg/tmws"
 	"github.com/allegro/bigcache/v3"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	cosmostx "github.com/cosmos/cosmos-sdk/types/tx"

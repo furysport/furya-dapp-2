@@ -3,8 +3,8 @@ package p2e
 import (
 	"context"
 
-	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
-	"github.com/FURYA/furya-dapp/go/pkg/p2epb"
+	"github.com/furysport/furya-dapp-2/go/internal/indexerdb"
+	"github.com/furysport/furya-dapp-2/go/pkg/p2epb"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"gorm.io/gorm"

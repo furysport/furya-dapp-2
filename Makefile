@@ -57,7 +57,7 @@ go/pkg/holagql/holaplex-schema.graphql:
 
 .PHONY: docker.backend
 docker.backend:
-	docker build . -f go/cmd/furya-dapp-backend/Dockerfile -t furya/furya-dapp-backend:$(shell git rev-parse --short HEAD)
+	docker build . -f go/cmd/furya-dapp-backend/Dockerfile -t furysport/furya-dapp-2-backend:$(shell git rev-parse --short HEAD)
 
 .PHONY: generate.contracts-clients
 generate.contracts-clients: $(CONTRACTS_CLIENTS_DIR)/$(BUNKER_MINTER_PACKAGE) $(CONTRACTS_CLIENTS_DIR)/$(NAME_SERVICE_PACKAGE) $(CONTRACTS_CLIENTS_DIR)/$(RIOTER_FOOTER_PACKAGE) $(CONTRACTS_CLIENTS_DIR)/$(TOKEN_PACKAGE) $(CONTRACTS_CLIENTS_DIR)/$(VAULT_PACKAGE)

@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
-	"github.com/FURYA/furya-dapp/go/pkg/contracts/bunker_minter_types"
+	"github.com/furysport/furya-dapp-2/go/internal/indexerdb"
+	"github.com/furysport/furya-dapp-2/go/pkg/contracts/bunker_minter_types"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
