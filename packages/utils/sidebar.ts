@@ -98,7 +98,7 @@ export const SIDEBAR_LIST: SidebarRecordType = {
     icon: pathwarSVG,
   },
   riotersGame: {
-    title: "Join The R!ot",
+    title: "Hooligans Horde",
     route: "RiotGame",
     icon: riotersGameSVG,
     disabledOn: [Network.Ethereum],
