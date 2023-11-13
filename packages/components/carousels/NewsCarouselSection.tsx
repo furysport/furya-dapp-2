@@ -40,24 +40,24 @@ export const NewsCarouselSection: React.FC = () => {
 
   // returns
   return (
-    <Section title="Highlighted News" topRightChild={topRightChild}>
-      <FullWidthSeparator />
-      {/*TODO: Async fetchMore for these data ?*/}
+    // <Section title="Highlighted News" topRightChild={topRightChild}>
+    //   <FullWidthSeparator />
+    //   {/*TODO: Async fetchMore for these data ?*/}
 
-      <Carousel
-        width={width}
-        data={news || []}
-        ref={carouselRef}
-        panGestureHandlerProps={{ enableTrackpadTwoFingerGesture: true }}
-        height={382}
-        pagingEnabled
-        loop
-        autoPlay
-        autoPlayInterval={3000}
-        renderItem={renderItem}
-      />
-      <FullWidthSeparator />
-    </Section>
+    //   <Carousel
+    //     width={width}
+    //     data={news || []}
+    //     ref={carouselRef}
+    //     panGestureHandlerProps={{ enableTrackpadTwoFingerGesture: true }}
+    //     height={382}
+    //     pagingEnabled
+    //     loop
+    //     autoPlay
+    //     autoPlayInterval={3000}
+    //     renderItem={renderItem}
+    //   />
+    //   <FullWidthSeparator />
+    // </Section>
   );
 };
 
