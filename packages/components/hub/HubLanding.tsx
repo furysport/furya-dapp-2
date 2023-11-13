@@ -57,8 +57,6 @@ export const HubLanding: React.FC = () => {
           />
         </Link>
 
-        <NewsCarouselSection />
-
         <Section title="My Dashboard">
           <View
             style={{
