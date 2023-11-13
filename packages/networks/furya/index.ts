@@ -11,7 +11,7 @@ export const furyaNetwork: NetworkInfo = {
   currencies: furyaCurrencies,
   addressPrefix: "furya",
   restEndpoint: "https://rest.mainnet.furya.xyz",
-  rpcEndpoint: "https://rpc.mainnet.furya.xyz",
+  rpcEndpoint: "https://rpc.furya.xyz",
   stakeCurrency: "ufury",
   gasPriceStep: {
     low: 0.0,

@@ -5,7 +5,7 @@ import {
   MarketplaceServiceClientImpl,
 } from "../api/marketplace/v1/marketplace";
 
-const backendEndpoint = "https://dapp-backend.mainnet.furya.xyz";
+const backendEndpoint = "https://dapp-backend.testnet.rpc.teritori.com";
 
 const rpc = new GrpcWebImpl(backendEndpoint, {
   transport: NodeHttpTransport(),

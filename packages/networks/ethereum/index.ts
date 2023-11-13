@@ -3,16 +3,16 @@ import { NetworkInfo } from "../types";
 import { ethereumCurrencies } from "./currencies";
 
 export const ethereumNetwork: NetworkInfo = {
-  id: "ethereum",
+  id: "highbury",
   network: Network.Ethereum,
-  chainId: "1",
-  displayName: "Ethereum",
+  chainId: "710",
+  displayName: "Highbury",
   icon: "icons/networks/ethereum-circle.svg",
   currencies: ethereumCurrencies,
-  addressPrefix: "eth",
-  restEndpoint: "https://ethereum.publicnode.com",
-  rpcEndpoint: "https://ethereum.publicnode.com",
-  stakeCurrency: "ether",
+  addressPrefix: "fury",
+  restEndpoint: "https://api.furya.io",
+  rpcEndpoint: "https://highbury.furya.io",
+  stakeCurrency: "afury",
   gasPriceStep: {
     low: 0.0,
     average: 0.025,
