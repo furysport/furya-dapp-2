@@ -5,11 +5,9 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
-  Image,
 } from "react-native";
 
-import { LegalFooter } from "./LegalFooter";
-import getUpImage from "../../../assets/getup.png";
+import getupSVG from "../../../assets/getup.svg";
 import discordSVG from "../../../assets/icons/discord.svg";
 import mediumSVG from "../../../assets/icons/medium.svg";
 import twitterSVG from "../../../assets/icons/twitter.svg";
@@ -18,22 +16,23 @@ import { secondaryColor } from "../../utils/style/colors";
 import { layout, screenContentMaxWidthLarge } from "../../utils/style/layout";
 import { SVG } from "../SVG";
 import { TertiaryBox } from "../boxes/TertiaryBox";
+import { LegalFooter } from "./LegalFooter";
 
 const FooterSocialNetworks: React.FC = () => {
   return (
     <TertiaryBox
-      mainContainerStyle={{ padding: layout.spacing_x1, flexDirection: "row" }}
-      style={{ marginBottom: layout.contentSpacing }}
+      mainContainerStyle={{ padding: layout.padding_x1, flexDirection: "row" }}
+      style={{ marginBottom: layout.contentPadding }}
     >
       <TouchableOpacity
-        style={{ marginRight: layout.spacing_x1 }}
+        style={{ marginRight: layout.padding_x1 }}
         onPress={() => Linking.openURL("https://medium.com/@blackfuryhub")}
       >
         <TertiaryBox
           mainContainerStyle={{
             borderColor: secondaryColor,
             borderRadius: 12,
-            padding: layout.spacing_x1_5,
+            padding: layout.padding_x1_5,
           }}
         >
           <SVG source={mediumSVG} width={20} height={20} />
@@ -41,14 +40,14 @@ const FooterSocialNetworks: React.FC = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={{ marginRight: layout.spacing_x1 }}
+        style={{ marginRight: layout.padding_x1 }}
         onPress={() => Linking.openURL("https://twitter.com/BlackfuryHub")}
       >
         <TertiaryBox
           mainContainerStyle={{
             borderColor: secondaryColor,
             borderRadius: 12,
-            padding: layout.spacing_x1_5,
+            padding: layout.padding_x1_5,
           }}
         >
           <SVG source={twitterSVG} width={20} height={20} />
@@ -62,7 +61,7 @@ const FooterSocialNetworks: React.FC = () => {
           mainContainerStyle={{
             borderColor: secondaryColor,
             borderRadius: 12,
-            padding: layout.spacing_x1_5,
+            padding: layout.padding_x1_5,
           }}
         >
           <SVG source={discordSVG} width={20} height={20} />
@@ -80,37 +79,19 @@ const FooterGetUp: React.FC = () => {
         width: "100%",
         maxWidth: screenContentMaxWidthLarge,
         justifyContent: "space-between",
-        marginBottom: layout.contentSpacing,
+        marginBottom: layout.contentPadding,
       }}
     >
-      {/* <Image
-        source={{ uri: getUpImage }}
-        style={{
-          width: 323,
-          height: 179,
-        }}
-      />
-      <Image
-        source={{ uri: getUpImage }}
-        style={{
-          width: 323,
-          height: 179,
-        }}
-      /> */}
-      {/* <Image
-        source={{ uri: getUpImage }}
-        style={{
-          width: 323,
-          height: 179,
-        }}
-      /> */}
+      <SVG source={getupSVG} />
+      <SVG source={getupSVG} />
+      <SVG source={getupSVG} />
     </View>
   );
 };
 
 const FooterLogo: React.FC = () => {
   return (
-    <View style={{ marginBottom: layout.spacing_x4 }}>
+    <View style={{ marginBottom: layout.padding_x4 }}>
       <SVG source={logoSVG} width={88} height={88} />
     </View>
   );
@@ -123,6 +104,7 @@ export const Footer: React.FC<{
     <View
       style={[
         {
+          // maxWidth: screenContentMaxWidthLarge,
           width: "100%",
           justifyContent: "center",
           alignItems: "center",
@@ -131,13 +113,13 @@ export const Footer: React.FC<{
         style,
       ]}
     >
-      <FooterGetUp />
+      {/* <FooterGetUp /> */}
 
       <FooterLogo />
 
       <FooterSocialNetworks />
 
-      {/* <LegalFooter>{children}</LegalFooter> */}
+      <LegalFooter>{children}</LegalFooter>
     </View>
   );
 };
