@@ -37,7 +37,7 @@ export const snapshotCollectionOwnersWithIds = async (
       if (!res.nft) {
         return;
       }
-      const addr = res.nft.ownerId.replace("tori-", "");
+      const addr = res.nft.ownerId.replace("furya-", "");
       if (!listByOwner[addr]) listByOwner[addr] = [];
       const tokenId = res.nft.id.split("-")[2];
       if (seen[tokenId]) {
@@ -78,7 +78,7 @@ export const snapshotCollectionOGs = async (
         return;
       }
       if (res.activity.transactionKind === "mint") {
-        const addr = res.activity.buyerId.replace("tori-", "");
+        const addr = res.activity.buyerId.replace("furya-", "");
         if (!countByMinter[addr]) countByMinter[addr] = [];
         countByMinter[addr].push(res.activity.targetName);
       }

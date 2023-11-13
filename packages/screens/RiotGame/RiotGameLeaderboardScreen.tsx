@@ -72,7 +72,7 @@ const PlayerName: React.FC<PlayerNameProps> = ({ userId }) => {
           source={{
             uri: ipfsURLToHTTPURL(
               tnsMetadata?.metadata?.image ||
-                process.env.TERITORI_NAME_SERVICE_DEFAULT_IMAGE_URL ||
+                process.env.FURYA_NAME_SERVICE_DEFAULT_IMAGE_URL ||
                 ""
             ),
           }}

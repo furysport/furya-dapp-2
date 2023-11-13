@@ -7,8 +7,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/TERITORI/teritori-dapp/go/pkg/prices_db"
-	"github.com/TERITORI/teritori-dapp/go/pkg/pricespb"
+	"github.com/FURYA/furya-dapp/go/pkg/prices_db"
+	"github.com/FURYA/furya-dapp/go/pkg/pricespb"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 )
 

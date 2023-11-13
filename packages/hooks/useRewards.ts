@@ -11,8 +11,8 @@ import { getKeplrOfflineSigner } from "../utils/keplr";
 import { Network } from "../utils/network";
 import {
   CosmosRewardsResponse,
-  getTeritoriSigningStargateClient,
-} from "../utils/teritori";
+  getFuryaSigningStargateClient,
+} from "../utils/furya";
 import { CoingeckoCoin, useCoingeckoPrices } from "./useCoingeckoPrices";
 import { useErrorHandler } from "./useErrorHandler";
 import { useSelectedNetworkId } from "./useSelectedNetwork";
@@ -36,7 +36,7 @@ const initialData = { rewards: [], total: [] };
 // Getting the rewards, by user's wallet address, and by network.
 export const useRewards = (walletAddress?: string) => {
   const selectedNetwork = useSelectedNetworkId();
-  const networkId = selectedNetwork || process.env.TERITORI_NETWORK_ID || "";
+  const networkId = selectedNetwork || process.env.FURYA_NETWORK_ID || "";
   const { setToastSuccess, setToastError } = useFeedbacks();
   const { triggerError } = useErrorHandler();
 
@@ -44,7 +44,7 @@ export const useRewards = (walletAddress?: string) => {
     try {
       if (!walletAddress) return;
       const signer = await getKeplrOfflineSigner();
-      const client = await getTeritoriSigningStargateClient(signer);
+      const client = await getFuryaSigningStargateClient(signer);
 
       const msgs: MsgWithdrawDelegatorRewardEncodeObject[] = [];
       networkRewards.rewards.forEach((rew) => {
@@ -85,7 +85,7 @@ export const useRewards = (walletAddress?: string) => {
     try {
       if (!walletAddress) return;
       const signer = await getKeplrOfflineSigner();
-      const client = await getTeritoriSigningStargateClient(signer);
+      const client = await getFuryaSigningStargateClient(signer);
       const msg: MsgWithdrawDelegatorRewardEncodeObject = {
         typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward",
         value: {

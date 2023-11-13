@@ -4,7 +4,7 @@ import { partition } from "lodash";
 
 import { useFeedbacks } from "../context/FeedbacksProvider";
 import { ValidatorInfo } from "../screens/Stake/types";
-import { teritoriRestProvider, toriCurrency } from "../utils/teritori";
+import { furyaRestProvider, furyCurrency } from "../utils/furya";
 
 interface StakingParams {
   unbonding_time: string;
@@ -24,11 +24,11 @@ export const useValidators = () => {
   const { setToastError } = useFeedbacks();
 
   const { data, isFetching } = useQuery(
-    [`teritoriValidators`],
+    [`furyaValidators`],
     async () => {
       try {
         const httpResponse = await fetch(
-          `${teritoriRestProvider}/cosmos/staking/v1beta1/params`
+          `${furyaRestProvider}/cosmos/staking/v1beta1/params`
         );
         const response = await httpResponse.json();
         const params: StakingParams = response.params;
@@ -36,7 +36,7 @@ export const useValidators = () => {
         const validators: ValidatorInfo[] = [];
         while (key !== null) {
           const response = await fetch(
-            teritoriRestProvider +
+            furyaRestProvider +
               "/cosmos/staking/v1beta1/validators?pagination.limit=1000&pagination.key=" +
               encodeURIComponent(key)
           );
@@ -52,7 +52,7 @@ export const useValidators = () => {
                 address: v.operator_address,
                 votingPower: Decimal.fromAtomics(
                   v.tokens,
-                  toriCurrency.coinDecimals
+                  furyCurrency.coinDecimals
                 )
                   .toFloatApproximation()
                   .toFixed()
@@ -122,7 +122,7 @@ const prettyPercent = (val: number) => {
 const getTendermintActiveValidators = async (limit: number): Promise<any[]> => {
   const activeValidators = await (
     await fetch(
-      `${teritoriRestProvider}/cosmos/base/tendermint/v1beta1/validatorsets/latest?pagination.limit=${limit}&pagination.offset=0`
+      `${furyaRestProvider}/cosmos/base/tendermint/v1beta1/validatorsets/latest?pagination.limit=${limit}&pagination.offset=0`
     )
   ).json();
   return activeValidators.validators;
@@ -134,7 +134,7 @@ const sortByVotingPower = (a: ValidatorInfo, b: ValidatorInfo) =>
 const formatValidators = (vals: ValidatorInfo[]) => {
   let i = 0;
   for (const v of vals) {
-    v.votingPower += " TORI";
+    v.votingPower += " FURY";
     v.rank = (i + 1).toString();
     i++;
   }

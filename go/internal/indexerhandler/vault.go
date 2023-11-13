@@ -6,7 +6,7 @@ import (
 	"regexp"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
+	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )
@@ -35,8 +35,8 @@ func (h *Handler) handleExecuteUpdatePrice(e *Message, execMsg *wasmtypes.MsgExe
 	// get collection
 	var collection indexerdb.Collection
 	r := h.db.
-		Joins("JOIN Teritori_collections ON Teritori_collections.collection_id = collections.id").
-		Where("Teritori_collections.nft_contract_address = ?", contractAddress).
+		Joins("JOIN Furya_collections ON Furya_collections.collection_id = collections.id").
+		Where("Furya_collections.nft_contract_address = ?", contractAddress).
 		Find(&collection)
 	if err := r.
 		Error; err != nil {
@@ -46,8 +46,8 @@ func (h *Handler) handleExecuteUpdatePrice(e *Message, execMsg *wasmtypes.MsgExe
 		//Did not find any collection with the given contract address
 		return nil
 	}
-	if collection.TeritoriCollection == nil {
-		return errors.New("no teritori info on collection")
+	if collection.FuryaCollection == nil {
+		return errors.New("no furya info on collection")
 	}
 
 	// get token id
@@ -66,7 +66,7 @@ func (h *Handler) handleExecuteUpdatePrice(e *Message, execMsg *wasmtypes.MsgExe
 	// update
 	price := updatePriceMsg.Data.Amount
 	denom := updatePriceMsg.Data.Denom
-	nftId := indexerdb.TeritoriNFTID(collection.TeritoriCollection.MintContractAddress, tokenId)
+	nftId := indexerdb.FuryaNFTID(collection.FuryaCollection.MintContractAddress, tokenId)
 	if err := h.db.Model(&indexerdb.NFT{ID: nftId}).UpdateColumns(map[string]interface{}{
 		"Price": price,
 		"Denom": denom,
@@ -87,7 +87,7 @@ func (h *Handler) handleExecuteUpdatePrice(e *Message, execMsg *wasmtypes.MsgExe
 
 	// create activity
 	if err := h.db.Create(&indexerdb.Activity{
-		ID:    indexerdb.TeritoriActivityID(e.TxHash, e.MsgIndex),
+		ID:    indexerdb.FuryaActivityID(e.TxHash, e.MsgIndex),
 		NFTID: nftId,
 		Kind:  indexerdb.ActivityKindUpdateNFTPrice,
 		Time:  blockTime,
@@ -95,7 +95,7 @@ func (h *Handler) handleExecuteUpdatePrice(e *Message, execMsg *wasmtypes.MsgExe
 			Price:      price,
 			PriceDenom: denom,
 			USDPrice:   usdAmount,
-			SellerID:   indexerdb.TeritoriUserID(execMsg.Sender),
+			SellerID:   indexerdb.FuryaUserID(execMsg.Sender),
 		},
 	}).Error; err != nil {
 		return errors.Wrap(err, "failed to create listing in db")
@@ -129,9 +129,9 @@ func (h *Handler) handleExecuteWithdraw(e *Message, execMsg *wasmtypes.MsgExecut
 	// find nft id
 	var collection *indexerdb.Collection
 	findResult := h.db.
-		Preload("TeritoriCollection").
-		Joins("JOIN teritori_collections on teritori_collections.collection_id = collections.id").
-		Where("teritori_collections.nft_contract_address = ?", nftContractAddress).
+		Preload("FuryaCollection").
+		Joins("JOIN furya_collections on furya_collections.collection_id = collections.id").
+		Where("furya_collections.nft_contract_address = ?", nftContractAddress).
 		Find(&collection)
 	if err := findResult.Error; err != nil {
 		return errors.Wrap(err, "failed to query for collection")
@@ -140,10 +140,10 @@ func (h *Handler) handleExecuteWithdraw(e *Message, execMsg *wasmtypes.MsgExecut
 		h.logger.Debug("ignored withdraw on unknown collection")
 		return nil
 	}
-	if collection.TeritoriCollection == nil {
-		return errors.New("no teritori info on collection")
+	if collection.FuryaCollection == nil {
+		return errors.New("no furya info on collection")
 	}
-	nftID := indexerdb.TeritoriNFTID(collection.TeritoriCollection.MintContractAddress, tokenId)
+	nftID := indexerdb.FuryaNFTID(collection.FuryaCollection.MintContractAddress, tokenId)
 
 	// update nft price
 	if err := h.db.Model(&indexerdb.NFT{}).Where("id = ?", nftID).Updates(map[string]interface{}{
@@ -165,14 +165,14 @@ func (h *Handler) handleExecuteWithdraw(e *Message, execMsg *wasmtypes.MsgExecut
 	if err := h.db.Find(&nft, &indexerdb.NFT{ID: nftID}).Error; err != nil {
 		return errors.Wrap(err, "nft not found in db")
 	}
-	activityID := indexerdb.TeritoriActivityID(e.TxHash, e.MsgIndex)
+	activityID := indexerdb.FuryaActivityID(e.TxHash, e.MsgIndex)
 	if err := h.db.Create(&indexerdb.Activity{
 		ID:    activityID,
 		NFTID: nftID,
 		Kind:  indexerdb.ActivityKindCancelListing,
 		Time:  blockTime,
 		CancelListing: &indexerdb.CancelListing{
-			SellerID: indexerdb.TeritoriUserID(execMsg.Sender),
+			SellerID: indexerdb.FuryaUserID(execMsg.Sender),
 		},
 	}).Error; err != nil {
 		return errors.Wrap(err, "failed to create listing cancelation in db")
@@ -213,14 +213,14 @@ func (h *Handler) handleExecuteBuy(e *Message, execMsg *wasmtypes.MsgExecuteCont
 	if len(spenders) < buyerSpenderIndex+1 {
 		return fmt.Errorf("not enough spenders, wanted %d, got %d", buyerSpenderIndex+1, len(spenders))
 	}
-	buyerID := indexerdb.TeritoriUserID(spenders[buyerSpenderIndex])
+	buyerID := indexerdb.FuryaUserID(spenders[buyerSpenderIndex])
 
 	// get seller, it's the last receiver
 	receivers := e.Events["coin_received.receiver"]
 	if len(receivers) < 1 {
 		return fmt.Errorf("not enough receivers, wanted 1, got %d", len(receivers))
 	}
-	sellerID := indexerdb.TeritoriUserID(receivers[len(receivers)-1])
+	sellerID := indexerdb.FuryaUserID(receivers[len(receivers)-1])
 
 	// get price
 	spentAmounts := e.Events["coin_spent.amount"]
@@ -238,9 +238,9 @@ func (h *Handler) handleExecuteBuy(e *Message, execMsg *wasmtypes.MsgExecuteCont
 	// find nft id
 	var collection indexerdb.Collection
 	findResult := h.db.
-		Preload("TeritoriCollection").
-		Joins("JOIN teritori_collections on teritori_collections.collection_id = collections.id").
-		Where("teritori_collections.nft_contract_address = ?", nftContractAddress).
+		Preload("FuryaCollection").
+		Joins("JOIN furya_collections on furya_collections.collection_id = collections.id").
+		Where("furya_collections.nft_contract_address = ?", nftContractAddress).
 		Find(&collection)
 	if err := findResult.Error; err != nil {
 		return errors.Wrap(err, "failed to query for collection")
@@ -249,10 +249,10 @@ func (h *Handler) handleExecuteBuy(e *Message, execMsg *wasmtypes.MsgExecuteCont
 		h.logger.Debug("ignored withdraw on unknown collection")
 		return nil
 	}
-	if collection.TeritoriCollection == nil {
-		return errors.New("no teritori info on collection")
+	if collection.FuryaCollection == nil {
+		return errors.New("no furya info on collection")
 	}
-	nftID := indexerdb.TeritoriNFTID(collection.TeritoriCollection.MintContractAddress, tokenId)
+	nftID := indexerdb.FuryaNFTID(collection.FuryaCollection.MintContractAddress, tokenId)
 
 	// update nft
 	if err := h.db.Model(&indexerdb.NFT{}).Where("id = ?", nftID).Updates(map[string]interface{}{
@@ -280,7 +280,7 @@ func (h *Handler) handleExecuteBuy(e *Message, execMsg *wasmtypes.MsgExecuteCont
 	if err := h.db.Find(&nft, &indexerdb.NFT{ID: nftID}).Error; err != nil {
 		return errors.Wrap(err, "nft not found in db")
 	}
-	activityID := indexerdb.TeritoriActivityID(e.TxHash, e.MsgIndex)
+	activityID := indexerdb.FuryaActivityID(e.TxHash, e.MsgIndex)
 	if err := h.db.Create(&indexerdb.Activity{
 		ID:    activityID,
 		NFTID: nftID,
@@ -325,7 +325,7 @@ func (h *Handler) handleExecuteSendNFTVault(e *Message, execMsg *wasmtypes.MsgEx
 	tokenId := sendNFTMsg.Data.TokenID
 
 	// get sellerID
-	sellerID := indexerdb.TeritoriUserID(execMsg.Sender)
+	sellerID := indexerdb.FuryaUserID(execMsg.Sender)
 
 	// get price from exec msg
 	var hookMsg DepositNFTHookMsg
@@ -338,9 +338,9 @@ func (h *Handler) handleExecuteSendNFTVault(e *Message, execMsg *wasmtypes.MsgEx
 	// find nft id
 	var collection *indexerdb.Collection
 	findResult := h.db.
-		Preload("TeritoriCollection").
-		Joins("JOIN teritori_collections on teritori_collections.collection_id = collections.id").
-		Where("teritori_collections.nft_contract_address = ?", execMsg.Contract).
+		Preload("FuryaCollection").
+		Joins("JOIN furya_collections on furya_collections.collection_id = collections.id").
+		Where("furya_collections.nft_contract_address = ?", execMsg.Contract).
 		Find(&collection)
 	if err := findResult.
 		Error; err != nil {
@@ -350,10 +350,10 @@ func (h *Handler) handleExecuteSendNFTVault(e *Message, execMsg *wasmtypes.MsgEx
 		h.logger.Debug("ignored send_nft on unknown collection")
 		return nil
 	}
-	if collection.TeritoriCollection == nil {
-		return errors.New("no teritori info on collection")
+	if collection.FuryaCollection == nil {
+		return errors.New("no furya info on collection")
 	}
-	nftID := indexerdb.TeritoriNFTID(collection.TeritoriCollection.MintContractAddress, tokenId)
+	nftID := indexerdb.FuryaNFTID(collection.FuryaCollection.MintContractAddress, tokenId)
 
 	// update nft price
 	if err := h.db.Model(&indexerdb.NFT{}).Where("id = ?", nftID).Updates(map[string]interface{}{
@@ -380,7 +380,7 @@ func (h *Handler) handleExecuteSendNFTVault(e *Message, execMsg *wasmtypes.MsgEx
 	if err := h.db.Find(&nft, &indexerdb.NFT{ID: nftID}).Error; err != nil {
 		return errors.Wrap(err, "nft not found in db")
 	}
-	activityID := indexerdb.TeritoriActivityID(e.TxHash, e.MsgIndex)
+	activityID := indexerdb.FuryaActivityID(e.TxHash, e.MsgIndex)
 	if err := h.db.Create(&indexerdb.Activity{
 		ID:    activityID,
 		NFTID: nftID,

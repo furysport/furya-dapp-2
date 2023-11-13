@@ -1,12 +1,12 @@
 import cosmosHubSVG from "../../assets/icons/networks/cosmos-hub-circle.svg";
 import ethereumSVG from "../../assets/icons/networks/ethereum-circle.svg";
 import solanaSVG from "../../assets/icons/networks/solana-circle.svg";
-import teritoriSVG from "../../assets/icons/networks/teritori-circle.svg";
+import furyaSVG from "../../assets/icons/networks/furya-circle.svg";
 
 export enum WalletTitle {
   Solana = "Solana",
   CosmosHub = "Cosmos Hub",
-  Teritori = "Teritori",
+  Furya = "Furya",
   Ethereum = "Ethereum",
 }
 
@@ -16,8 +16,8 @@ export const getWalletIconFromTitle = (title: string) => {
       return solanaSVG;
     case "Cosmos Hub":
       return cosmosHubSVG;
-    case "Teritori":
-      return teritoriSVG;
+    case "Furya":
+      return furyaSVG;
     case "Ethereum":
       return ethereumSVG;
     default:

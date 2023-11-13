@@ -27,10 +27,10 @@ import {
 } from "../../../utils/style/fonts";
 import { layout } from "../../../utils/style/layout";
 import {
-  getTeritoriSigningStargateClient,
-  toriCurrency,
-  toriDisplayDenom,
-} from "../../../utils/teritori";
+  getFuryaSigningStargateClient,
+  furyCurrency,
+  furyDisplayDenom,
+} from "../../../utils/furya";
 import { StakeFormValuesType, ValidatorInfo } from "../types";
 import { WarningBox } from "./WarningBox";
 
@@ -50,13 +50,13 @@ export const DelegateModal: React.FC<DelegateModalProps> = ({
   const { setToastError, setToastSuccess } = useFeedbacks();
   const { triggerError } = useErrorHandler();
   const balances = useBalances(
-    process.env.TERITORI_NETWORK_ID,
+    process.env.FURYA_NETWORK_ID,
     wallet?.address
   );
-  const toriBalance = balances.find((bal) => bal.denom === "utori");
-  const toriBalanceDecimal = Decimal.fromAtomics(
-    toriBalance?.amount || "0",
-    toriCurrency.coinDecimals
+  const furyBalance = balances.find((bal) => bal.denom === "ufury");
+  const furyBalanceDecimal = Decimal.fromAtomics(
+    furyBalance?.amount || "0",
+    furyCurrency.coinDecimals
   );
   const { control, setValue, handleSubmit, watch, reset } =
     useForm<StakeFormValuesType>();
@@ -90,16 +90,16 @@ export const DelegateModal: React.FC<DelegateModalProps> = ({
         return;
       }
       const signer = await getKeplrOfflineSigner();
-      const client = await getTeritoriSigningStargateClient(signer);
+      const client = await getFuryaSigningStargateClient(signer);
       const txResponse = await client.delegateTokens(
         wallet.address,
         data.address,
         {
           amount: Decimal.fromUserInput(
             formData.amount,
-            toriCurrency.coinDecimals
+            furyCurrency.coinDecimals
           ).atomics,
-          denom: toriCurrency.coinMinimalDenom,
+          denom: furyCurrency.coinMinimalDenom,
         },
         "auto"
       );
@@ -128,7 +128,7 @@ export const DelegateModal: React.FC<DelegateModalProps> = ({
         <BrandText style={fontSemibold20}>Stake Tokens</BrandText>
         <SpacerColumn size={0.5} />
         <BrandText style={[styles.alternateText, fontSemibold16]}>
-          Select a validator and amount of {toriDisplayDenom} to stake.
+          Select a validator and amount of {furyDisplayDenom} to stake.
         </BrandText>
       </View>
     ),
@@ -173,7 +173,7 @@ export const DelegateModal: React.FC<DelegateModalProps> = ({
         <SpacerColumn size={2.5} />
         <WarningBox
           title="Staking will lock your funds for 21 days"
-          description={`Once you undelegate your staked ${toriDisplayDenom}, you will need to wait 21 days for your tokens to be liquid.`}
+          description={`Once you undelegate your staked ${furyDisplayDenom}, you will need to wait 21 days for your tokens to be liquid.`}
         />
         <SpacerColumn size={2.5} />
         <TextInputCustom<StakeFormValuesType>
@@ -191,13 +191,13 @@ export const DelegateModal: React.FC<DelegateModalProps> = ({
           label="Amount"
           control={control}
           placeHolder="0"
-          currency={toriCurrency}
+          currency={furyCurrency}
           defaultValue=""
-          rules={{ required: true, max: toriBalanceDecimal.toString() }}
+          rules={{ required: true, max: furyBalanceDecimal.toString() }}
         >
           <MaxButton
             onPress={() =>
-              setValue("amount", toriBalanceDecimal.toString(), {
+              setValue("amount", furyBalanceDecimal.toString(), {
                 shouldValidate: true,
               })
             }
@@ -208,9 +208,9 @@ export const DelegateModal: React.FC<DelegateModalProps> = ({
         <BrandText style={fontSemibold13}>
           Available balance:{" "}
           {prettyPrice(
-            process.env.TERITORI_NETWORK_ID || "",
-            toriBalanceDecimal.atomics,
-            toriCurrency.coinMinimalDenom
+            process.env.FURYA_NETWORK_ID || "",
+            furyBalanceDecimal.atomics,
+            furyCurrency.coinMinimalDenom
           )}
         </BrandText>
         <SpacerColumn size={2.5} />

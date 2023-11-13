@@ -1,4 +1,4 @@
-import { Metadata } from "../../contracts-clients/teritori-name-service/TeritoriNameService.types";
+import { Metadata } from "../../contracts-clients/furya-name-service/FuryaNameService.types";
 
 export const defaultMetaData: Metadata = {
   image: "",

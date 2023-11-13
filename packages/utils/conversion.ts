@@ -1,10 +1,10 @@
 import { bech32 } from "bech32";
 
-const DENOM = process.env.PUBLIC_CHAIN_BECH32_PREFIX || "tori";
+const DENOM = process.env.PUBLIC_CHAIN_BECH32_PREFIX || "furya";
 
 export const getDenom = () => DENOM.toLowerCase();
 
-export const getTeritoriAddress = (cosmosAddress: string) =>
+export const getFuryaAddress = (cosmosAddress: string) =>
   bech32.encode(getDenom(), bech32.decode(cosmosAddress).words);
 
 export function convertMicroDenomToDenom(amount: number | string) {
@@ -38,7 +38,7 @@ export function convertToFixedDecimals(amount: number | string): string {
 
 export const zeroStakingCoin = {
   amount: "0",
-  denom: process.env.PUBLIC_STAKING_DENOM || "utori",
+  denom: process.env.PUBLIC_STAKING_DENOM || "ufury",
 };
 
 export function convertDenomToHumanReadableDenom(denom: string): string {

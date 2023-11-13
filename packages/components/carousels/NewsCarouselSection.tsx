@@ -17,7 +17,7 @@ export const NewsCarouselSection: React.FC = () => {
   const { width } = useMaxResolution();
   const carouselRef = useRef<ICarouselInstance | null>(null);
   const renderItem = (props: { item: News }) => <NewsBox news={props.item} />;
-  const news = useNews(process.env.TERITORI_NETWORK_ID === "teritori-testnet");
+  const news = useNews(process.env.FURYA_NETWORK_ID === "furya-testnet");
 
   const topRightChild = (
     <View style={{ flexDirection: "row", alignItems: "center" }}>

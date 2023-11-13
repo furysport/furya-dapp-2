@@ -3,7 +3,7 @@ import { isDeliverTxFailure } from "@cosmjs/stargate";
 import { Coin } from "cosmwasm";
 import { useCallback, useEffect, useState } from "react";
 
-import { TeritoriBreedingQueryClient } from "../../contracts-clients/teritori-breeding/TeritoriBreeding.client";
+import { FuryaBreedingQueryClient } from "../../contracts-clients/furya-breeding/FuryaBreeding.client";
 import { THE_RIOT_BREEDING_CONTRACT_ADDRESS } from "../../screens/RiotGame/settings";
 import { buildApproveNFTMsg, buildBreedingMsg } from "../../utils/game";
 import { ipfsURLToHTTPURL } from "../../utils/ipfs";
@@ -13,7 +13,7 @@ import {
 } from "../../utils/keplr";
 import { defaultMemo } from "../../utils/memo";
 import useSelectedWallet from "../useSelectedWallet";
-import { ConfigResponse } from "./../../contracts-clients/teritori-breeding/TeritoriBreeding.types";
+import { ConfigResponse } from "./../../contracts-clients/furya-breeding/FuryaBreeding.types";
 
 export const useBreeding = () => {
   const [breedingConfig, setBreedingConfig] = useState<ConfigResponse>();
@@ -23,7 +23,7 @@ export const useBreeding = () => {
 
   const getBreedingQueryClient = useCallback(async () => {
     const nonSigningClient = await getNonSigningCosmWasmClient();
-    return new TeritoriBreedingQueryClient(
+    return new FuryaBreedingQueryClient(
       nonSigningClient,
       THE_RIOT_BREEDING_CONTRACT_ADDRESS
     );

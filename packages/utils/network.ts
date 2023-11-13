@@ -5,7 +5,7 @@ import { WalletProvider } from "./walletProvider";
 
 export enum Network {
   Unknown = "Unknown",
-  Teritori = "Teritori",
+  Furya = "Furya",
   Solana = "Solana",
   Ethereum = "Ethereum",
   Atom = "Atom",
@@ -18,8 +18,8 @@ export const addressToNetwork = (address: string) => {
   try {
     const bech32Result = bech32.decode(address);
     switch (bech32Result.prefix) {
-      case "tori":
-        return Network.Teritori;
+      case "furya":
+        return Network.Furya;
     }
   } catch {}
   try {
@@ -38,7 +38,7 @@ export const walletProviderToNetwork = (walletProvider: WalletProvider) => {
       network = Network.Ethereum;
       break;
     case WalletProvider.Keplr:
-      network = Network.Teritori;
+      network = Network.Furya;
       break;
   }
 

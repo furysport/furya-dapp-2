@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import addCircleSFilledSVG from "../../../assets/icons/add-circle-filled.svg";
 import { PrimaryButtonOutline } from "../../components/buttons/PrimaryButtonOutline";
 import { SpacerColumn } from "../../components/spacer";
-import { Squad } from "../../contracts-clients/teritori-squad-staking/TeritoriSquadStaking.types";
+import { Squad } from "../../contracts-clients/furya-squad-staking/FuryaSquadStaking.types";
 import { useSquadStaking } from "../../hooks/riotGame/useSquadStaking";
 import { useAppNavigation } from "../../utils/navigation";
 import { yellowDefault } from "../../utils/style/colors";

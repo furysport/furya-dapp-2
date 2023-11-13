@@ -85,7 +85,7 @@ export const UserPublicProfileScreen: ScreenFC<"UserPublicProfile"> = ({
   const [selectedTab, setSelectedTab] =
     useState<keyof typeof screenTabItems>("nfts");
 
-  const requestedAddress = id.replace("tori-", "");
+  const requestedAddress = id.replace("furya-", "");
   const { metadata } = useTNSMetadata(requestedAddress);
   const selectedWallet = useSelectedWallet();
 

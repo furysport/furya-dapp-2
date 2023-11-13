@@ -92,7 +92,7 @@ func GetDailyRewardsConfigBySeason(seasonId string) (sdk.DecCoins, error) {
 	for _, reward := range seasonRewards {
 		amount := reward.QuoInt64(int64(bossHp))
 
-		// Contract take utori so we need convert tori => utori
+		// Contract take ufury so we need convert fury => ufury
 		dailyAmountInt := sdk.NewIntWithDecimal(amount.RoundInt64(), int(season.Decimals))
 		dailyCoin := sdk.NewDecCoin(season.Denom, dailyAmountInt)
 		dailyRewards = append(dailyRewards, dailyCoin)

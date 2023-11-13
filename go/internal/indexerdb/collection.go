@@ -2,7 +2,7 @@ package indexerdb
 
 type Collection struct {
 	// ID is network-dependent
-	// Teritori: tori-<bech32_mint_contract_address>
+	// Furya: furya-<bech32_mint_contract_address>
 	ID string `gorm:"primaryKey"`
 
 	NetworkId           string
@@ -13,13 +13,13 @@ type Collection struct {
 	Paused              bool
 
 	// "has one" relations
-	TeritoriCollection *TeritoriCollection
+	FuryaCollection *FuryaCollection
 
 	// "has many" relations
 	NFTs []*NFT
 }
 
-type TeritoriCollection struct {
+type FuryaCollection struct {
 	CollectionID        string `gorm:"index"`
 	MintContractAddress string `gorm:"primaryKey"`
 	NFTContractAddress  string

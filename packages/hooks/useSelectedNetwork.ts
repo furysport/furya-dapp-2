@@ -11,7 +11,7 @@ export const useSelectedNetworkId = () => {
   const dispatch = useAppDispatch();
 
   const currentNetworkId = useSelector(selectSelectedNetworkId);
-  const networkId = currentNetworkId || process.env.TERITORI_NETWORK_ID || "";
+  const networkId = currentNetworkId || process.env.FURYA_NETWORK_ID || "";
   if (!currentNetworkId) {
     dispatch(setSelectedNetworkId(networkId));
   }

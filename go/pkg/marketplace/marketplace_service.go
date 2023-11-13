@@ -8,13 +8,13 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/TERITORI/teritori-dapp/go/internal/airtable_fetcher"
-	"github.com/TERITORI/teritori-dapp/go/internal/ethereum"
-	"github.com/TERITORI/teritori-dapp/go/internal/faking"
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
-	"github.com/TERITORI/teritori-dapp/go/internal/ipfsutil"
-	"github.com/TERITORI/teritori-dapp/go/pkg/holagql"
-	"github.com/TERITORI/teritori-dapp/go/pkg/marketplacepb"
+	"github.com/FURYA/furya-dapp/go/internal/airtable_fetcher"
+	"github.com/FURYA/furya-dapp/go/internal/ethereum"
+	"github.com/FURYA/furya-dapp/go/internal/faking"
+	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
+	"github.com/FURYA/furya-dapp/go/internal/ipfsutil"
+	"github.com/FURYA/furya-dapp/go/pkg/holagql"
+	"github.com/FURYA/furya-dapp/go/pkg/marketplacepb"
 	"github.com/bxcodec/faker/v3"
 	"github.com/pkg/errors"
 	"github.com/volatiletech/sqlboiler/v4/queries"
@@ -97,7 +97,7 @@ func (s *MarkteplaceService) Collections(req *marketplacepb.CollectionsRequest, 
 
 	switch req.GetNetworkId() {
 
-	case "teritori", "teritori-testnet":
+	case "furya", "furya-testnet":
 		var collections []DBCollectionWithExtra
 
 		where := ""
@@ -112,14 +112,14 @@ func (s *MarkteplaceService) Collections(req *marketplacepb.CollectionsRequest, 
 			WITH count_by_collection AS (
 				SELECT count(1), collection_id FROM nfts GROUP BY nfts.collection_id
 			),
-			tori_collections AS (
+			fury_collections AS (
 				SELECT c.*, tc.mint_contract_address, tc.creator_address FROM collections AS c
-				INNER JOIN teritori_collections tc ON tc.collection_id = c.id
+				INNER JOIN furya_collections tc ON tc.collection_id = c.id
 				%s
 				AND tc.mint_contract_address IN ?
 			),
 			nft_by_collection AS (
-				SELECT  tc.id,n.id  nft_id  FROM tori_collections AS tc
+				SELECT  tc.id,n.id  nft_id  FROM fury_collections AS tc
 				INNER JOIN nfts AS n ON tc.id = n.collection_id
 			),
 			activities_on_period AS (
@@ -135,7 +135,7 @@ func (s *MarkteplaceService) Collections(req *marketplacepb.CollectionsRequest, 
 				GROUP BY nbc.id
 			)
 			SELECT tc.*, COALESCE((SELECT tbc.volume FROM trades_by_collection tbc WHERE tbc.id = tc.id), 0) volume 
-				FROM tori_collections tc
+				FROM fury_collections tc
 			ORDER BY volume DESC, id ASC
 			LIMIT ?
 			OFFSET ?
@@ -158,7 +158,7 @@ func (s *MarkteplaceService) Collections(req *marketplacepb.CollectionsRequest, 
 				MintAddress:         c.MintContractAddress,
 				NetworkId:           req.GetNetworkId(),
 				Volume:              c.Volume,
-				CreatorId:           string(indexerdb.TeritoriUserID(c.CreatorAddress)),
+				CreatorId:           string(indexerdb.FuryaUserID(c.CreatorAddress)),
 				SecondaryDuringMint: c.SecondaryDuringMint,
 			}}); err != nil {
 				return errors.Wrap(err, "failed to send collection")
@@ -275,12 +275,12 @@ func (s *MarkteplaceService) NFTs(req *marketplacepb.NFTsRequest, srv marketplac
 		return nil
 	}
 
-	// teritori
+	// furya
 
 	query := s.conf.IndexerDB.
-		Preload("TeritoriNFT").
+		Preload("FuryaNFT").
 		Preload("Collection").
-		Preload("Collection.TeritoriCollection").
+		Preload("Collection.FuryaCollection").
 		Where("burnt = ?", false).
 		Offset(int(offset)).
 		Limit(int(limit)).
@@ -309,7 +309,7 @@ func (s *MarkteplaceService) NFTs(req *marketplacepb.NFTsRequest, srv marketplac
 		return errors.Wrap(err, "failed to fetch collection nfts")
 	}
 
-	tnsId := indexerdb.TeritoriCollectionID(s.conf.TNSContractAddress)
+	tnsId := indexerdb.FuryaCollectionID(s.conf.TNSContractAddress)
 
 	for _, nft := range nfts {
 		if nft.Collection == nil {
@@ -351,7 +351,7 @@ func (s *MarkteplaceService) NFTs(req *marketplacepb.NFTsRequest, srv marketplac
 			TextInsert:         textInsert,
 			OwnerId:            string(nft.OwnerID),
 			Attributes:         attributes,
-			NftContractAddress: nft.Collection.TeritoriCollection.NFTContractAddress,
+			NftContractAddress: nft.Collection.FuryaCollection.NFTContractAddress,
 			LockedOn:           nft.LockedOn,
 		}}); err != nil {
 			return errors.Wrap(err, "failed to send nft")
@@ -525,7 +525,7 @@ func (s *MarkteplaceService) Activity(req *marketplacepb.ActivityRequest, srv ma
 			TransactionKind: string(activity.Kind),
 			TargetName:      activity.NFT.Name,
 			TargetImageUri:  activity.NFT.ImageURI,
-			ContractName:    "ToriVault",
+			ContractName:    "FuryVault",
 			Time:            activity.Time.Format(time.RFC3339),
 			Amount:          price,
 			Denom:           denom,

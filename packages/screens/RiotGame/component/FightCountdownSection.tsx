@@ -15,7 +15,7 @@ import unstakeSVG from "../../../../assets/icons/unstake.svg";
 import { BrandText } from "../../../components/BrandText";
 import { SVG } from "../../../components/SVG";
 import { SpacerColumn } from "../../../components/spacer";
-import { Squad } from "../../../contracts-clients/teritori-squad-staking/TeritoriSquadStaking.types";
+import { Squad } from "../../../contracts-clients/furya-squad-staking/FuryaSquadStaking.types";
 import { StakingState } from "../../../utils/game";
 import {
   neutral77,

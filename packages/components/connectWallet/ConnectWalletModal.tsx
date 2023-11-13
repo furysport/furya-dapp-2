@@ -66,7 +66,7 @@ export const ConnectWalletModal: React.FC<ConnectWalletProps> = ({
           By connecting a wallet, you acknowledge that you have read and
           understand the{" "}
           <BrandText style={styles.footerTextHighlight}>
-            Teritori Protocol Disclaimer.
+            Furya Protocol Disclaimer.
           </BrandText>
         </BrandText>
         <SpacerColumn size={4} />

@@ -8,8 +8,8 @@ import { cosmosNetwork } from "./cosmos-hub";
 import { cosmosThetaNetwork } from "./cosmos-hub-theta";
 import { ethereumNetwork } from "./ethereum";
 import { ethereumGoerliNetwork } from "./ethereum-goerli";
-import { teritoriNetwork } from "./teritori";
-import { teritoriTestnetNetwork } from "./teritori-testnet";
+import { furyaNetwork } from "./furya";
+import { furyaTestnetNetwork } from "./furya-testnet";
 import { NativeCurrencyInfo, NetworkInfo } from "./types";
 
 export * from "./types";
@@ -17,9 +17,9 @@ export * from "./types";
 export const WEI_TOKEN_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export const allNetworks = [
-  teritoriNetwork,
+  furyaNetwork,
   cosmosNetwork,
-  teritoriTestnetNetwork,
+  furyaTestnetNetwork,
   cosmosThetaNetwork,
   ethereumGoerliNetwork,
   ethereumNetwork,

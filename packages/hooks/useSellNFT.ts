@@ -3,18 +3,18 @@ import { ethers } from "ethers";
 import { useCallback } from "react";
 
 import { initialToastError, useFeedbacks } from "../context/FeedbacksProvider";
-import { TeritoriNftClient } from "../contracts-clients/teritori-nft/TeritoriNft.client";
-import { NFTVault__factory } from "../evm-contracts-clients/teritori-nft-vault/NFTVault__factory";
-import { TeritoriNft__factory } from "../evm-contracts-clients/teritori-nft/TeritoriNft__factory";
+import { FuryaNftClient } from "../contracts-clients/furya-nft/FuryaNft.client";
+import { NFTVault__factory } from "../evm-contracts-clients/furya-nft-vault/NFTVault__factory";
+import { FuryaNft__factory } from "../evm-contracts-clients/furya-nft/FuryaNft__factory";
 import { getNativeCurrency, WEI_TOKEN_ADDRESS } from "../networks";
 import { getSigningCosmWasmClient } from "../utils/keplr";
 import { Network } from "../utils/network";
-import { vaultContractAddress } from "../utils/teritori";
+import { vaultContractAddress } from "../utils/furya";
 import { Wallet } from "./../context/WalletsProvider/wallet";
 import { getMetaMaskEthereumSigner } from "./../utils/ethereum";
 import useSelectedWallet from "./useSelectedWallet";
 
-const teritoriSellNFT = async (
+const furyaSellNFT = async (
   wallet: Wallet,
   nftContractAddress: string,
   tokenId: string,
@@ -22,12 +22,12 @@ const teritoriSellNFT = async (
   denom: string | undefined
 ) => {
   const cosmwasmClient = await getSigningCosmWasmClient();
-  const nftClient = new TeritoriNftClient(
+  const nftClient = new FuryaNftClient(
     cosmwasmClient,
     wallet.address,
     nftContractAddress
   );
-  const currency = getNativeCurrency(process.env.TERITORI_NETWORK_ID, denom);
+  const currency = getNativeCurrency(process.env.FURYA_NETWORK_ID, denom);
   if (!currency) {
     throw Error("Unknown currency");
   }
@@ -67,7 +67,7 @@ const ethereumSellNFT = async (
   const txFeeData = { maxFeePerGas, maxPriorityFeePerGas };
 
   // Approve
-  const nftClient = await TeritoriNft__factory.connect(
+  const nftClient = await FuryaNft__factory.connect(
     nftContractAddress,
     signer
   );
@@ -120,8 +120,8 @@ export const useSellNFT = (network: Network | undefined) => {
 
         let sellNFTFunc: CallableFunction | null = null;
         switch (network) {
-          case Network.Teritori:
-            sellNFTFunc = teritoriSellNFT;
+          case Network.Furya:
+            sellNFTFunc = furyaSellNFT;
             break;
           case Network.Ethereum:
             sellNFTFunc = ethereumSellNFT;

@@ -3,9 +3,9 @@ import { useCallback, useEffect, useState } from "react";
 
 import { NFT } from "../../api/marketplace/v1/marketplace";
 import {
-  TeritoriSquadStakingClient,
-  TeritoriSquadStakingQueryClient,
-} from "../../contracts-clients/teritori-squad-staking/TeritoriSquadStaking.client";
+  FuryaSquadStakingClient,
+  FuryaSquadStakingQueryClient,
+} from "../../contracts-clients/furya-squad-staking/FuryaSquadStaking.client";
 import {
   SQUAD_STAKE_COEF,
   THE_RIOT_SQUAD_STAKING_CONTRACT_ADDRESS,
@@ -28,7 +28,7 @@ import {
   GetConfigResponse,
   Nft as SquadStakeNFT,
   Squad,
-} from "./../../contracts-clients/teritori-squad-staking/TeritoriSquadStaking.types";
+} from "./../../contracts-clients/furya-squad-staking/FuryaSquadStaking.types";
 
 export const useSquadStaking = () => {
   const [squadStakingConfig, setSquadStakingConfig] =
@@ -39,7 +39,7 @@ export const useSquadStaking = () => {
 
   const getSquadStakingQueryClient = useCallback(async () => {
     const nonSigningClient = await getNonSigningCosmWasmClient();
-    return new TeritoriSquadStakingQueryClient(
+    return new FuryaSquadStakingQueryClient(
       nonSigningClient,
       THE_RIOT_SQUAD_STAKING_CONTRACT_ADDRESS
     );
@@ -47,7 +47,7 @@ export const useSquadStaking = () => {
 
   const getSquadStakingClient = useCallback(async (sender: string) => {
     const signingClient = await getSigningCosmWasmClient();
-    return new TeritoriSquadStakingClient(
+    return new FuryaSquadStakingClient(
       signingClient,
       sender,
       THE_RIOT_SQUAD_STAKING_CONTRACT_ADDRESS

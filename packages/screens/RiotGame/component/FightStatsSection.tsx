@@ -8,9 +8,9 @@ import {
 import { PrimaryButtonOutline } from "../../../components/buttons/PrimaryButtonOutline";
 import { useFeedbacks } from "../../../context/FeedbacksProvider";
 import {
-  TeritoriDistributorQueryClient,
-  TeritoriDistributorClient,
-} from "../../../contracts-clients/teritori-distributor/TeritoriDistributor.client";
+  FuryaDistributorQueryClient,
+  FuryaDistributorClient,
+} from "../../../contracts-clients/furya-distributor/FuryaDistributor.client";
 import useSelectedWallet from "../../../hooks/useSelectedWallet";
 import { p2eBackendClient } from "../../../utils/backend";
 import { decimalFromAtomics } from "../../../utils/coins";
@@ -20,7 +20,7 @@ import {
 } from "../../../utils/keplr";
 import { yellowDefault } from "../../../utils/style/colors";
 import { layout } from "../../../utils/style/layout";
-import { TERITORI_DISTRIBUTOR_CONTRACT_ADDRESS } from "../settings";
+import { FURYA_DISTRIBUTOR_CONTRACT_ADDRESS } from "../settings";
 import { InfoBox } from "./InfoBox";
 
 type FightStatsSectionProps = {
@@ -42,10 +42,10 @@ export const FightStatsSection: React.FC<FightStatsSectionProps> = ({
 
     try {
       const signingClient = await getSigningCosmWasmClient();
-      const distributorClient = new TeritoriDistributorClient(
+      const distributorClient = new FuryaDistributorClient(
         signingClient,
         user,
-        TERITORI_DISTRIBUTOR_CONTRACT_ADDRESS
+        FURYA_DISTRIBUTOR_CONTRACT_ADDRESS
       );
 
       await distributorClient.claim();
@@ -81,9 +81,9 @@ export const FightStatsSection: React.FC<FightStatsSectionProps> = ({
 
   const fetchClaimableAmount = async (user: string) => {
     const nonSigningClient = await getNonSigningCosmWasmClient();
-    const distributorQueryClient = new TeritoriDistributorQueryClient(
+    const distributorQueryClient = new FuryaDistributorQueryClient(
       nonSigningClient,
-      TERITORI_DISTRIBUTOR_CONTRACT_ADDRESS
+      FURYA_DISTRIBUTOR_CONTRACT_ADDRESS
     );
 
     const claimableAmount = await distributorQueryClient.userClaimable({
@@ -143,10 +143,10 @@ export const FightStatsSection: React.FC<FightStatsSectionProps> = ({
             isClaiming
               ? "Claiming..."
               : `Claim available rewards: ${decimalFromAtomics(
-                  process.env.TERITORI_NETWORK_ID || "",
+                  process.env.FURYA_NETWORK_ID || "",
                   "" + claimableAmount,
-                  "utori"
-                )} TORI`
+                  "ufury"
+                )} FURY`
           }
           style={{ marginLeft: layout.padding_x1 }}
           onPress={() => claimRewards(selectedWallet.address)}

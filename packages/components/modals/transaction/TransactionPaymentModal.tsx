@@ -21,7 +21,7 @@ import { ConnectKeplrButton } from "../../connectWallet/ConnectKeplrButton";
 import { ConnectMetamaskButton } from "../../connectWallet/ConnectMetamaskButton";
 import ModalBase from "../ModalBase";
 
-// Modal with price, fee,  Teritori wallet connexion and status and Payment button
+// Modal with price, fee,  Furya wallet connexion and status and Payment button
 export const TransactionPaymentModal: React.FC<{
   label: string;
   price?: string;
@@ -56,7 +56,7 @@ export const TransactionPaymentModal: React.FC<{
   let WalletConnectComponent = null;
 
   switch (selectedNetworkInfo?.network) {
-    case Network.Teritori:
+    case Network.Furya:
       isWalletConnected = isKeplrConnected && !!selectedWallet?.address;
       WalletConnectComponent = ConnectKeplrButton;
       break;

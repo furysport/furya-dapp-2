@@ -5,8 +5,8 @@ import (
 	"flag"
 	"os"
 
-	"github.com/TERITORI/teritori-dapp/go/internal/pgutil"
-	"github.com/TERITORI/teritori-dapp/go/internal/urlutil"
+	"github.com/FURYA/furya-dapp/go/internal/pgutil"
+	"github.com/FURYA/furya-dapp/go/internal/urlutil"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/peterbourgon/ff/v3"
 	"github.com/pkg/errors"

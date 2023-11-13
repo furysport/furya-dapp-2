@@ -24,7 +24,7 @@ import { TertiaryBox } from "./boxes/TertiaryBox";
 import { NetworkIcon } from "./images/NetworkIcon";
 import { SpacerRow } from "./spacer";
 
-const SUPPORTED_NETWORKS = [Network.Teritori, Network.Ethereum];
+const SUPPORTED_NETWORKS = [Network.Furya, Network.Ethereum];
 
 export const NetworkSelector: React.FC<{
   style?: StyleProp<ViewStyle>;
@@ -47,9 +47,9 @@ export const NetworkSelector: React.FC<{
         walletProvider = WalletProvider.Metamask;
         networkId = process.env.ETHEREUM_NETWORK_ID || "";
         break;
-      case Network.Teritori:
+      case Network.Furya:
         walletProvider = WalletProvider.Keplr;
-        networkId = process.env.TERITORI_NETWORK_ID || "";
+        networkId = process.env.FURYA_NETWORK_ID || "";
         break;
     }
 

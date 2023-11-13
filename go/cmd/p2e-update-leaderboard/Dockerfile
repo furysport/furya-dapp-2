@@ -31,7 +31,7 @@ RUN wget https://github.com/CosmWasm/wasmvm/releases/download/v1.0.0/checksums.t
 COPY go ./go
 COPY .git ./.git
 
-# Build teritorid binary
+# Build furyad binary
 RUN --mount=type=cache,target=/root/.cache/go-build \
   --mount=type=cache,target=/root/go/pkg/mod \
   VERSION=$(echo $(git describe --tags) | sed 's/^v//') && \
@@ -39,8 +39,8 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   go build \
   -mod=readonly \
   -tags "netgo,ledger,muslc" \
-  -ldflags "-X github.com/cosmos/cosmos-sdk/version.Name="teritori" \
-  -X github.com/cosmos/cosmos-sdk/version.AppName="teritorid" \
+  -ldflags "-X github.com/cosmos/cosmos-sdk/version.Name="furya" \
+  -X github.com/cosmos/cosmos-sdk/version.AppName="furyad" \
   -X github.com/cosmos/cosmos-sdk/version.Version=$VERSION \
   -X github.com/cosmos/cosmos-sdk/version.Commit=$COMMIT \
   -X github.com/cosmos/cosmos-sdk/version.BuildTags='netgo,ledger,muslc' \

@@ -4,17 +4,12 @@ package networks
 
 var AllNetworks = []*Network{
 	{
-		ID: "teritori",
+		ID: "furya",
 		Currencies: []Currency{
 			&NativeCurrency{
-				Denom:       "utori",
-				CoinGeckoID: "teritori",
+				Denom:       "ufury",
+				CoinGeckoID: "fanfury",
 				Decimals:    6,
-			},
-			&IBCCurrency{
-				Denom:         "ibc/A670D9568B3E399316EEDE40C1181B7AA4BD0695F0B37513CE9B95B977DFC12E",
-				SourceNetwork: "cosmos-hub",
-				SourceDenom:   "uatom",
 			},
 		},
 	},
@@ -29,22 +24,12 @@ var AllNetworks = []*Network{
 		},
 	},
 	{
-		ID: "teritori-testnet",
+		ID: "furya-testnet",
 		Currencies: []Currency{
 			&NativeCurrency{
-				Denom:       "utori",
-				CoinGeckoID: "teritori",
+				Denom:       "ufury",
+				CoinGeckoID: "fanfury",
 				Decimals:    6,
-			},
-			&IBCCurrency{
-				Denom:         "ibc/C9300DDD93DF3A3A668CAB02398A0AA081EF89EC005B2DB68832E363BAAABF85",
-				SourceNetwork: "cosmos-hub-theta",
-				SourceDenom:   "uatom",
-			},
-			&IBCCurrency{
-				Denom:         "ibc/8D9734B53D56DC57A92E4CC788547699853F411190F6DAA70FA12B9BD062F7AE",
-				SourceNetwork: "cosmos-hub-theta",
-				SourceDenom:   "uatom",
 			},
 		},
 	},

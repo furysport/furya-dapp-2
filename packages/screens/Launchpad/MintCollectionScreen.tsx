@@ -25,8 +25,8 @@ import {
   useFeedbacks,
 } from "../../context/FeedbacksProvider";
 import { Wallet } from "../../context/WalletsProvider";
-import { TeritoriBunkerMinterClient } from "../../contracts-clients/teritori-bunker-minter/TeritoriBunkerMinter.client";
-import { TeritoriMinter__factory } from "../../evm-contracts-clients/teritori-bunker-minter/TeritoriMinter__factory";
+import { FuryaBunkerMinterClient } from "../../contracts-clients/furya-bunker-minter/FuryaBunkerMinter.client";
+import { FuryaMinter__factory } from "../../evm-contracts-clients/furya-bunker-minter/FuryaMinter__factory";
 import { useBalances } from "../../hooks/useBalances";
 import { MintPhase, useCollectionInfo } from "../../hooks/useCollectionInfo";
 import { useSelectedNetworkId } from "../../hooks/useSelectedNetwork";
@@ -94,8 +94,8 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
       dispatch(setSelectedNetworkId(process.env.ETHEREUM_NETWORK_ID || ""));
       return;
     }
-    if (id.startsWith("tori-")) {
-      dispatch(setSelectedNetworkId(process.env.TERITORI_NETWORK_ID || ""));
+    if (id.startsWith("furya-")) {
+      dispatch(setSelectedNetworkId(process.env.FURYA_NETWORK_ID || ""));
     }
   }, [id, dispatch]);
 
@@ -131,7 +131,7 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
       throw Error("no account connected");
     }
 
-    const minterClient = TeritoriMinter__factory.connect(mintAddress, signer);
+    const minterClient = FuryaMinter__factory.connect(mintAddress, signer);
     const userState = await minterClient.callStatic.userState(wallet.address);
 
     // TODO: check this properly later
@@ -153,8 +153,8 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
   const mint = useCallback(async () => {
     let mintFunc: CallableFunction | null = null;
     switch (addressPrefix) {
-      case "tori":
-        mintFunc = teritoriMint;
+      case "furya":
+        mintFunc = furyaMint;
         break;
       case "eth":
         mintFunc = ethereumMint;
@@ -187,13 +187,13 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
     }
   }, [wallet?.address, id, info?.unitPrice, info?.priceDenom]);
 
-  const teritoriMint = async (wallet: Wallet) => {
+  const furyaMint = async (wallet: Wallet) => {
     const sender = wallet?.address;
     if (!sender || !info?.unitPrice || !info.priceDenom) {
       throw Error("invalid mint args");
     }
     const cosmwasmClient = await getSigningCosmWasmClient();
-    const minterClient = new TeritoriBunkerMinterClient(
+    const minterClient = new FuryaBunkerMinterClient(
       cosmwasmClient,
       sender,
       mintAddress
@@ -210,9 +210,9 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
   const mintTermsConditionsURL = useMemo(() => {
     switch (mintAddress) {
       case process.env.THE_RIOT_COLLECTION_ADDRESS:
-        return "https://teritori.notion.site/The-R-ot-Terms-Conditions-0ea730897c964b04ab563e0648cc2f5b";
+        return "https://furya.notion.site/The-R-ot-Terms-Conditions-0ea730897c964b04ab563e0648cc2f5b";
       case process.env.ETHEREUM_THE_RIOT_COLLECTION_ADDRESS:
-        return "https://teritori.notion.site/The-Riot-Terms-Conditions-ETH-92328fb2d4494b6fb073b38929b28883";
+        return "https://furya.notion.site/The-Riot-Terms-Conditions-ETH-92328fb2d4494b6fb073b38929b28883";
       default:
         return null;
     }
@@ -342,7 +342,7 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
                   />
                 )}
 
-                {getCurrency(process.env.TERITORI_NETWORK_ID, info.priceDenom)
+                {getCurrency(process.env.FURYA_NETWORK_ID, info.priceDenom)
                   ?.kind === "ibc" && (
                   <PrimaryButton
                     size="XL"

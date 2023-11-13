@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "teritori-dapp",
-    "slug": "teritori-dapp",
+    "name": "furya-dapp",
+    "slug": "furya-dapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

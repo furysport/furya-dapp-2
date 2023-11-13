@@ -138,7 +138,7 @@ const navConfig: {
     LaunchpadApply: "launchpad/apply",
     // Mint NFT collection
     MintCollection: "collection/:id/mint",
-    // ==== Teritori Name Service
+    // ==== Furya Name Service
     TNSHome: "tns/:modal?",
 
     // ==== Marketplace

@@ -3,8 +3,8 @@ package p2e
 import (
 	"context"
 
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
-	"github.com/TERITORI/teritori-dapp/go/pkg/p2epb"
+	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
+	"github.com/FURYA/furya-dapp/go/pkg/p2epb"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -57,7 +57,7 @@ func (s *P2eService) UserRank(ctx context.Context, req *p2epb.UserRankRequest) (
 		WHERE pl.user_id = ?
 	`,
 		seasonId,
-		indexerdb.TeritoriUserID(userId),
+		indexerdb.FuryaUserID(userId),
 	).Scan(&userRank).Error
 
 	if err != nil {

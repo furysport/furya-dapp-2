@@ -63,7 +63,7 @@ export const Content: React.FC<{
     collectionId: id,
     ownerId:
       selectedTab === "owned" && wallet?.address
-        ? `tori-${wallet.address}`
+        ? `furya-${wallet.address}`
         : "",
     limit: alignDown(20, numColumns) || numColumns,
     offset: 0,
@@ -274,8 +274,8 @@ export const Header: React.FC<{
               style={{ marginRight: 12 }}
               onPress={() => {
                 const url = (
-                  process.env.TERITORI_CONTRACT_EXPLORER_URL || ""
-                ).replace("$address", collectionId.replace("tori-", ""));
+                  process.env.FURYA_CONTRACT_EXPLORER_URL || ""
+                ).replace("$address", collectionId.replace("furya-", ""));
                 Linking.openURL(url);
               }}
             />

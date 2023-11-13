@@ -16,7 +16,7 @@ import { useFeedbacks } from "../../context/FeedbacksProvider";
 import useSelectedWallet from "../../hooks/useSelectedWallet";
 import { getKeplrOfflineSigner } from "../../utils/keplr";
 import { neutral44 } from "../../utils/style/colors";
-import { getTeritoriSigningStargateClient } from "../../utils/teritori";
+import { getFuryaSigningStargateClient } from "../../utils/furya";
 import { ProposalStatus } from "./types";
 
 const Separator: React.FC<{ style?: StyleProp<ViewStyle> }> = ({ style }) => (
@@ -99,14 +99,14 @@ export const GovernanceDetails: React.FC<{
     if (!selectedWallet?.connected || !selectedWallet.address) {
       setToastError({
         title: "Wallet Error",
-        message: "You need to register your teritori wallet",
+        message: "You need to register your furya wallet",
       });
       return;
     }
 
     try {
       const keplrSigner = await getKeplrOfflineSigner();
-      const client = await getTeritoriSigningStargateClient(keplrSigner);
+      const client = await getFuryaSigningStargateClient(keplrSigner);
 
       const vote: MsgVoteEncodeObject = {
         typeUrl: "/cosmos.gov.v1beta1.MsgVote",

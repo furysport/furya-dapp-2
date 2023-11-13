@@ -12,8 +12,8 @@ import {
   useFeedbacks,
 } from "../../context/FeedbacksProvider";
 import { Wallet } from "../../context/WalletsProvider";
-import { TeritoriNftVaultClient } from "../../contracts-clients/teritori-nft-vault/TeritoriNftVault.client";
-import { NFTVault__factory } from "../../evm-contracts-clients/teritori-nft-vault/NFTVault__factory";
+import { FuryaNftVaultClient } from "../../contracts-clients/furya-nft-vault/FuryaNftVault.client";
+import { NFTVault__factory } from "../../evm-contracts-clients/furya-nft-vault/NFTVault__factory";
 import { useCancelNFTListing } from "../../hooks/useCancelNFTListing";
 import { useMaxResolution } from "../../hooks/useMaxResolution";
 import { useMintEnded } from "../../hooks/useMintEnded";
@@ -26,7 +26,7 @@ import { getMetaMaskEthereumSigner } from "../../utils/ethereum";
 import { getSigningCosmWasmClient } from "../../utils/keplr";
 import { ScreenFC } from "../../utils/navigation";
 import { Network } from "../../utils/network";
-import { vaultContractAddress } from "../../utils/teritori";
+import { vaultContractAddress } from "../../utils/furya";
 import { NFTAttribute } from "../../utils/types/nft";
 
 export interface NFTInfo {
@@ -100,8 +100,8 @@ const Content: React.FC<{
 
     let buyFunc: CallableFunction | null = null;
     switch (selectedNetwork) {
-      case Network.Teritori:
-        buyFunc = teritoriBuy;
+      case Network.Furya:
+        buyFunc = furyaBuy;
         break;
       case Network.Ethereum:
         buyFunc = ethereumBuy;
@@ -141,9 +141,9 @@ const Content: React.FC<{
     selectedNetwork,
   ]);
 
-  const teritoriBuy = async (wallet: Wallet, info: NFTInfo) => {
+  const furyaBuy = async (wallet: Wallet, info: NFTInfo) => {
     const signingCosmwasmClient = await getSigningCosmWasmClient();
-    const signingVaultClient = new TeritoriNftVaultClient(
+    const signingVaultClient = new FuryaNftVaultClient(
       signingCosmwasmClient,
       wallet.address,
       vaultContractAddress
@@ -213,7 +213,7 @@ const Content: React.FC<{
     return txHash;
   }, [cancelListing, refresh, selectedNetwork]);
 
-  if (!id.startsWith("tori-") && !id.startsWith("eth-")) {
+  if (!id.startsWith("furya-") && !id.startsWith("eth-")) {
     return (
       <View style={{ alignItems: "center", width: "100%", marginTop: 40 }}>
         <BrandText>Network not supported</BrandText>

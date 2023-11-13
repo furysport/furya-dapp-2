@@ -26,11 +26,11 @@ export const ProfileButton: React.FC<{
             ? () =>
                 navigation.navigate("TNSHome", {
                   modal: "update-name",
-                  name: metadata.tokenId.replace(".tori", ""),
+                  name: metadata.tokenId.replace(".furya", ""),
                 })
             : () =>
                 navigation.navigate("UserPublicProfile", {
-                  id: `tori-${selectedWallet?.address}`,
+                  id: `furya-${selectedWallet?.address}`,
                 })
         }
         touchableStyle={touchableStyle}

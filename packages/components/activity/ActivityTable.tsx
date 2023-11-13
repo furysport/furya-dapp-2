@@ -19,7 +19,7 @@ import {
 } from "../../utils/style/colors";
 import { fontMedium14 } from "../../utils/style/fonts";
 import { layout, screenContentMaxWidth } from "../../utils/style/layout";
-import { txExplorerLink } from "../../utils/teritori";
+import { txExplorerLink } from "../../utils/furya";
 import { BrandText } from "../BrandText";
 import { ExternalLink } from "../ExternalLink";
 import { Pagination } from "../Pagination";

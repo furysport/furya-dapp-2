@@ -9,10 +9,10 @@ import {
   GrpcWebImpl as P2eGrpcWebImpl,
 } from "../api/p2e/v1/p2e";
 
-const backendEndpoint = process.env.TERITORI_BACKEND_ENDPOINT;
+const backendEndpoint = process.env.FURYA_BACKEND_ENDPOINT;
 
 if (!backendEndpoint) {
-  throw new Error("missing TERITORI_BACKEND_ENDPOINT in env");
+  throw new Error("missing FURYA_BACKEND_ENDPOINT in env");
 }
 
 const marketPlaceRpc = new GrpcWebImpl(backendEndpoint, {

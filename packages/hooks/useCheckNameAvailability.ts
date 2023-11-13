@@ -19,7 +19,7 @@ export const useCheckNameAvailability = (name: string, tokens: string[]) => {
       setLoading(true);
 
       const contract = process.env
-        .TERITORI_NAME_SERVICE_CONTRACT_ADDRESS as string;
+        .FURYA_NAME_SERVICE_CONTRACT_ADDRESS as string;
       // We just want to read, so we use a non-signing client
       const cosmWasmClient = await getNonSigningCosmWasmClient();
       try {

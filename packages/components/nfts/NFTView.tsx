@@ -48,7 +48,7 @@ export const NFTView: React.FC<{
   const navigation = useAppNavigation();
   const flatStyle = StyleSheet.flatten(style);
   const selectedWallet = useSelectedWallet();
-  const tnsMetadata = useTNSMetadata(nft.ownerId.replace("tori-", ""));
+  const tnsMetadata = useTNSMetadata(nft.ownerId.replace("furya-", ""));
   const selectedNetwork = useSelectedNetwork();
   const { onPressDropdownButton, isDropdownOpen, closeOpenedDropdown } =
     useDropdowns();
@@ -58,8 +58,8 @@ export const NFTView: React.FC<{
 
   const isOwner = useMemo(() => {
     switch (selectedNetwork) {
-      case Network.Teritori:
-        return nft.ownerId === `tori-${selectedWallet?.address}`;
+      case Network.Furya:
+        return nft.ownerId === `furya-${selectedWallet?.address}`;
       case Network.Ethereum:
         return (
           nft.ownerId.toLowerCase() === selectedWallet?.address.toLowerCase()
@@ -149,7 +149,7 @@ export const NFTView: React.FC<{
                         tnsMetadata.metadata?.image
                           ? tnsMetadata.metadata.image
                           : process.env
-                              .TERITORI_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
+                              .FURYA_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
                       ),
                     }} // TODO: proper fallback
                     style={{
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
 
 // using this because ellipizeMode seems broken
 const shortUserAddressFromID = (id: string, size: number) => {
-  if (id.startsWith("tori-")) {
+  if (id.startsWith("furya-")) {
     return id.substring(5, 5 + size) + "..." + id.substring(id.length - size);
   }
   return id.substring(0, size) + "..." + id.substring(id.length - size);

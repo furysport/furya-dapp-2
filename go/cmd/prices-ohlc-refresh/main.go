@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/TERITORI/teritori-dapp/go/internal/pgutil"
-	"github.com/TERITORI/teritori-dapp/go/internal/urlutil"
-	"github.com/TERITORI/teritori-dapp/go/pkg/coingeckoprices"
-	"github.com/TERITORI/teritori-dapp/go/pkg/prices_db"
+	"github.com/FURYA/furya-dapp/go/internal/pgutil"
+	"github.com/FURYA/furya-dapp/go/internal/urlutil"
+	"github.com/FURYA/furya-dapp/go/pkg/coingeckoprices"
+	"github.com/FURYA/furya-dapp/go/pkg/prices_db"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/peterbourgon/ff/v3"
 	"github.com/pkg/errors"
@@ -20,7 +20,7 @@ import (
 func main() {
 	fs := flag.NewFlagSet("prices-ohlc-refresh", flag.ContinueOnError)
 	var (
-		coinIds = fs.String("coin-ids", "teritori,cosmos", "coingecko ids of coins to refresh")
+		coinIds = fs.String("coin-ids", "furya,cosmos", "coingecko ids of coins to refresh")
 		dbHost  = fs.String("prices-db-host", "", "host postgreSQL database")
 		dbPort  = fs.Int("prices-db-port", -1, "port for postgreSQL database")
 		dbPass  = fs.String("prices-db-password", "", "password for postgreSQL database")

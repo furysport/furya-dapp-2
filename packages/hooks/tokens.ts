@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useFeedbacks } from "../context/FeedbacksProvider";
-import { Metadata } from "../contracts-clients/teritori-name-service/TeritoriNameService.types";
+import { Metadata } from "../contracts-clients/furya-name-service/FuryaNameService.types";
 import { getNonSigningCosmWasmClient } from "../utils/keplr";
 import { isPath, isToken } from "../utils/tns";
 import useSelectedWallet from "./useSelectedWallet";
@@ -13,7 +13,7 @@ import useSelectedWallet from "./useSelectedWallet";
 export function useTokenList() {
   const selectedWallet = useSelectedWallet();
 
-  const contract = process.env.TERITORI_NAME_SERVICE_CONTRACT_ADDRESS as string;
+  const contract = process.env.FURYA_NAME_SERVICE_CONTRACT_ADDRESS as string;
   const perPage = 10;
 
   const [tokens, setStoreTokens] = useState<string[]>([]);
@@ -83,7 +83,7 @@ export function useTokenList() {
 }
 
 export function useToken(tokenId: string, tld: string) {
-  const contract = process.env.TERITORI_NAME_SERVICE_CONTRACT_ADDRESS as string;
+  const contract = process.env.FURYA_NAME_SERVICE_CONTRACT_ADDRESS as string;
 
   const [token, setStoreToken] = useState<Metadata | null>();
 

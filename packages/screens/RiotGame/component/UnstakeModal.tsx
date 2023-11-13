@@ -3,7 +3,7 @@ import { Image, StyleSheet, View } from "react-native";
 
 import firePNG from "../../../../assets/game/fire.png";
 import trophiesSVG from "../../../../assets/icons/trophies.svg";
-import teritoriLogoSVG from "../../../../assets/logos/logo.svg";
+import furyaLogoSVG from "../../../../assets/logos/logo.svg";
 import { BrandText } from "../../../components/BrandText";
 import FlexRow from "../../../components/FlexRow";
 import { SVG } from "../../../components/SVG";
@@ -11,7 +11,7 @@ import { tinyAddress } from "../../../components/WalletSelector";
 import { CollectionSocialButtons } from "../../../components/collections/CollectionSocialButtons";
 import ModalBase from "../../../components/modals/ModalBase";
 import { SpacerColumn, SpacerRow } from "../../../components/spacer";
-import { Squad } from "../../../contracts-clients/teritori-squad-staking/TeritoriSquadStaking.types";
+import { Squad } from "../../../contracts-clients/furya-squad-staking/FuryaSquadStaking.types";
 import { useCollectionInfo } from "../../../hooks/useCollectionInfo";
 import useSelectedWallet from "../../../hooks/useSelectedWallet";
 import { useTNSMetadata } from "../../../hooks/useTNSMetadata";
@@ -76,7 +76,7 @@ export const UnstakeModal: React.FC<UnstakeModalProps> = ({
       }
     >
       <View style={{ alignItems: "center" }}>
-        <SVG width={200} height={200} source={teritoriLogoSVG} />
+        <SVG width={200} height={200} source={furyaLogoSVG} />
 
         <SpacerColumn size={4} />
 

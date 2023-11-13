@@ -3,11 +3,11 @@ import { StyleSheet } from "react-native";
 
 import FlexRow from "../../../components/FlexRow";
 import { useFeedbacks } from "../../../context/FeedbacksProvider";
-import { NftInfoResponse } from "../../../contracts-clients/teritori-nft/TeritoriNft.types";
+import { NftInfoResponse } from "../../../contracts-clients/furya-nft/FuryaNft.types";
 import {
   Nft,
   Squad,
-} from "../../../contracts-clients/teritori-squad-staking/TeritoriSquadStaking.types";
+} from "../../../contracts-clients/furya-squad-staking/FuryaSquadStaking.types";
 import { ipfsURLToHTTPURL } from "../../../utils/ipfs";
 import { getNonSigningCosmWasmClient } from "../../../utils/keplr";
 import { fontMedium48 } from "../../../utils/style/fonts";

@@ -23,7 +23,7 @@ var THE_RIOT_SEASONS = []Season{
 	{
 		ID:         "Season 1",
 		GameID:     THE_RIOT_GAME_ID,
-		Denom:      "tori",
+		Denom:      "fury",
 		Decimals:   6,
 		TotalPrize: 1_800_000,
 		BossName:   "Philipp Rustov",
@@ -46,7 +46,7 @@ var THE_RIOT_SEASONS = []Season{
 	{
 		ID:         "Season 2",
 		GameID:     THE_RIOT_GAME_ID,
-		Denom:      "tori",
+		Denom:      "fury",
 		Decimals:   6,
 		TotalPrize: 300_000,
 		BossName:   "Ursula Delahaye",

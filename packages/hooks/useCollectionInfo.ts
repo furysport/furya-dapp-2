@@ -2,16 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { BigNumber } from "ethers";
 import Long from "long";
 
-import { TeritoriBreedingQueryClient } from "../contracts-clients/teritori-breeding/TeritoriBreeding.client";
-import { TeritoriBunkerMinterQueryClient } from "../contracts-clients/teritori-bunker-minter/TeritoriBunkerMinter.client";
-import { TeritoriNftQueryClient } from "../contracts-clients/teritori-nft/TeritoriNft.client";
+import { FuryaBreedingQueryClient } from "../contracts-clients/furya-breeding/FuryaBreeding.client";
+import { FuryaBunkerMinterQueryClient } from "../contracts-clients/furya-bunker-minter/FuryaBunkerMinter.client";
+import { FuryaNftQueryClient } from "../contracts-clients/furya-nft/FuryaNft.client";
 import { WEI_TOKEN_ADDRESS } from "../networks";
 import { prettyPrice } from "../utils/coins";
 import { getEthereumProvider } from "../utils/ethereum";
 import { ipfsURLToHTTPURL } from "../utils/ipfs";
 import { getNonSigningCosmWasmClient } from "../utils/keplr";
-import { TeritoriMinter__factory } from "./../evm-contracts-clients/teritori-bunker-minter/TeritoriMinter__factory";
-import { TeritoriNft__factory } from "./../evm-contracts-clients/teritori-nft/TeritoriNft__factory";
+import { FuryaMinter__factory } from "./../evm-contracts-clients/furya-bunker-minter/FuryaMinter__factory";
+import { FuryaNft__factory } from "./../evm-contracts-clients/furya-nft/FuryaNft__factory";
 
 export type MintState = "not-started" | "whitelist" | "public-sale" | "ended";
 
@@ -49,9 +49,9 @@ export interface CollectionInfo {
 
 const getTnsCollectionInfo = (): CollectionInfo => {
   return {
-    name: "Teritori Name Service", // FIXME: should fetch from contract or be in env
+    name: "Furya Name Service", // FIXME: should fetch from contract or be in env
     image: ipfsURLToHTTPURL(
-      process.env.TERITORI_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
+      process.env.FURYA_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
     ),
     mintPhases: [],
   };
@@ -62,10 +62,10 @@ const getBreedingCollectionInfo = async (
 ): Promise<CollectionInfo> => {
   const cosmwasm = await getNonSigningCosmWasmClient();
 
-  const breedingClient = new TeritoriBreedingQueryClient(cosmwasm, mintAddress);
+  const breedingClient = new FuryaBreedingQueryClient(cosmwasm, mintAddress);
   const conf = await breedingClient.config();
 
-  const nftClient = new TeritoriNftQueryClient(
+  const nftClient = new FuryaNftQueryClient(
     cosmwasm,
     conf.child_contract_addr
   );
@@ -88,17 +88,17 @@ const getBreedingCollectionInfo = async (
   return info;
 };
 
-const getTeritoriBunkerCollectionInfo = async (
+const getFuryaBunkerCollectionInfo = async (
   mintAddress: string
 ): Promise<CollectionInfo> => {
   const cosmwasm = await getNonSigningCosmWasmClient();
-  const minterClient = new TeritoriBunkerMinterQueryClient(
+  const minterClient = new FuryaBunkerMinterQueryClient(
     cosmwasm,
     mintAddress
   );
   const conf = await minterClient.config();
 
-  const nftClient = new TeritoriNftQueryClient(cosmwasm, conf.nft_addr);
+  const nftClient = new FuryaNftQueryClient(cosmwasm, conf.nft_addr);
   const nftInfo = await nftClient.contractInfo();
 
   const metadataURL = ipfsURLToHTTPURL(conf.nft_base_uri);
@@ -154,7 +154,7 @@ const getTeritoriBunkerCollectionInfo = async (
     image: ipfsURLToHTTPURL(metadata.image || ""),
     description: metadata.description,
     prettyUnitPrice: prettyPrice(
-      process.env.TERITORI_NETWORK_ID || "",
+      process.env.FURYA_NETWORK_ID || "",
       unitPrice,
       conf.price_denom
     ),
@@ -180,7 +180,7 @@ const getTeritoriBunkerCollectionInfo = async (
   return info;
 };
 
-const getEthereumTeritoriBunkerCollectionInfo = async (
+const getEthereumFuryaBunkerCollectionInfo = async (
   mintAddress: string
 ): Promise<CollectionInfo> => {
   const provider = await getEthereumProvider();
@@ -189,12 +189,12 @@ const getEthereumTeritoriBunkerCollectionInfo = async (
     return { mintPhases: [] };
   }
 
-  const minterClient = TeritoriMinter__factory.connect(mintAddress, provider);
+  const minterClient = FuryaMinter__factory.connect(mintAddress, provider);
   const minterConfig = await minterClient.callStatic.config();
   const nftAddress = await minterClient.callStatic.nft();
 
   const isPaused = await minterClient.callStatic.paused();
-  const nftClient = TeritoriNft__factory.connect(nftAddress, provider);
+  const nftClient = FuryaNft__factory.connect(nftAddress, provider);
 
   const contractURI = await nftClient.callStatic.contractURI();
   const metadataURL = ipfsURLToHTTPURL(contractURI);
@@ -322,17 +322,17 @@ export const useCollectionInfo = (id: string) => {
 
       if (addressPrefix === "tori") {
         switch (mintAddress) {
-          case process.env.TERITORI_NAME_SERVICE_CONTRACT_ADDRESS:
+          case process.env.FURYA_NAME_SERVICE_CONTRACT_ADDRESS:
             info = await getTnsCollectionInfo();
             break;
           case process.env.THE_RIOT_BREEDING_CONTRACT_ADDRESS:
             info = await getBreedingCollectionInfo(mintAddress);
             break;
           default:
-            info = await getTeritoriBunkerCollectionInfo(mintAddress);
+            info = await getFuryaBunkerCollectionInfo(mintAddress);
         }
       } else if (addressPrefix === "eth") {
-        info = await getEthereumTeritoriBunkerCollectionInfo(mintAddress);
+        info = await getEthereumFuryaBunkerCollectionInfo(mintAddress);
       }
       return info;
     },

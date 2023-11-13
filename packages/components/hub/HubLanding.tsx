@@ -36,7 +36,7 @@ export const HubLanding: React.FC = () => {
     maxSize: { width: maxWidth },
   });
   const banners = useBanners(
-    process.env.TERITORI_NETWORK_ID === "teritori-testnet"
+    process.env.FURYA_NETWORK_ID === "furya-testnet"
   );
   const banner = banners?.length ? banners[0] : undefined;
 
@@ -73,16 +73,16 @@ export const HubLanding: React.FC = () => {
             <DAppCard
               onPress={() => navigation.navigate("Staking")}
               label="Staking"
-              description="Participate to the Security Get rewards by delegating to Teritori validators"
+              description="Participate to the Security Get rewards by delegating to Furya validators"
               info="Staking on Keplr!"
               iconSVG={stakingSVG}
             />
             <DAppCard
               label="Airdrop"
-              description="Get $TORI Join Teritori Community "
+              description="Get $FURY Join Furya Community "
               info="Let's Go!"
               iconSVG={airdropSVG}
-              onPress={() => Linking.openURL("https://teritori.com/airdrop")}
+              onPress={() => Linking.openURL("https://furya.xyz/airdrop")}
             />
             <DAppCard
               label="Marketplace"
@@ -93,17 +93,17 @@ export const HubLanding: React.FC = () => {
             />
             <DAppCard
               label="Launchpad"
-              description="Apply to a NFT Launch on Teritori Launchpad and get validated & pushed by the community."
+              description="Apply to a NFT Launch on Furya Launchpad and get validated & pushed by the community."
               info="Apply here"
               iconSVG={launchpadSVG}
               onPress={() => navigation.navigate("Launchpad")}
             />
             <DAppCard
-              label="Tori Labs"
+              label="Fury Labs"
               description="Get funds to develop, contribute and build new feature for Communities"
               info="Apply here"
               iconSVG={labsSVG}
-              onPress={() => Linking.openURL("https://teritori.com/grants")}
+              onPress={() => Linking.openURL("https://furya.xyz/grants")}
             />
           </View>
         </Section>
@@ -132,12 +132,12 @@ Launch"
               description="Want to build new dApps? Join the Bounty Program & get your project funded."
               info="Apply here"
               iconSVG={airdropSVG}
-              onPress={() => Linking.openURL("https://app.dework.xyz/teritori")}
+              onPress={() => Linking.openURL("https://app.dework.xyz/furya")}
             />
           </View>
         </Section>
         <CollectionsCarouselSection
-          title="Upcoming Launches on Teritori Launch Pad"
+          title="Upcoming Launches on Furya Launch Pad"
           req={{
             upcoming: true,
             networkId: "",

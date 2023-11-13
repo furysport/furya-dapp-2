@@ -2,21 +2,21 @@ import { useCallback } from "react";
 
 import { useFeedbacks } from "../context/FeedbacksProvider";
 import { Wallet } from "../context/WalletsProvider";
-import { TeritoriNftVaultClient } from "../contracts-clients/teritori-nft-vault/TeritoriNftVault.client";
-import { NFTVault__factory } from "../evm-contracts-clients/teritori-nft-vault/NFTVault__factory";
+import { FuryaNftVaultClient } from "../contracts-clients/furya-nft-vault/FuryaNftVault.client";
+import { NFTVault__factory } from "../evm-contracts-clients/furya-nft-vault/NFTVault__factory";
 import { getMetaMaskEthereumSigner } from "../utils/ethereum";
 import { getSigningCosmWasmClient } from "../utils/keplr";
-import { vaultContractAddress } from "../utils/teritori";
+import { vaultContractAddress } from "../utils/furya";
 import { Network } from "./../utils/network";
 import useSelectedWallet from "./useSelectedWallet";
 
-const teritoriCancelNFTListing = async (
+const furyaCancelNFTListing = async (
   wallet: Wallet,
   nftContractAddress: string,
   tokenId: string
 ) => {
   const cosmwasmClient = await getSigningCosmWasmClient();
-  const vaultClient = new TeritoriNftVaultClient(
+  const vaultClient = new FuryaNftVaultClient(
     cosmwasmClient,
     wallet.address,
     vaultContractAddress
@@ -74,8 +74,8 @@ export const useCancelNFTListing = (
 
       let cancelNFTListingFunc: CallableFunction | null = null;
       switch (network) {
-        case Network.Teritori:
-          cancelNFTListingFunc = teritoriCancelNFTListing;
+        case Network.Furya:
+          cancelNFTListingFunc = furyaCancelNFTListing;
           break;
         case Network.Ethereum:
           cancelNFTListingFunc = ethereumCancelNFTListing;

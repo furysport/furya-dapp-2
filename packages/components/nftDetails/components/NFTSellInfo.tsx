@@ -1,7 +1,7 @@
 import { Decimal } from "@cosmjs/math";
 import { useQuery } from "@tanstack/react-query";
 
-import { TeritoriNftVaultQueryClient } from "../../../contracts-clients/teritori-nft-vault/TeritoriNftVault.client";
+import { FuryaNftVaultQueryClient } from "../../../contracts-clients/furya-nft-vault/FuryaNftVault.client";
 import { getNativeCurrency } from "../../../networks";
 import { NFTInfo } from "../../../screens/Marketplace/NFTDetailScreen";
 import { prettyPrice } from "../../../utils/coins";
@@ -64,9 +64,9 @@ const useVaultConfig = () => {
     ["vaultConfig"],
     async () => {
       const cosmwasmClient = await getNonSigningCosmWasmClient();
-      const vaultClient = new TeritoriNftVaultQueryClient(
+      const vaultClient = new FuryaNftVaultQueryClient(
         cosmwasmClient,
-        process.env.TERITORI_VAULT_CONTRACT_ADDRESS || ""
+        process.env.FURYA_VAULT_CONTRACT_ADDRESS || ""
       );
       return await vaultClient.config();
     },

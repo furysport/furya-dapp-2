@@ -7,9 +7,9 @@ import (
 	"time"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
-	"github.com/TERITORI/teritori-dapp/go/pkg/contracts/breeding_minter_types"
-	"github.com/TERITORI/teritori-dapp/go/pkg/p2e"
+	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
+	"github.com/FURYA/furya-dapp/go/pkg/contracts/breeding_minter_types"
+	"github.com/FURYA/furya-dapp/go/pkg/p2e"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -53,15 +53,15 @@ func (h *Handler) handleInstantiateBreeding(e *Message, contractAddress string, 
 	maxSupply := minterInstantiateMsg.ChildNftMaxSupply
 
 	// create collection
-	collectionId := indexerdb.TeritoriCollectionID(contractAddress)
+	collectionId := indexerdb.FuryaCollectionID(contractAddress)
 	if err := h.db.Create(&indexerdb.Collection{
 		ID:                  collectionId,
-		NetworkId:           "teritori", // FIXME: get from networks config
+		NetworkId:           "furya", // FIXME: get from networks config
 		Name:                minterInstantiateMsg.ChildNftName,
 		ImageURI:            metadata.ImageURI,
 		MaxSupply:           maxSupply,
 		SecondaryDuringMint: true,
-		TeritoriCollection: &indexerdb.TeritoriCollection{
+		FuryaCollection: &indexerdb.FuryaCollection{
 			MintContractAddress: contractAddress,
 			NFTContractAddress:  nftAddr,
 			CreatorAddress:      instantiateMsg.Sender,
@@ -101,7 +101,7 @@ func (h *Handler) handleExecuteSquadStake(e *Message, execMsg *wasmtypes.MsgExec
 		return errors.New("no token_id")
 	}
 
-	ownerId := indexerdb.TeritoriUserID(users[0])
+	ownerId := indexerdb.FuryaUserID(users[0])
 
 	startTime, err := strconv.ParseUint(startTimes[0], 0, 64)
 	if err != nil {
@@ -153,7 +153,7 @@ func (h *Handler) handleExecuteSquadStake(e *Message, execMsg *wasmtypes.MsgExec
 	}
 
 	// Update lockedOn: set lockedOn = contract which holds NFTs
-	lockedOn := indexerdb.TeritoriUserID(execMsg.Contract)
+	lockedOn := indexerdb.FuryaUserID(execMsg.Contract)
 
 	for _, nft := range squadStakeMsg.Stake.Nfts {
 		result := h.db.Exec(`
@@ -161,8 +161,8 @@ func (h *Handler) handleExecuteSquadStake(e *Message, execMsg *wasmtypes.MsgExec
 			SET 
 				locked_on = ?
 			FROM 
-				teritori_collections AS tc,
-				teritori_nfts AS tn 
+				furya_collections AS tc,
+				furya_nfts AS tn 
 			WHERE 
 				n.collection_id = tc.collection_id
 				AND tn.nft_id = n.id 
@@ -185,7 +185,7 @@ func (h *Handler) handleExecuteSquadUnstake(e *Message, execMsg *wasmtypes.MsgEx
 		return errors.New("no token_id")
 	}
 
-	userId := indexerdb.TeritoriUserID(execMsg.Sender)
+	userId := indexerdb.FuryaUserID(execMsg.Sender)
 
 	// Get current squad stakings
 	var squadStakings []indexerdb.P2eSquadStaking
@@ -259,8 +259,8 @@ func (h *Handler) handleExecuteSquadUnstake(e *Message, execMsg *wasmtypes.MsgEx
 			UPDATE nfts AS n
 			SET locked_on = NULL
 			FROM
-				teritori_collections AS tc,
-				teritori_nfts AS tn
+				furya_collections AS tc,
+				furya_nfts AS tn
 			WHERE
 				n.collection_id = tc.collection_id
 				AND tn.nft_id = n.id

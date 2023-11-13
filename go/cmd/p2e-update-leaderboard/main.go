@@ -10,9 +10,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
-	"github.com/TERITORI/teritori-dapp/go/pkg/contractutil"
-	"github.com/TERITORI/teritori-dapp/go/pkg/p2e"
+	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
+	"github.com/FURYA/furya-dapp/go/pkg/contractutil"
+	"github.com/FURYA/furya-dapp/go/pkg/p2e"
 	"github.com/go-co-op/gocron"
 	"github.com/peterbourgon/ff/v3"
 	"github.com/pkg/errors"
@@ -35,8 +35,8 @@ func sendRewardsList(seasonId string, leaderboard []indexerdb.P2eLeaderboard, ch
 
 	mnemonic := distributorMnemonic
 	funds := sdk.NewCoins()
-	prefix := "tori"
-	gasPrices := "0.025utori"
+	prefix := "furya"
+	gasPrices := "0.025ufury"
 	gasAdjustment := 1.3
 
 	distributorOwnerAddress := configData["owner"].(string)
@@ -57,7 +57,7 @@ func sendRewardsList(seasonId string, leaderboard []indexerdb.P2eLeaderboard, ch
 
 	rewardCoef := sdk.NewDec(1)
 	// Adjust rewards in testnet
-	if strings.HasPrefix(chainId, "teritori-testnet") {
+	if strings.HasPrefix(chainId, "furya-testnet") {
 		rewardCoef = sdk.NewDecWithPrec(1, 6)
 	}
 
@@ -156,8 +156,8 @@ func snapshotLeaderboard(seasonId string, db *gorm.DB) error {
 func main() {
 	fs := flag.NewFlagSet("p2e-update-leaderboard", flag.ContinueOnError)
 	var (
-		distributorContractAddress = fs.String("teritori-distributor-contract-address", "", "distributor contract address")
-		distributorOwnerMnemonic   = fs.String("teritori-distributor-owner-mnemonic", "", "mnemonic of the owner of distributor contract")
+		distributorContractAddress = fs.String("furya-distributor-contract-address", "", "distributor contract address")
+		distributorOwnerMnemonic   = fs.String("furya-distributor-owner-mnemonic", "", "mnemonic of the owner of distributor contract")
 		chainId                    = fs.String("public-chain-id", "", "public chain id")
 		rpcEndpoint                = fs.String("public-chain-rpc-endpoint", "", "public chain rpc endpoint")
 
@@ -208,7 +208,7 @@ func main() {
 	}
 
 	if *distributorOwnerMnemonic == "" {
-		panic(errors.New("distributor-owner-mnemonic is mandatory. You have to add TERITORI_DISTRIBUTOR_OWNER_MNEMONIC in .env for local testing (Don't commit this value on repo)"))
+		panic(errors.New("distributor-owner-mnemonic is mandatory. You have to add FURYA_DISTRIBUTOR_OWNER_MNEMONIC in .env for local testing (Don't commit this value on repo)"))
 	}
 
 	schedule := gocron.NewScheduler(time.UTC)

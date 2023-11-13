@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { TeritoriNameServiceQueryClient } from "../contracts-clients/teritori-name-service/TeritoriNameService.client";
+import { FuryaNameServiceQueryClient } from "../contracts-clients/furya-name-service/FuryaNameService.client";
 import { getNonSigningCosmWasmClient } from "../utils/keplr";
 import { Network } from "../utils/network";
 import { useSelectedNetworkInfo } from "./useSelectedNetwork";
@@ -24,14 +24,14 @@ export const useTNSMetadata = (address?: string) => {
 
       // NOTE: sometime, network changed before collections changed
       // so we have to check here one more time
-      if (!address.startsWith("tori")) return null;
+      if (!address.startsWith("furya")) return null;
 
       const contractAddress =
-        process.env.TERITORI_NAME_SERVICE_CONTRACT_ADDRESS || "";
+        process.env.FURYA_NAME_SERVICE_CONTRACT_ADDRESS || "";
       // We just want to read, so we use a non-signing client
       const cosmWasmClient = await getNonSigningCosmWasmClient();
 
-      const tnsClient = new TeritoriNameServiceQueryClient(
+      const tnsClient = new FuryaNameServiceQueryClient(
         cosmWasmClient,
         contractAddress
       );

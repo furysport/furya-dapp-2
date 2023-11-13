@@ -6,7 +6,7 @@ import { getNativeCurrency, getNetwork, WEI_TOKEN_ADDRESS } from "../networks";
 import { Balance } from "../utils/coins";
 import { getMetaMaskEthereumSigner } from "../utils/ethereum";
 import { Network } from "../utils/network";
-import { CosmosBalancesResponse } from "../utils/teritori";
+import { CosmosBalancesResponse } from "../utils/furya";
 import { useCoingeckoPrices } from "./useCoingeckoPrices";
 
 export const useBalances = (
@@ -79,7 +79,7 @@ const getNetworkBalances = async (
 
   // Support for cosmos balances
   else if (
-    network.network === Network.Teritori ||
+    network.network === Network.Furya ||
     network.network === Network.CosmosHub
   ) {
     const response = await fetch(

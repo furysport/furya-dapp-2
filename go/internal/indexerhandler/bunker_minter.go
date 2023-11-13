@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
-	"github.com/TERITORI/teritori-dapp/go/pkg/contracts/bunker_minter_types"
+	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
+	"github.com/FURYA/furya-dapp/go/pkg/contracts/bunker_minter_types"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -46,15 +46,15 @@ func (h *Handler) handleInstantiateBunker(e *Message, contractAddress string, in
 	}
 
 	// create collection
-	collectionId := indexerdb.TeritoriCollectionID(contractAddress)
+	collectionId := indexerdb.FuryaCollectionID(contractAddress)
 	if err := h.db.Create(&indexerdb.Collection{
 		ID:                  collectionId,
-		NetworkId:           "teritori", // FIXME: get from networks config
+		NetworkId:           "furya", // FIXME: get from networks config
 		Name:                minterInstantiateMsg.NftName,
 		ImageURI:            metadata.ImageURI,
 		MaxSupply:           maxSupply,
 		SecondaryDuringMint: secondaryDuringMint,
-		TeritoriCollection: &indexerdb.TeritoriCollection{
+		FuryaCollection: &indexerdb.FuryaCollection{
 			MintContractAddress: contractAddress,
 			NFTContractAddress:  nftAddr,
 			CreatorAddress:      instantiateMsg.Sender,
@@ -79,9 +79,9 @@ func (h *Handler) handleExecuteMintBunker(e *Message, collection *indexerdb.Coll
 		return errors.New("no recipients")
 	}
 	owner := recipients[0]
-	ownerId := indexerdb.TeritoriUserID(owner)
+	ownerId := indexerdb.FuryaUserID(owner)
 
-	nftId := indexerdb.TeritoriNFTID(collection.TeritoriCollection.MintContractAddress, tokenId)
+	nftId := indexerdb.FuryaNFTID(collection.FuryaCollection.MintContractAddress, tokenId)
 
 	var mintMsg ExecuteCW721MintMsg
 	if err := json.Unmarshal(execMsg.Msg, &mintMsg); err != nil {
@@ -99,7 +99,7 @@ func (h *Handler) handleExecuteMintBunker(e *Message, collection *indexerdb.Coll
 		ImageURI:     metadata.ImageURL,
 		CollectionID: collection.ID,
 		Attributes:   metadata.Attributes,
-		TeritoriNFT: &indexerdb.TeritoriNFT{
+		FuryaNFT: &indexerdb.FuryaNFT{
 			TokenID: tokenId,
 		},
 	}
@@ -117,7 +117,7 @@ func (h *Handler) handleExecuteMintBunker(e *Message, collection *indexerdb.Coll
 
 	// create mint activity
 	if err := h.db.Create(&indexerdb.Activity{
-		ID:   indexerdb.TeritoriActivityID(e.TxHash, e.MsgIndex),
+		ID:   indexerdb.FuryaActivityID(e.TxHash, e.MsgIndex),
 		Kind: indexerdb.ActivityKindMint,
 		Time: blockTime,
 		Mint: &indexerdb.Mint{
@@ -158,8 +158,8 @@ func (h *Handler) handleExecuteBunkerUpdateConfig(e *Message, execMsg *wasmtypes
 
 	if len(updates) != 0 {
 		if err := h.db.
-			Model(&indexerdb.TeritoriCollection{}).
-			Where("collection_id = ?", indexerdb.TeritoriCollectionID(execMsg.Contract)).
+			Model(&indexerdb.FuryaCollection{}).
+			Where("collection_id = ?", indexerdb.FuryaCollectionID(execMsg.Contract)).
 			UpdateColumns(updates).
 			Error; err != nil {
 			return errors.Wrap(err, "failed to update bunker creator")
@@ -173,7 +173,7 @@ func (h *Handler) handleExecuteBunkerUpdateConfig(e *Message, execMsg *wasmtypes
 func (h *Handler) handleExecuteBunkerPause(e *Message, execMsg *wasmtypes.MsgExecuteContract) error {
 	if err := h.db.
 		Model(&indexerdb.Collection{}).
-		Where("id = ?", indexerdb.TeritoriCollectionID(execMsg.Contract)).
+		Where("id = ?", indexerdb.FuryaCollectionID(execMsg.Contract)).
 		UpdateColumn("Paused", true).
 		Error; err != nil {
 		return errors.Wrap(err, "failed to pause bunker")
@@ -185,7 +185,7 @@ func (h *Handler) handleExecuteBunkerPause(e *Message, execMsg *wasmtypes.MsgExe
 func (h *Handler) handleExecuteBunkerUnpause(e *Message, execMsg *wasmtypes.MsgExecuteContract) error {
 	if err := h.db.
 		Model(&indexerdb.Collection{}).
-		Where("id = ?", indexerdb.TeritoriCollectionID(execMsg.Contract)).
+		Where("id = ?", indexerdb.FuryaCollectionID(execMsg.Contract)).
 		UpdateColumn("Paused", false).
 		Error; err != nil {
 		return errors.Wrap(err, "failed to unpause bunker")

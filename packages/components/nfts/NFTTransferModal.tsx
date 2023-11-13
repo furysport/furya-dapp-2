@@ -5,8 +5,8 @@ import { Image, StyleSheet, View } from "react-native";
 
 import { NFT } from "../../api/marketplace/v1/marketplace";
 import { useFeedbacks } from "../../context/FeedbacksProvider";
-import { TeritoriNftClient } from "../../contracts-clients/teritori-nft/TeritoriNft.client";
-import { TeritoriNft__factory } from "../../evm-contracts-clients/teritori-nft/TeritoriNft__factory";
+import { FuryaNftClient } from "../../contracts-clients/furya-nft/FuryaNft.client";
+import { FuryaNft__factory } from "../../evm-contracts-clients/furya-nft/FuryaNft__factory";
 import { useSelectedNetworkInfo } from "../../hooks/useSelectedNetwork";
 import useSelectedWallet from "../../hooks/useSelectedWallet";
 import { NetworkInfo } from "../../networks";
@@ -43,7 +43,7 @@ export const NFTTransferModal: React.FC<NFTTransferModalProps> = ({
   const { handleSubmit: formHandleSubmit, control } =
     useForm<NFTTransferForm>();
 
-  const teritoriSendNFT = async (
+  const furyaSendNFT = async (
     nftContractAddress: string,
     tokenId: string,
     sender: string,
@@ -59,7 +59,7 @@ export const NFTTransferModal: React.FC<NFTTransferModalProps> = ({
 
     // create client
     const signingComswasmClient = await getSigningCosmWasmClient();
-    const nftClient = new TeritoriNftClient(
+    const nftClient = new FuryaNftClient(
       signingComswasmClient,
       sender,
       nftContractAddress
@@ -84,7 +84,7 @@ export const NFTTransferModal: React.FC<NFTTransferModalProps> = ({
       throw Error("Unable to get signer");
     }
 
-    const nftClient = await TeritoriNft__factory.connect(
+    const nftClient = await FuryaNft__factory.connect(
       nftContractAddress,
       signer
     );
@@ -106,7 +106,7 @@ export const NFTTransferModal: React.FC<NFTTransferModalProps> = ({
 
       const nftPrefix = nft.id.split("-")[0] || "";
 
-      if (!["tori", "eth"].includes(nftPrefix)) {
+      if (!["furya", "eth"].includes(nftPrefix)) {
         throw Error(`Network not supported`);
       }
 
@@ -126,8 +126,8 @@ export const NFTTransferModal: React.FC<NFTTransferModalProps> = ({
 
       let sendNFTFunc: CallableFunction | null = null;
       switch (selectedNetwork) {
-        case Network.Teritori:
-          sendNFTFunc = teritoriSendNFT;
+        case Network.Furya:
+          sendNFTFunc = furyaSendNFT;
           break;
         case Network.Ethereum:
           sendNFTFunc = ethereumSendNFT;

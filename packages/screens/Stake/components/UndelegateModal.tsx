@@ -14,7 +14,7 @@ import { SpacerColumn, SpacerRow } from "../../../components/spacer";
 import { useFeedbacks } from "../../../context/FeedbacksProvider";
 import { useErrorHandler } from "../../../hooks/useErrorHandler";
 import useSelectedWallet from "../../../hooks/useSelectedWallet";
-import { useSelectedWalletBondedToris } from "../../../hooks/useSelectedWalletBondedToris";
+import { useSelectedWalletBondedFurys } from "../../../hooks/useSelectedWalletBondedFurys";
 import { prettyPrice } from "../../../utils/coins";
 import { getKeplrOfflineSigner } from "../../../utils/keplr";
 import {
@@ -30,10 +30,10 @@ import {
 } from "../../../utils/style/fonts";
 import { layout } from "../../../utils/style/layout";
 import {
-  getTeritoriSigningStargateClient,
-  toriCurrency,
-  toriDisplayDenom,
-} from "../../../utils/teritori";
+  getFuryaSigningStargateClient,
+  furyCurrency,
+  furyDisplayDenom,
+} from "../../../utils/furya";
 import { StakeFormValuesType, ValidatorInfo } from "../types";
 import { WarningBox } from "./WarningBox";
 
@@ -49,7 +49,7 @@ export const UndelegateModal: React.FC<UndelegateModalProps> = ({
   data,
 }) => {
   const wallet = useSelectedWallet();
-  const { bondedTokens, refreshBondedTokens } = useSelectedWalletBondedToris(
+  const { bondedTokens, refreshBondedTokens } = useSelectedWalletBondedFurys(
     data?.address
   );
   const { setToastError, setToastSuccess } = useFeedbacks();
@@ -88,16 +88,16 @@ export const UndelegateModal: React.FC<UndelegateModalProps> = ({
         return;
       }
       const signer = await getKeplrOfflineSigner();
-      const client = await getTeritoriSigningStargateClient(signer);
+      const client = await getFuryaSigningStargateClient(signer);
       const txResponse = await client.undelegateTokens(
         wallet.address,
         data.address,
         {
           amount: Decimal.fromUserInput(
             formData.amount,
-            toriCurrency.coinDecimals
+            furyCurrency.coinDecimals
           ).atomics,
-          denom: toriCurrency.coinMinimalDenom,
+          denom: furyCurrency.coinMinimalDenom,
         },
         "auto"
       );
@@ -125,7 +125,7 @@ export const UndelegateModal: React.FC<UndelegateModalProps> = ({
         <BrandText style={fontSemibold20}>Undelegate Tokens</BrandText>
         <SpacerColumn size={0.5} />
         <BrandText style={[styles.alternateText, fontSemibold16]}>
-          Select an amount of {toriDisplayDenom} to undelegate
+          Select an amount of {furyDisplayDenom} to undelegate
         </BrandText>
       </View>
     ),
@@ -170,7 +170,7 @@ export const UndelegateModal: React.FC<UndelegateModalProps> = ({
         <SpacerColumn size={2.5} />
         <WarningBox
           title="Undelegating will keep your funds locked for 21 days"
-          description={`Once you undelegate your staked ${toriDisplayDenom}, you will need to wait 21 days for your tokens to be liquid and you won't receive rewards during this time`}
+          description={`Once you undelegate your staked ${furyDisplayDenom}, you will need to wait 21 days for your tokens to be liquid and you won't receive rewards during this time`}
         />
         <SpacerColumn size={2.5} />
         <TextInputCustom<StakeFormValuesType>
@@ -188,7 +188,7 @@ export const UndelegateModal: React.FC<UndelegateModalProps> = ({
           label="Amount"
           control={control}
           placeHolder="0"
-          currency={toriCurrency}
+          currency={furyCurrency}
           defaultValue=""
           rules={{ required: true, max: bondedTokens.toString() }}
         >
@@ -207,9 +207,9 @@ export const UndelegateModal: React.FC<UndelegateModalProps> = ({
         <BrandText style={fontSemibold13}>
           Bonded tokens:{" "}
           {prettyPrice(
-            process.env.TERITORI_NETWORK_ID || "",
+            process.env.FURYA_NETWORK_ID || "",
             bondedTokens.atomics,
-            toriCurrency.coinMinimalDenom
+            furyCurrency.coinMinimalDenom
           )}
         </BrandText>
         <SpacerColumn size={2.5} />

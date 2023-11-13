@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
+	"github.com/FURYA/furya-dapp/go/internal/indexerdb"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )
@@ -57,9 +57,9 @@ func (h *Handler) handleExecuteSendNFTFallback(e *Message, execMsg *wasmtypes.Ms
 	// find nft id
 	var collection *indexerdb.Collection
 	findResult := h.db.
-		Preload("TeritoriCollection").
-		Joins("JOIN Teritori_collections ON Teritori_collections.collection_id = collections.id").
-		Where("Teritori_collections.nft_contract_address = ?", execMsg.Contract).
+		Preload("FuryaCollection").
+		Joins("JOIN Furya_collections ON Furya_collections.collection_id = collections.id").
+		Where("Furya_collections.nft_contract_address = ?", execMsg.Contract).
 		Find(&collection)
 	if err := findResult.
 		Error; err != nil {
@@ -69,12 +69,12 @@ func (h *Handler) handleExecuteSendNFTFallback(e *Message, execMsg *wasmtypes.Ms
 		h.logger.Debug("ignored send_nft on unknown collection")
 		return nil
 	}
-	if collection.TeritoriCollection == nil {
-		return errors.New("no teritori info on collection")
+	if collection.FuryaCollection == nil {
+		return errors.New("no furya info on collection")
 	}
-	nftId := indexerdb.TeritoriNFTID(collection.TeritoriCollection.MintContractAddress, tokenId)
+	nftId := indexerdb.FuryaNFTID(collection.FuryaCollection.MintContractAddress, tokenId)
 
-	receiverID := indexerdb.TeritoriUserID(sendNFTMsg.Data.Contract)
+	receiverID := indexerdb.FuryaUserID(sendNFTMsg.Data.Contract)
 
 	// update owner in db
 	if err := h.db.Model(&indexerdb.NFT{ID: nftId}).UpdateColumn("owner_id", receiverID).Error; err != nil {
@@ -89,11 +89,11 @@ func (h *Handler) handleExecuteSendNFTFallback(e *Message, execMsg *wasmtypes.Ms
 
 	// create send activity
 	if err := h.db.Create(&indexerdb.Activity{
-		ID:   indexerdb.TeritoriActivityID(e.TxHash, e.MsgIndex),
+		ID:   indexerdb.FuryaActivityID(e.TxHash, e.MsgIndex),
 		Kind: indexerdb.ActivityKindSendNFT,
 		Time: blockTime,
 		SendNFT: &indexerdb.SendNFT{
-			Sender:   indexerdb.TeritoriUserID(execMsg.Sender),
+			Sender:   indexerdb.FuryaUserID(execMsg.Sender),
 			Receiver: receiverID,
 		},
 		NFTID: nftId,
@@ -110,9 +110,9 @@ func (h *Handler) handleExecuteBurn(e *Message, execMsg *wasmtypes.MsgExecuteCon
 	// get collection
 	var collection indexerdb.Collection
 	r := h.db.
-		Preload("TeritoriCollection").
-		Joins("JOIN Teritori_collections ON Teritori_collections.collection_id = collections.id").
-		Where("Teritori_collections.nft_contract_address = ?", contractAddress).
+		Preload("FuryaCollection").
+		Joins("JOIN Furya_collections ON Furya_collections.collection_id = collections.id").
+		Where("Furya_collections.nft_contract_address = ?", contractAddress).
 		Find(&collection)
 	if err := r.
 		Error; err != nil {
@@ -122,8 +122,8 @@ func (h *Handler) handleExecuteBurn(e *Message, execMsg *wasmtypes.MsgExecuteCon
 		h.logger.Debug("ignored burn on unknown collection", zap.String("contract-address", contractAddress))
 		return nil
 	}
-	if collection.TeritoriCollection == nil {
-		return errors.New("no teritori info on collection")
+	if collection.FuryaCollection == nil {
+		return errors.New("no furya info on collection")
 	}
 
 	// FIXME: analyze exec msg
@@ -136,7 +136,7 @@ func (h *Handler) handleExecuteBurn(e *Message, execMsg *wasmtypes.MsgExecuteCon
 	tokenId := tokenIds[0]
 
 	// delete
-	nftId := indexerdb.TeritoriNFTID(collection.TeritoriCollection.MintContractAddress, tokenId)
+	nftId := indexerdb.FuryaNFTID(collection.FuryaCollection.MintContractAddress, tokenId)
 	if err := h.db.Model(&indexerdb.NFT{}).Where(&indexerdb.NFT{ID: nftId}).UpdateColumn("burnt", true).Error; err != nil {
 		return errors.Wrap(err, "failed to delete nft")
 	}
@@ -149,11 +149,11 @@ func (h *Handler) handleExecuteBurn(e *Message, execMsg *wasmtypes.MsgExecuteCon
 
 	// create activity
 	if err := h.db.Create(&indexerdb.Activity{
-		ID:   indexerdb.TeritoriActivityID(e.TxHash, e.MsgIndex),
+		ID:   indexerdb.FuryaActivityID(e.TxHash, e.MsgIndex),
 		Kind: indexerdb.ActivityKindBurn,
 		Time: blockTime,
 		Burn: &indexerdb.Burn{
-			BurnerID: indexerdb.TeritoriUserID(execMsg.Sender),
+			BurnerID: indexerdb.FuryaUserID(execMsg.Sender),
 		},
 		NFTID: nftId,
 	}).Error; err != nil {
@@ -180,9 +180,9 @@ func (h *Handler) handleExecuteTransferNFT(e *Message, execMsg *wasmtypes.MsgExe
 	// get collection
 	var collection indexerdb.Collection
 	r := h.db.
-		Preload("TeritoriCollection").
-		Joins("JOIN Teritori_collections ON Teritori_collections.collection_id = collections.id").
-		Where("Teritori_collections.nft_contract_address = ?", contractAddress).
+		Preload("FuryaCollection").
+		Joins("JOIN Furya_collections ON Furya_collections.collection_id = collections.id").
+		Where("Furya_collections.nft_contract_address = ?", contractAddress).
 		Find(&collection)
 	if err := r.
 		Error; err != nil {
@@ -192,8 +192,8 @@ func (h *Handler) handleExecuteTransferNFT(e *Message, execMsg *wasmtypes.MsgExe
 		h.logger.Debug("ignored burn on unknown collection", zap.String("contract-address", contractAddress))
 		return nil
 	}
-	if collection.TeritoriCollection == nil {
-		return errors.New("no teritori info on collection")
+	if collection.FuryaCollection == nil {
+		return errors.New("no furya info on collection")
 	}
 
 	// get msg
@@ -202,10 +202,10 @@ func (h *Handler) handleExecuteTransferNFT(e *Message, execMsg *wasmtypes.MsgExe
 		return errors.Wrap(err, "failed to un marshal msg")
 	}
 
-	receiverID := indexerdb.TeritoriUserID(msg.Data.Recipient)
+	receiverID := indexerdb.FuryaUserID(msg.Data.Recipient)
 
 	// update owner in db
-	nftId := indexerdb.TeritoriNFTID(collection.TeritoriCollection.MintContractAddress, msg.Data.TokenID)
+	nftId := indexerdb.FuryaNFTID(collection.FuryaCollection.MintContractAddress, msg.Data.TokenID)
 	if err := h.db.Model(&indexerdb.NFT{ID: nftId}).UpdateColumn("owner_id", receiverID).Error; err != nil {
 		return errors.Wrap(err, "failed to updated owner in db")
 	}
@@ -218,11 +218,11 @@ func (h *Handler) handleExecuteTransferNFT(e *Message, execMsg *wasmtypes.MsgExe
 
 	// create transfer activity
 	if err := h.db.Create(&indexerdb.Activity{
-		ID:   indexerdb.TeritoriActivityID(e.TxHash, e.MsgIndex),
+		ID:   indexerdb.FuryaActivityID(e.TxHash, e.MsgIndex),
 		Kind: indexerdb.ActivityKindTransferNFT,
 		Time: blockTime,
 		TransferNFT: &indexerdb.TransferNFT{
-			Sender:   indexerdb.TeritoriUserID(execMsg.Sender),
+			Sender:   indexerdb.FuryaUserID(execMsg.Sender),
 			Receiver: receiverID,
 		},
 		NFTID: nftId,

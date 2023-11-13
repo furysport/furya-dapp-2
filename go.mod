@@ -1,4 +1,4 @@
-module github.com/TERITORI/teritori-dapp
+module github.com/FURYA/furya-dapp
 
 go 1.18
 

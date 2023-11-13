@@ -21,7 +21,7 @@ export const Wallets: React.FC = () => {
   if (selectedWallet) {
     switch (selectedWallet.provider) {
       case WalletProvider.Keplr:
-        title = WalletTitle.Teritori;
+        title = WalletTitle.Furya;
         break;
       case WalletProvider.Metamask:
         title = WalletTitle.Ethereum;

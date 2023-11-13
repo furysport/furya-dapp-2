@@ -18,7 +18,7 @@ export const useRippers = () => {
   const selectedNetworkId = useSelectedNetworkId();
 
   const nftReq = {
-    ownerId: selectedWallet?.address ? `tori-${selectedWallet.address}` : "",
+    ownerId: selectedWallet?.address ? `furya-${selectedWallet.address}` : "",
     networkId: selectedNetworkId,
     limit: 1000,
     offset: 0,
@@ -28,12 +28,12 @@ export const useRippers = () => {
 
   // Support squad stake for rioter NFT + their child
   const myRippersRequest: NFTsRequest = {
-    collectionId: `tori-${THE_RIOT_COLLECTION_ADDRESS}`,
+    collectionId: `furya-${THE_RIOT_COLLECTION_ADDRESS}`,
     ...nftReq,
   };
 
   const myRipperChildsRequest: NFTsRequest = {
-    collectionId: `tori-${THE_RIOT_BREEDING_CONTRACT_ADDRESS}`,
+    collectionId: `furya-${THE_RIOT_BREEDING_CONTRACT_ADDRESS}`,
     ...nftReq,
   };
 

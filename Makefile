@@ -1,26 +1,26 @@
-CANDYMACHINE_REPO=teritori-nfts
-BUNKER_MINTER_PACKAGE=teritori-bunker-minter
+CANDYMACHINE_REPO=furya-nfts
+BUNKER_MINTER_PACKAGE=furya-bunker-minter
 
-TOKEN_REPO=teritori-nfts
-TOKEN_PACKAGE=teritori-nft
-SQUAD_STAKING_PACKAGE=teritori-squad-staking
-BREEDING_PACKAGE=teritori-breeding
-DISTRIBUTOR_PACKAGE=teritori-distributor
+TOKEN_REPO=furya-nfts
+TOKEN_PACKAGE=furya-nft
+SQUAD_STAKING_PACKAGE=furya-squad-staking
+BREEDING_PACKAGE=furya-breeding
+DISTRIBUTOR_PACKAGE=furya-distributor
 
-NAME_SERVICE_REPO=teritori-name-service
-NAME_SERVICE_PACKAGE=teritori-name-service
+NAME_SERVICE_REPO=furya-name-service
+NAME_SERVICE_PACKAGE=furya-name-service
 
 RIOTER_FOOTER_REPO=rioters-footer-nft
 RIOTER_FOOTER_PACKAGE=rioter-footer-nft
 
-VAULT_REPO=teritori-vault
-VAULT_PACKAGE=teritori-nft-vault
+VAULT_REPO=furya-vault
+VAULT_PACKAGE=furya-nft-vault
 
 CONTRACTS_CLIENTS_DIR=packages/contracts-clients
 
-DOCKER_REGISTRY=rg.nl-ams.scw.cloud/teritori
-INDEXER_DOCKER_IMAGE=$(DOCKER_REGISTRY)/teritori-indexer:$(shell git rev-parse --short HEAD)
-BACKEND_DOCKER_IMAGE=$(DOCKER_REGISTRY)/teritori-dapp-backend:$(shell git rev-parse --short HEAD)
+DOCKER_REGISTRY=rg.nl-ams.scw.cloud/furya
+INDEXER_DOCKER_IMAGE=$(DOCKER_REGISTRY)/furya-indexer:$(shell git rev-parse --short HEAD)
+BACKEND_DOCKER_IMAGE=$(DOCKER_REGISTRY)/furya-dapp-backend:$(shell git rev-parse --short HEAD)
 PRICES_SERVICE_DOCKER_IMAGE=$(DOCKER_REGISTRY)/prices-service:$(shell git rev-parse --short HEAD)
 PRICES_OHLC_REFRESH_DOCKER_IMAGE=$(DOCKER_REGISTRY)/prices-ohlc-refresh:$(shell git rev-parse --short HEAD)
 P2E_DOCKER_IMAGE=$(DOCKER_REGISTRY)/p2e-update-leaderboard:$(shell git rev-parse --short HEAD)
@@ -43,7 +43,7 @@ generate.graphql:
 	go run github.com/Khan/genqlient@85e2e8dffd211c83a2be626474993ef68e44a242 go/pkg/holagql/genqlient.yaml
 
 generate.graphql-thegraph:
-	rover graph introspect https://api.studio.thegraph.com/query/40379/teritori-mainnet/v1 > go/pkg/thegraph/thegraph-schema.graphql
+	rover graph introspect https://api.studio.thegraph.com/query/40379/furya-mainnet/v1 > go/pkg/thegraph/thegraph-schema.graphql
 	go run github.com/Khan/genqlient@85e2e8dffd211c83a2be626474993ef68e44a242 go/pkg/thegraph/genqlient.yaml
 
 .PHONY: lint
@@ -57,7 +57,7 @@ go/pkg/holagql/holaplex-schema.graphql:
 
 .PHONY: docker.backend
 docker.backend:
-	docker build . -f go/cmd/teritori-dapp-backend/Dockerfile -t teritori/teritori-dapp-backend:$(shell git rev-parse --short HEAD)
+	docker build . -f go/cmd/furya-dapp-backend/Dockerfile -t furya/furya-dapp-backend:$(shell git rev-parse --short HEAD)
 
 .PHONY: generate.contracts-clients
 generate.contracts-clients: $(CONTRACTS_CLIENTS_DIR)/$(BUNKER_MINTER_PACKAGE) $(CONTRACTS_CLIENTS_DIR)/$(NAME_SERVICE_PACKAGE) $(CONTRACTS_CLIENTS_DIR)/$(RIOTER_FOOTER_PACKAGE) $(CONTRACTS_CLIENTS_DIR)/$(TOKEN_PACKAGE) $(CONTRACTS_CLIENTS_DIR)/$(VAULT_PACKAGE)
@@ -70,7 +70,7 @@ generate.go-networks: node_modules
 .PHONY: $(CONTRACTS_CLIENTS_DIR)/$(BUNKER_MINTER_PACKAGE)
 $(CONTRACTS_CLIENTS_DIR)/$(BUNKER_MINTER_PACKAGE): node_modules
 	rm -fr $(CANDYMACHINE_REPO)
-	git clone git@github.com:TERITORI/$(CANDYMACHINE_REPO).git
+	git clone git@github.com:FURYA/$(CANDYMACHINE_REPO).git
 	cd $(CANDYMACHINE_REPO) && git checkout 61028f26c8ca2662bab39eff23f28c322d1aa60e
 	rm -fr $@
 	npx cosmwasm-ts-codegen generate \
@@ -87,7 +87,7 @@ $(CONTRACTS_CLIENTS_DIR)/$(BUNKER_MINTER_PACKAGE): node_modules
 .PHONY: $(CONTRACTS_CLIENTS_DIR)/$(NAME_SERVICE_PACKAGE)
 $(CONTRACTS_CLIENTS_DIR)/$(NAME_SERVICE_PACKAGE): node_modules
 	rm -fr $(NAME_SERVICE_REPO)
-	git clone git@github.com:TERITORI/$(NAME_SERVICE_REPO).git
+	git clone git@github.com:FURYA/$(NAME_SERVICE_REPO).git
 	cd $(NAME_SERVICE_REPO) && git checkout 1a03f93e9d7b96712a7a2585a079cbe97e384724
 	rm -fr $@
 	npx cosmwasm-ts-codegen generate \
@@ -104,7 +104,7 @@ $(CONTRACTS_CLIENTS_DIR)/$(NAME_SERVICE_PACKAGE): node_modules
 .PHONY: $(CONTRACTS_CLIENTS_DIR)/$(RIOTER_FOOTER_PACKAGE)
 $(CONTRACTS_CLIENTS_DIR)/$(RIOTER_FOOTER_PACKAGE): node_modules
 	rm -fr $(RIOTER_FOOTER_REPO)
-	git clone git@github.com:TERITORI/$(RIOTER_FOOTER_REPO).git
+	git clone git@github.com:FURYA/$(RIOTER_FOOTER_REPO).git
 	cd $(RIOTER_FOOTER_REPO) && git checkout e5a5b22cc3e72e09df6b4642d62dc21d99ca34c3
 	rm -fr $@
 	npx cosmwasm-ts-codegen generate \
@@ -118,7 +118,7 @@ $(CONTRACTS_CLIENTS_DIR)/$(RIOTER_FOOTER_PACKAGE): node_modules
 .PHONY: $(CONTRACTS_CLIENTS_DIR)/$(TOKEN_PACKAGE)
 $(CONTRACTS_CLIENTS_DIR)/$(TOKEN_PACKAGE): node_modules
 	rm -fr $(TOKEN_REPO)
-	git clone git@github.com:TERITORI/$(TOKEN_REPO).git
+	git clone git@github.com:FURYA/$(TOKEN_REPO).git
 	cd $(TOKEN_REPO) && git checkout c368eba82348c0f9cc538cee7401bcf673847dcc
 	rm -fr $@
 	npx cosmwasm-ts-codegen generate \
@@ -132,7 +132,7 @@ $(CONTRACTS_CLIENTS_DIR)/$(TOKEN_PACKAGE): node_modules
 .PHONY: $(CONTRACTS_CLIENTS_DIR)/$(DISTRIBUTOR_PACKAGE)
 $(CONTRACTS_CLIENTS_DIR)/$(DISTRIBUTOR_PACKAGE): node_modules
 	rm -fr $(TOKEN_REPO)
-	git clone git@github.com:TERITORI/$(TOKEN_REPO).git
+	git clone git@github.com:FURYA/$(TOKEN_REPO).git
 	cd $(TOKEN_REPO) && git checkout 61028f26c8ca2662bab39eff23f28c322d1aa60e
 	rm -fr $@
 	npx cosmwasm-ts-codegen generate \
@@ -146,7 +146,7 @@ $(CONTRACTS_CLIENTS_DIR)/$(DISTRIBUTOR_PACKAGE): node_modules
 .PHONY: $(CONTRACTS_CLIENTS_DIR)/$(SQUAD_STAKING_PACKAGE)
 $(CONTRACTS_CLIENTS_DIR)/$(SQUAD_STAKING_PACKAGE): node_modules
 	rm -fr $(TOKEN_REPO)
-	git clone git@github.com:TERITORI/$(TOKEN_REPO).git
+	git clone git@github.com:FURYA/$(TOKEN_REPO).git
 	cd $(TOKEN_REPO) && git checkout afacbd6e9ad9561f98fd7e0eaa5580c916fda276
 	rm -fr $@
 	npx cosmwasm-ts-codegen generate \
@@ -160,7 +160,7 @@ $(CONTRACTS_CLIENTS_DIR)/$(SQUAD_STAKING_PACKAGE): node_modules
 .PHONY: $(CONTRACTS_CLIENTS_DIR)/$(BREEDING_PACKAGE)
 $(CONTRACTS_CLIENTS_DIR)/$(BREEDING_PACKAGE): node_modules
 	rm -fr $(CANDYMACHINE_REPO)
-	git clone git@github.com:TERITORI/$(CANDYMACHINE_REPO).git
+	git clone git@github.com:FURYA/$(CANDYMACHINE_REPO).git
 	cd $(CANDYMACHINE_REPO) && git checkout 26e37212a24d8e9e4b52af3c8f0ec3837633732c
 	rm -fr $@
 	npx cosmwasm-ts-codegen generate \
@@ -177,7 +177,7 @@ $(CONTRACTS_CLIENTS_DIR)/$(BREEDING_PACKAGE): node_modules
 .PHONY: $(CONTRACTS_CLIENTS_DIR)/$(VAULT_PACKAGE)
 $(CONTRACTS_CLIENTS_DIR)/$(VAULT_PACKAGE): node_modules
 	rm -fr $(VAULT_REPO)
-	git clone git@github.com:TERITORI/$(VAULT_REPO).git
+	git clone git@github.com:FURYA/$(VAULT_REPO).git
 	cd $(VAULT_REPO) && git checkout 75a692533b9188587ebfa909c5576376b8d65999
 	rm -fr $@
 	npx cosmwasm-ts-codegen generate \
@@ -195,11 +195,11 @@ run.candymachine: node_modules
 	npx ts-node packages/candymachine/cli.ts
 
 publish.backend:
-	docker build -f go/cmd/teritori-dapp-backend/Dockerfile .  --platform amd64 -t $(BACKEND_DOCKER_IMAGE)
+	docker build -f go/cmd/furya-dapp-backend/Dockerfile .  --platform amd64 -t $(BACKEND_DOCKER_IMAGE)
 	docker push $(BACKEND_DOCKER_IMAGE)
 
 publish.indexer:
-	docker build -f go/cmd/teritori-indexer/Dockerfile . --platform amd64 -t $(INDEXER_DOCKER_IMAGE)
+	docker build -f go/cmd/furya-indexer/Dockerfile . --platform amd64 -t $(INDEXER_DOCKER_IMAGE)
 	docker push $(INDEXER_DOCKER_IMAGE)
 
 publish.prices-service:

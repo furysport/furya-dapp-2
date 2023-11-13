@@ -37,7 +37,7 @@ export const LegalFooter: React.FC = ({ children }) => {
             { color: neutral77, marginLeft: layout.padding_x1_5 },
           ]}
         >
-          2022 Teritori
+          2022 Furya
         </BrandText>
       </View>
 
@@ -54,7 +54,7 @@ export const LegalFooter: React.FC = ({ children }) => {
       >
         <ExternalLink
           gradientType="gray"
-          externalUrl="https://teritori.notion.site/Important-Notice-74e66ded18164023b80602b17b284d93"
+          externalUrl="https://furya.notion.site/Important-Notice-74e66ded18164023b80602b17b284d93"
           style={[
             fontSemibold14,
             {
@@ -68,7 +68,7 @@ export const LegalFooter: React.FC = ({ children }) => {
 
         <ExternalLink
           gradientType="gray"
-          externalUrl="https://teritori.notion.site/Privacy-Policy-16e2332744d346db9b78909a91cb44e3"
+          externalUrl="https://furya.notion.site/Privacy-Policy-16e2332744d346db9b78909a91cb44e3"
           style={[
             fontSemibold14,
             {
@@ -82,7 +82,7 @@ export const LegalFooter: React.FC = ({ children }) => {
 
         <ExternalLink
           gradientType="gray"
-          externalUrl="https://teritori.notion.site/Terms-Conditions-6007160a0c74472cbb75a07bdfdd5f73"
+          externalUrl="https://furya.notion.site/Terms-Conditions-6007160a0c74472cbb75a07bdfdd5f73"
           style={[fontSemibold14, { textDecorationLine: "none" }]}
           numberOfLines={1}
         >
