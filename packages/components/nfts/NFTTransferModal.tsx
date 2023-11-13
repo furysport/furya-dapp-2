@@ -5,8 +5,8 @@ import { Image, StyleSheet, View } from "react-native";
 
 import { NFT } from "../../api/marketplace/v1/marketplace";
 import { useFeedbacks } from "../../context/FeedbacksProvider";
-import { TeritoriBunkerMinterQueryClient } from "../../contracts-clients/teritori-bunker-minter/TeritoriBunkerMinter.client";
-import { TeritoriNftClient } from "../../contracts-clients/teritori-nft/TeritoriNft.client";
+import { FuryaBunkerMinterQueryClient } from "../../contracts-clients/furya-bunker-minter/FuryaBunkerMinter.client";
+import { FuryaNftClient } from "../../contracts-clients/furya-nft/FuryaNft.client";
 import useSelectedWallet from "../../hooks/useSelectedWallet";
 import { getNetwork } from "../../networks";
 import {
@@ -30,7 +30,7 @@ interface NFTTransferModalProps {
   onSubmit: (form: NFTTransferForm) => void;
 }
 
-const network = getNetwork(process.env.TERITORI_NETWORK_ID);
+const network = getNetwork(process.env.FURYA_NETWORK_ID);
 
 export const NFTTransferModal: React.FC<NFTTransferModalProps> = ({
   isVisible,
@@ -45,7 +45,7 @@ export const NFTTransferModal: React.FC<NFTTransferModalProps> = ({
 
   const handleSubmit: SubmitHandler<NFTTransferForm> = async (formValues) => {
     try {
-      // check that it's a teritori nft
+      // check that it's a furyaa nft
       if (!nft?.id.startsWith("tori-")) {
         setToastError({
           title: "Internal error",
@@ -101,12 +101,12 @@ export const NFTTransferModal: React.FC<NFTTransferModalProps> = ({
       // get nft contract address
       let nftContractAddress;
       if (
-        contractAddress === process.env.TERITORI_NAME_SERVICE_CONTRACT_ADDRESS
+        contractAddress === process.env.FURYA_NAME_SERVICE_CONTRACT_ADDRESS
       ) {
         nftContractAddress = contractAddress;
       } else {
         const comswasmClient = await getNonSigningCosmWasmClient();
-        const bunkerClient = new TeritoriBunkerMinterQueryClient(
+        const bunkerClient = new FuryaBunkerMinterQueryClient(
           comswasmClient,
           contractAddress
         );
@@ -116,7 +116,7 @@ export const NFTTransferModal: React.FC<NFTTransferModalProps> = ({
 
       // create client
       const signingComswasmClient = await getSigningCosmWasmClient();
-      const nftClient = new TeritoriNftClient(
+      const nftClient = new FuryaNftClient(
         signingComswasmClient,
         sender,
         nftContractAddress

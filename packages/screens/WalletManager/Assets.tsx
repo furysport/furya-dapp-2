@@ -159,7 +159,7 @@ export const Assets: React.FC<{ networkId: string; balances: Balance[] }> = ({
                 >
                   <BrandText>
                     {prettyPrice(
-                      process.env.TERITORI_NETWORK_ID || "",
+                      process.env.FURYA_NETWORK_ID || "",
                       balance?.amount || "0",
                       currency.denom
                     )}

@@ -167,7 +167,7 @@ export const SocialThreadCard: React.FC<{
                   },
                 ]}
               >
-                @gnopunks.teritori
+                @gnopunks.furya
               </BrandText>
             </View>
 
@@ -176,7 +176,7 @@ export const SocialThreadCard: React.FC<{
 
           <BrandText style={[fontSemibold13, { color: neutralA3 }]}>
             {"Hey guys! 🔥\n" +
-              "We just launched our own TERITORI ! Welcome on board to all friends & thanks to all amazing ecosystem builders that joined forces from all networks to build this amazing inter-tribes home! So proud to be the first allowed to post this censorship resistant message!\n" +
+              "We just launched our own FURYA ! Welcome on board to all friends & thanks to all amazing ecosystem builders that joined forces from all networks to build this amazing inter-tribes home! So proud to be the first allowed to post this censorship resistant message!\n" +
               "So excited to go forward all together, let’s build together! Feel free to check our Bounty Program in our header! 🔥\n\n" +
               "#first #post #helloworld "}
           </BrandText>

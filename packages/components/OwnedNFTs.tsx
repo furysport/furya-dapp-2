@@ -25,7 +25,7 @@ export const OwnedNFTs: React.FC<{
   const [collections] = useCollections({
     limit: 100,
     offset: 0,
-    kind: CollectionsRequest_Kind.KIND_TERITORI_FEATURES,
+    kind: CollectionsRequest_Kind.KIND_FURYA_FEATURES,
   }); // FIXME: add owner filter and pagination
 
   if (!collections?.length && EmptyListComponent) {

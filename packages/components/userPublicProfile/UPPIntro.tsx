@@ -3,11 +3,11 @@ import { Image, Linking, useWindowDimensions, View } from "react-native";
 
 import defaultUserProfileBannerPNG from "../../../assets/default-images/default-user-profile-banner.png";
 import discordSVG from "../../../assets/icons/discord.svg";
-import teritoriSVG from "../../../assets/icons/networks/teritori.svg";
+import furyaaSVG from "../../../assets/icons/networks/furya.svg";
 import shareSVG from "../../../assets/icons/share.svg";
 import twitterSVG from "../../../assets/icons/twitter.svg";
 import websiteSVG from "../../../assets/icons/website.svg";
-import { Metadata } from "../../contracts-clients/teritori-name-service/TeritoriNameService.types";
+import { Metadata } from "../../contracts-clients/furyaa-name-service/FuryaNameService.types";
 import { ipfsURLToHTTPURL } from "../../utils/ipfs";
 import { neutral77, withAlpha } from "../../utils/style/colors";
 import { fontSemibold14, fontSemibold20 } from "../../utils/style/fonts";
@@ -176,7 +176,7 @@ export const UPPIntro: React.FC<{
           <CopyToClipboardSecondary
             displayedText={tinyAddress(userId.replace("tori-", ""), 19)}
             text={userId.replace("tori-", "")}
-            iconSVG={teritoriSVG}
+            iconSVG={furyaaSVG}
           />
         </TertiaryBox>
       </View>

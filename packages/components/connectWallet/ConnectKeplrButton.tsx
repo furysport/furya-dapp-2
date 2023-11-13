@@ -23,14 +23,14 @@ export const ConnectKeplrButton: React.FC<{
         );
         return;
       }
-      const teritoriNetworkId = process.env.TERITORI_NETWORK_ID;
-      if (!teritoriNetworkId) {
-        console.error("no teritori network id");
+      const furyaNetworkId = process.env.FURYA_NETWORK_ID;
+      if (!furyaNetworkId) {
+        console.error("no furya network id");
         return;
       }
-      const network = getNetwork(teritoriNetworkId);
+      const network = getNetwork(furyaNetworkId);
       if (!network) {
-        console.error(`no ${teritoriNetworkId} network`);
+        console.error(`no ${furyaNetworkId} network`);
         return;
       }
       await keplr.experimentalSuggestChain(

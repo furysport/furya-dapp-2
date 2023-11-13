@@ -9,8 +9,8 @@ import junoSVG from "../../../assets/icons/networks/juno.svg";
 import osmosisSVG from "../../../assets/icons/networks/osmosis.svg";
 import solanaCircleSVG from "../../../assets/icons/networks/solana-circle.svg";
 import solanaSVG from "../../../assets/icons/networks/solana.svg";
-import teritoriCircleSVG from "../../../assets/icons/networks/teritori-circle.svg";
-import teritoriSVG from "../../../assets/icons/networks/teritori.svg";
+import furyaCircleSVG from "../../../assets/icons/networks/furya-circle.svg";
+import furyaSVG from "../../../assets/icons/networks/furya.svg";
 import { Network } from "../../utils/network";
 import { SVG } from "../SVG";
 
@@ -28,12 +28,12 @@ export const NetworkIcon: React.FC<{
           source={circle ? solanaCircleSVG : solanaSVG}
         />
       );
-    case Network.Teritori:
+    case Network.Furya:
       return (
         <SVG
           width={size}
           height={size}
-          source={circle ? teritoriCircleSVG : teritoriSVG}
+          source={circle ? furyaCircleSVG : furyaSVG}
         />
       );
     case Network.Atom:

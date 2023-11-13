@@ -10,7 +10,7 @@ export interface Balance {
 }
 
 export const decimalFromAtomics = (value: string, denom: string) => {
-  const currency = getNativeCurrency(process.env.TERITORI_NETWORK_ID, denom);
+  const currency = getNativeCurrency(process.env.FURYA_NETWORK_ID, denom);
   if (currency) {
     return Decimal.fromAtomics(value, currency.decimals);
   }

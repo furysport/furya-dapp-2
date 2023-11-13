@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/TERITORI/teritori-dapp/go/pkg/marketplacepb"
+	"github.com/furysport/furya-dapp-2/go/pkg/marketplacepb"
 	faker "github.com/bxcodec/faker/v3"
 	"github.com/pkg/errors"
 )

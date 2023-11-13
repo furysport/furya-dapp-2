@@ -9,15 +9,15 @@ import { stdin, stdout } from "node:process";
 import path from "path";
 import readline, { Interface as ReadlineInterface } from "readline";
 
-import { TeritoriBunkerMinterClient } from "../contracts-clients/teritori-bunker-minter/TeritoriBunkerMinter.client";
-import { InstantiateMsg } from "../contracts-clients/teritori-bunker-minter/TeritoriBunkerMinter.types";
+import { FuryaBunkerMinterClient } from "../contracts-clients/furya-bunker-minter/FuryaBunkerMinter.client";
+import { InstantiateMsg } from "../contracts-clients/furya-bunker-minter/FuryaBunkerMinter.types";
 import { nftStorageUpload } from "./nft-storage-upload";
 import { pinataUpload } from "./pinata-upload";
 import { StorageResult } from "./storage";
 
 // based on https://github.com/public-awesome/stargaze-tools
 
-const rpcEndpoint = "https://rpc.testnet.teritori.com";
+const rpcEndpoint = "https://rpc.testnet.furya.com";
 const minterCodeID = 21;
 const tokenCodeID = 20;
 
@@ -37,7 +37,7 @@ const main = async () => {
   const client = await SigningCosmWasmClient.connectWithSigner(
     rpcEndpoint,
     wallet,
-    { gasPrice: new GasPrice(Decimal.fromUserInput("0.025", 6), "utori") }
+    { gasPrice: new GasPrice(Decimal.fromUserInput("0.025", 6), "ufury") }
   );
 
   const accounts = await wallet.getAccounts();
@@ -111,7 +111,7 @@ const main = async () => {
 
   console.log(reply);
 
-  const minterClient = new TeritoriBunkerMinterClient(
+  const minterClient = new FuryaBunkerMinterClient(
     client,
     account.address,
     reply.contractAddress
@@ -130,7 +130,7 @@ const main = async () => {
   console.log(startMintReply);
 
   console.log(
-    `✅ Mint started!\nVisit https://testitori.netlify.app/launchpad/collection/${reply.contractAddress}/mint to see your collection live`
+    `✅ Mint started!\nVisit https://testfury.netlify.app/launchpad/collection/${reply.contractAddress}/mint to see your collection live`
   );
 
   rl.close();

@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/TERITORI/teritori-dapp/go/pkg/marketplacepb"
+	"github.com/furysport/furya-dapp-2/go/pkg/marketplacepb"
 	"github.com/mehanizm/airtable"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"

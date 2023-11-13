@@ -8,7 +8,7 @@ import {
 } from "../../../utils/style/colors";
 import { fontSemibold12, fontSemibold16 } from "../../../utils/style/fonts";
 import { modalMarginPadding } from "../../../utils/style/modals";
-import { txExplorerLink } from "../../../utils/teritori";
+import { txExplorerLink } from "../../../utils/furya";
 import { BrandText } from "../../BrandText";
 import { CopyToClipboardIcon } from "../../CopyToClipboardIcon";
 import { ExternalLink } from "../../ExternalLink";

@@ -60,7 +60,7 @@ const Content: React.FC<{
     collectionId: id,
     ownerId:
       selectedTab === "owned" && wallet?.address
-        ? `tori-${wallet.address}`
+        ? `furya-${wallet.address}`
         : "",
     limit: alignDown(20, numColumns) || numColumns,
     offset: 0,
@@ -104,7 +104,7 @@ const Header: React.FC<{
   // variables
   const stats = useCollectionStats(
     collectionId,
-    wallet ? `tori-${wallet.address}` : undefined
+    wallet ? `furya-${wallet.address}` : undefined
   );
   const { width: maxWidth } = useMaxResolution();
   const { width, height } = useImageResizer({
@@ -112,7 +112,7 @@ const Header: React.FC<{
     maxSize: { width: maxWidth },
   });
   const { setToastSuccess } = useFeedbacks();
-  const networkId = process.env.TERITORI_NETWORK_ID || ""; // FIXME: derive from collection network
+  const networkId = process.env.FURYA_NETWORK_ID || ""; // FIXME: derive from collection network
 
   const coins = useMemo(() => {
     if (!stats?.floorPrice) {
@@ -273,8 +273,8 @@ const Header: React.FC<{
               style={{ marginRight: 12 }}
               onPress={() => {
                 const url = (
-                  process.env.TERITORI_CONTRACT_EXPLORER_URL || ""
-                ).replace("$address", collectionId.replace("tori-", ""));
+                  process.env.FURYA_CONTRACT_EXPLORER_URL || ""
+                ).replace("$address", collectionId.replace("furya-", ""));
                 Linking.openURL(url);
               }}
             />

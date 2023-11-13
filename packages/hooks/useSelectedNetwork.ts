@@ -1,3 +1,3 @@
 export const useSelectedNetworkId = () => {
-  return process.env.TERITORI_NETWORK_ID || "";
+  return process.env.FURYA_NETWORK_ID || "";
 };

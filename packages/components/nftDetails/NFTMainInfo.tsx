@@ -175,7 +175,7 @@ export const NFTMainInfo: React.FC<{
                   style={{ marginTop: 24, marginBottom: 40 }}
                   onPressSell={sell}
                   nftInfo={nftInfo}
-                  networkId={process.env.TERITORI_NETWORK_ID || ""}
+                  networkId={process.env.FURYA_NETWORK_ID || ""}
                 />
               )}
               {nftInfo?.isListed && !nftInfo?.isOwner && (

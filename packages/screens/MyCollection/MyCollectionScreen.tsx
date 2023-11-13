@@ -17,7 +17,7 @@ import { layout } from "../../utils/style/layout";
 export const MyCollectionScreen: ScreenFC<"MyCollection"> = () => {
   // variables
   const selectedWallet = useSelectedWallet();
-  const ownerId = `tori-${selectedWallet?.address}`; // FIXME: make this network-independent
+  const ownerId = `fury-${selectedWallet?.address}`; // FIXME: make this network-independent
 
   // returns
   const EmptyListComponent = useCallback(

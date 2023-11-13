@@ -16,7 +16,7 @@ import { SecondaryButton } from "../../components/buttons/SecondaryButton";
 import { useFeedbacks } from "../../context/FeedbacksProvider";
 import { useAppNavigation } from "../../utils/navigation";
 import { neutral33, neutral77 } from "../../utils/style/colors";
-import { accountExplorerLink } from "../../utils/teritori";
+import { accountExplorerLink } from "../../utils/furya";
 import { getWalletIconFromTitle } from "../../utils/walletManagerHelpers";
 export interface WalletItemProps {
   index: number;

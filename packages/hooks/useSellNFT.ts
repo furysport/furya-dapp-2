@@ -2,10 +2,10 @@ import { Decimal } from "cosmwasm";
 import { useCallback } from "react";
 
 import { initialToastError, useFeedbacks } from "../context/FeedbacksProvider";
-import { TeritoriNftClient } from "../contracts-clients/teritori-nft/TeritoriNft.client";
+import { FuryaNftClient } from "../contracts-clients/furya-nft/FuryaNft.client";
 import { getNativeCurrency } from "../networks";
 import { getSigningCosmWasmClient } from "../utils/keplr";
-import { vaultContractAddress } from "../utils/teritori";
+import { vaultContractAddress } from "../utils/furya";
 import useSelectedWallet from "./useSelectedWallet";
 
 export const useSellNFT = () => {
@@ -35,13 +35,13 @@ export const useSellNFT = () => {
           return;
         }
         const cosmwasmClient = await getSigningCosmWasmClient();
-        const nftClient = new TeritoriNftClient(
+        const nftClient = new FuryaNftClient(
           cosmwasmClient,
           wallet.address,
           nftContractAddress
         );
         const currency = getNativeCurrency(
-          process.env.TERITORI_NETWORK_ID,
+          process.env.FURYA_NETWORK_ID,
           denom
         );
         if (!currency) {

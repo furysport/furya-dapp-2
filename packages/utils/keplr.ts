@@ -1,7 +1,7 @@
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import { CosmWasmClient, SigningCosmWasmClient } from "cosmwasm";
 
-import { teritoriGasPrice } from "./teritori";
+import { furyaGasPrice } from "./furya";
 
 const PUBLIC_RPC_ENDPOINT = process.env.PUBLIC_CHAIN_RPC_ENDPOINT || "";
 const PUBLIC_CHAIN_ID = process.env.PUBLIC_CHAIN_ID || "";
@@ -44,7 +44,7 @@ export const getSigningCosmWasmClient = async () => {
   return SigningCosmWasmClient.connectWithSigner(
     PUBLIC_RPC_ENDPOINT,
     offlineSigner,
-    { gasPrice: teritoriGasPrice }
+    { gasPrice: furyaGasPrice }
   );
 };
 

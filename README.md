@@ -1,11 +1,11 @@
 
 <h1 align="center">
-  <img src="https://i.postimg.cc/C1zJ8fmM/Twitter-Original-Header-Dots-curvemode.png" alt="Teritori" title="Teritori" height="300px" />
+  <img src="https://i.postimg.cc/C1zJ8fmM/Twitter-Original-Header-Dots-curvemode.png" alt="Furya" title="Furya" height="300px" />
 </h1>
 
-<h3 align="center"> Teritori is a decentralized application, with a dedicated Cosmos SDK Blockchain, providing tools for decentralized organizations & Web3 adventurers. In upcoming year (2023), team target is to migrate on Gnolang smartcontracts, allowing to build smartcontracts in Go, with a robust and radically transparent approach. </h3>
+<h3 align="center"> Furya is a decentralized application, with a dedicated Cosmos SDK Blockchain, providing tools for decentralized organizations & Web3 adventurers. In upcoming year (2023), team target is to migrate on Gnolang smartcontracts, allowing to build smartcontracts in Go, with a robust and radically transparent approach. </h3>
 
-> **Warning**: Teritori is still under active alpha development and not audited yet. The dApp should be used very carefuly.
+> **Warning**: Furya is still under active alpha development and not audited yet. The dApp should be used very carefuly.
 
 ---
 
@@ -43,23 +43,23 @@ The apps are in `dist/`
 
 ## Introduction
 
-> **Warning**: Teritori is still under active development and should be used carefuly, with a Beta tester approach.
+> **Warning**: Furya is still under active development and should be used carefuly, with a Beta tester approach.
 
-**[Teritori dApp](https://www.teritori.com/)** is a all-in-one application providing various coordination & communication features for humans. 
+**[Furya dApp](https://www.furya.com/)** is a all-in-one application providing various coordination & communication features for humans. 
 In the future (v3) it will also be a privacy first messaging application built on top of [the Berty Protocol](https://berty.tech/docs/protocol/).
 
 - *Genesis Era - Beta (Web)* :
-    - Multichain NFT Marketplace v0.1 (Teritori Network first)
+    - Multichain NFT Marketplace v0.1 (Furya Network first)
     - The R!OT Play2Earn Experience: "Genesis Collection"
-    - Staking $TORI Tokens 
-    - Teritori Chain Governance (& Bounty Program)
-    - Teritori Name Service
+    - Staking $FURY Tokens 
+    - Furya Chain Governance (& Bounty Program)
+    - Furya Name Service
     - Rioters footer
 
 - *Enter the dApp - Desktop v1*
     - Community governed Launchpad for NFT Launches
-    - Multichain NFT Marketplace (Teritori Network, Cosmos chains, Solana, Ethereum)
-    - Upgrading the R!OT Play2Earn Experience: "Defend the Teritori"
+    - Multichain NFT Marketplace (Furya Network, Cosmos chains, Solana, Ethereum)
+    - Upgrading the R!OT Play2Earn Experience: "Defend the Furya"
     - dApp Store integrating dApps from Cosmos Ecosystem
 
 - *Enter the future - Desktop & Mobile v3*
@@ -71,7 +71,7 @@ In the future (v3) it will also be a privacy first messaging application built o
 
 
 
-**Teritori** is designed to be managed by community, with a step by step strategy allowing to empower the user:
+**Furya** is designed to be managed by community, with a step by step strategy allowing to empower the user:
 
 - Vote on upcoming launches of the Launchpad (The R!OT)
 - Vote on upcoming Premium features
@@ -79,7 +79,7 @@ In the future (v3) it will also be a privacy first messaging application built o
 - Vote on every new proposals provided by community 
 - Users are not simply passive users, but are incentived to participate. Let's make governance great again.
 
-Teritori is currently launched by a distributed core team, bootstrapping the network & dApp development, with the mission to make it governed by users, developped by more and more builders from all ecosystems. 
+Furya is currently launched by a distributed core team, bootstrapping the network & dApp development, with the mission to make it governed by users, developped by more and more builders from all ecosystems. 
 A dedicated Grants program, a Bounties program, are currently prepared by the core team to allow external contributors to join us.
 
 
@@ -89,9 +89,9 @@ Please feel free to use PR & Issues, and to join us on Discord for any question!
 
 ## Other resources
 
-- Official website: https://www.teritori.com
-- Discord: https://discord.gg/teritori
-- Twitter: https://twitter.com/TeritoriNetwork
+- Official website: https://www.furya.com
+- Discord: https://discord.gg/furya
+- Twitter: https://twitter.com/FuryaNetwork
 
 ___
 

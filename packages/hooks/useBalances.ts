@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { getNativeCurrency, getNetwork } from "../networks";
 import { Balance } from "../utils/coins";
-import { CosmosBalancesResponse } from "../utils/teritori";
+import { CosmosBalancesResponse } from "../utils/furya";
 import { useCoingeckoPrices } from "./useCoingeckoPrices";
 
 export const useBalances = (

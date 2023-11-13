@@ -18,7 +18,7 @@ const (
 
 type Activity struct {
 	// ID is network-dependent
-	// Teritori: tori-<tx_hash>-<msg_index>
+	// Furya: furya-<tx_hash>-<msg_index>
 	ID   string
 	Kind ActivityKind
 	Time time.Time

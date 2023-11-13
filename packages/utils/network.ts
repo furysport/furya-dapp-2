@@ -6,7 +6,7 @@ import { Network as ProtobufNetwork } from "../api/marketplace/v1/marketplace";
 export enum Network {
   Unknown = "Unknown",
   Solana = "Solana",
-  Teritori = "Teritori",
+  Furya = "Furya",
   Ethereum = "Ethereum",
   Atom = "Atom",
   Juno = "Juno",
@@ -17,8 +17,8 @@ export const addressToNetwork = (address: string) => {
   try {
     const bech32Result = bech32.decode(address);
     switch (bech32Result.prefix) {
-      case "tori":
-        return Network.Teritori;
+      case "furya":
+        return Network.Furya;
     }
   } catch {}
   try {
@@ -33,8 +33,8 @@ export const protobufNetworkToNetwork = (network: ProtobufNetwork) => {
   switch (network) {
     case ProtobufNetwork.NETWORK_SOLANA:
       return Network.Solana;
-    case ProtobufNetwork.NETWORK_TERITORI:
-      return Network.Teritori;
+    case ProtobufNetwork.NETWORK_FURYA:
+      return Network.Furya;
     default:
       return Network.Unknown;
   }

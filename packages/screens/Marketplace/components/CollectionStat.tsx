@@ -2,7 +2,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-import toriSVG from "../../../../assets/icons/networks/teritori-circle.svg";
+import furySVG from "../../../../assets/icons/networks/furya-circle.svg";
 import { BrandText } from "../../../components/BrandText";
 import { SVG } from "../../../components/SVG";
 import { SpacerColumn, SpacerRow } from "../../../components/spacer";
@@ -33,7 +33,7 @@ export const CollectionStat = ({
           <>
             <SpacerRow size={0.75} />
             <View style={{ width: iconSize, height: iconSize }}>
-              <SVG source={toriSVG} width={iconSize} height={iconSize} />
+              <SVG source={furySVG} width={iconSize} height={iconSize} />
             </View>
           </>
         )}

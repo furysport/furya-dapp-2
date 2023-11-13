@@ -23,7 +23,7 @@ import {
   initialToastError,
   useFeedbacks,
 } from "../../context/FeedbacksProvider";
-import { TeritoriBunkerMinterClient } from "../../contracts-clients/teritori-bunker-minter/TeritoriBunkerMinter.client";
+import { FuryaBunkerMinterClient } from "../../contracts-clients/furya-bunker-minter/FuryaBunkerMinter.client";
 import { useBalances } from "../../hooks/useBalances";
 import { useCollectionInfo } from "../../hooks/useCollectionInfo";
 import useSelectedWallet from "../../hooks/useSelectedWallet";
@@ -70,14 +70,14 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
     params: { id },
   },
 }) => {
-  const mintAddress = id.startsWith("tori-") ? id.substring(5) : id;
+  const mintAddress = id.startsWith("furya-") ? id.substring(5) : id;
   const wallet = useSelectedWallet();
   const [minted, setMinted] = useState(false);
   const [isDepositVisible, setDepositVisible] = useState(false);
   const { info, notFound, refetchCollectionInfo } = useCollectionInfo(id);
   const { setToastError } = useFeedbacks();
   const [viewWidth, setViewWidth] = useState(0);
-  const networkId = process.env.TERITORI_NETWORK_ID;
+  const networkId = process.env.FURYA_NETWORK_ID;
   const balances = useBalances(networkId, wallet?.address);
   const balance = balances.find((bal) => bal.denom === info?.priceDenom);
 
@@ -103,7 +103,7 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
 
   const mint = useCallback(async () => {
     try {
-      const mintAddress = id.startsWith("tori-") ? id.substring(5) : id;
+      const mintAddress = id.startsWith("furya-") ? id.substring(5) : id;
 
       setToastError(initialToastError);
       const sender = wallet?.address;
@@ -112,7 +112,7 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
         return;
       }
       const cosmwasmClient = await getSigningCosmWasmClient();
-      const minterClient = new TeritoriBunkerMinterClient(
+      const minterClient = new FuryaBunkerMinterClient(
         cosmwasmClient,
         sender,
         mintAddress
@@ -256,7 +256,7 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
                   />
                 )}
 
-                {getCurrency(process.env.TERITORI_NETWORK_ID, info.priceDenom)
+                {getCurrency(process.env.FURYA_NETWORK_ID, info.priceDenom)
                   ?.kind === "ibc" && (
                   <PrimaryButton
                     size="XL"
@@ -299,7 +299,7 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
                   </BrandText>
                   <ExternalLink
                     gradientType="gray"
-                    externalUrl="https://teritori.notion.site/The-R-ot-Terms-Conditions-0ea730897c964b04ab563e0648cc2f5b"
+                    externalUrl="https://furya.notion.site/The-R-ot-Terms-Conditions-0ea730897c964b04ab563e0648cc2f5b"
                     style={[
                       fontSemibold14,
                       {
@@ -368,7 +368,7 @@ export const MintCollectionScreen: ScreenFC<"MintCollection"> = ({
         </View>
         <DepositWithdrawModal
           variation="deposit"
-          networkId={process.env.TERITORI_NETWORK_ID || ""}
+          networkId={process.env.FURYA_NETWORK_ID || ""}
           targetCurrency={info.priceDenom}
           onClose={() => setDepositVisible(false)}
           isVisible={isDepositVisible}

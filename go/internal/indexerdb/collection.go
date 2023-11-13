@@ -1,10 +1,10 @@
 package indexerdb
 
-import "github.com/TERITORI/teritori-dapp/go/pkg/marketplacepb"
+import "github.com/furysport/furya-dapp-2/go/pkg/marketplacepb"
 
 type Collection struct {
 	// ID is network-dependent
-	// Teritori: tori-<bech32_mint_contract_address>
+	// Furya: furya-<bech32_mint_contract_address>
 	ID string `gorm:"primaryKey"`
 
 	Network  marketplacepb.Network
@@ -12,13 +12,13 @@ type Collection struct {
 	ImageURI string
 
 	// "has one" relations
-	TeritoriCollection *TeritoriCollection
+	FuryaCollection *FuryaCollection
 
 	// "has many" relations
 	NFTs []*NFT
 }
 
-type TeritoriCollection struct {
+type FuryaCollection struct {
 	CollectionID        string
 	MintContractAddress string `gorm:"primaryKey"`
 	NFTContractAddress  string

@@ -72,7 +72,7 @@ const renderItem: ListRenderItem<Activity> = (info) => {
       </BrandText>
       <BrandText style={{ marginLeft: gap }}>
         {prettyPrice(
-          process.env.TERITORI_NETWORK_ID || "",
+          process.env.FURYA_NETWORK_ID || "",
           activity.amount,
           activity.denom
         )}

@@ -24,7 +24,7 @@ export const SidebarProfileButton: React.FC<{
     <CustomPressable
       onPress={() =>
         navigation.navigate("UserPublicProfile", {
-          id: `tori-${walletAddress}`,
+          id: `furya-${walletAddress}`,
         })
       }
     >
@@ -42,7 +42,7 @@ export const SidebarProfileButton: React.FC<{
             uri: ipfsURLToHTTPURL(
               image
                 ? image
-                : process.env.TERITORI_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
+                : process.env.FURYA_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
             ),
           }} // TODO: proper fallback
           style={[

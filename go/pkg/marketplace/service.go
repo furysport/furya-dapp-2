@@ -7,12 +7,12 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/TERITORI/teritori-dapp/go/internal/collections"
-	"github.com/TERITORI/teritori-dapp/go/internal/faking"
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
-	"github.com/TERITORI/teritori-dapp/go/internal/ipfsutil"
-	"github.com/TERITORI/teritori-dapp/go/pkg/holagql"
-	"github.com/TERITORI/teritori-dapp/go/pkg/marketplacepb"
+	"github.com/furysport/furya-dapp-2/go/internal/collections"
+	"github.com/furysport/furya-dapp-2/go/internal/faking"
+	"github.com/furysport/furya-dapp-2/go/internal/indexerdb"
+	"github.com/furysport/furya-dapp-2/go/internal/ipfsutil"
+	"github.com/furysport/furya-dapp-2/go/pkg/holagql"
+	"github.com/furysport/furya-dapp-2/go/pkg/marketplacepb"
 	"github.com/bxcodec/faker/v3"
 	"github.com/pkg/errors"
 	"github.com/volatiletech/sqlboiler/v4/queries"
@@ -27,7 +27,7 @@ type MarkteplaceService struct {
 	upcomingLaunchesProvider            collections.CollectionsProvider
 	collectionsByVolumeProvider         collections.CollectionsProvider
 	collectionsByMarketCapProvider      collections.CollectionsProvider
-	teritoriFeaturesCollectionsProvider collections.CollectionsProvider
+	furyaFeaturesCollectionsProvider collections.CollectionsProvider
 	conf                                *Config
 }
 
@@ -47,7 +47,7 @@ func NewMarketplaceService(ctx context.Context, conf *Config) marketplacepb.Mark
 		upcomingLaunchesProvider: collections.NewUpcomingLaunchesProvider(ctx, conf.Logger),
 		// collectionsByVolumeProvider:         collections.NewCollectionsByVolumeProvider(ctx, conf.GraphqlEndpoint, conf.Logger),
 		// collectionsByMarketCapProvider:      collections.NewCollectionsByMarketCapProvider(ctx, conf.GraphqlEndpoint, conf.Logger),
-		teritoriFeaturesCollectionsProvider: collections.NewTeritoriCollectionsProvider(conf.IndexerDB, conf.Whitelist, conf.Logger),
+		furyaFeaturesCollectionsProvider: collections.NewFuryaCollectionsProvider(conf.IndexerDB, conf.Whitelist, conf.Logger),
 	}
 }
 
@@ -95,11 +95,11 @@ func (s *MarkteplaceService) Collections(req *marketplacepb.CollectionsRequest, 
 				return nil
 		*/
 
-	case marketplacepb.CollectionsRequest_KIND_TERITORI_FEATURES:
-		s.conf.Logger.Info("fetch teritori features collections")
-		collections := s.teritoriFeaturesCollectionsProvider.Collections(int(limit), int(offset))
+	case marketplacepb.CollectionsRequest_KIND_FURYA_FEATURES:
+		s.conf.Logger.Info("fetch furya features collections")
+		collections := s.furyaFeaturesCollectionsProvider.Collections(int(limit), int(offset))
 		for collection := range collections {
-			s.conf.Logger.Info("fetched teritori collection", zap.Any("collection", collection))
+			s.conf.Logger.Info("fetched furya collection", zap.Any("collection", collection))
 			if err := srv.Send(&marketplacepb.CollectionsResponse{Collection: collection}); err != nil {
 				return errors.Wrap(err, "failed to send collection")
 			}
@@ -190,10 +190,10 @@ func (s *MarkteplaceService) NFTs(req *marketplacepb.NFTsRequest, srv marketplac
 		return nil
 	}
 
-	// teritori
+	// furya
 
 	query := s.conf.IndexerDB.
-		Preload("TeritoriNFT").
+		Preload("FuryaNFT").
 		Preload("Collection").
 		Where("burnt = ?", false).
 		Offset(int(offset)).
@@ -222,7 +222,7 @@ func (s *MarkteplaceService) NFTs(req *marketplacepb.NFTsRequest, srv marketplac
 		return errors.Wrap(err, "failed to fetch collection nfts")
 	}
 
-	tnsId := indexerdb.TeritoriCollectionID(s.conf.TNSContractAddress)
+	tnsId := indexerdb.FuryaCollectionID(s.conf.TNSContractAddress)
 
 	for _, nft := range nfts {
 		if nft.Collection == nil {
@@ -408,7 +408,7 @@ func (s *MarkteplaceService) Activity(req *marketplacepb.ActivityRequest, srv ma
 			TransactionKind: string(activity.Kind),
 			TargetName:      activity.NFT.Name,
 			TargetImageUri:  activity.NFT.ImageURI,
-			ContractName:    "ToriVault",
+			ContractName:    "FuryVault",
 			Time:            activity.Time.Format(time.RFC3339),
 			Amount:          price,
 			Denom:           denom,

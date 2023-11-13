@@ -28,12 +28,12 @@ export const WalletStatusCard: React.FC = () => {
       }}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <NetworkIcon network={Network.Teritori} circle size={24} />
+        <NetworkIcon network={Network.Furya} circle size={24} />
         <View style={{ marginLeft: 8 }}>
           <BrandText
             style={[fontSemibold12, { marginBottom: 2, color: neutral77 }]}
           >
-            Teritori
+            Furya
           </BrandText>
           <BrandText style={fontSemibold13}>
             {wallet && tinyAddress(wallet.address, 21)}

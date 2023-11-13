@@ -25,7 +25,7 @@ type Network int32
 const (
 	Network_NETWORK_UNSPECIFIED Network = 0
 	Network_NETWORK_FAKE        Network = 1
-	Network_NETWORK_TERITORI    Network = 2
+	Network_NETWORK_FURYA    Network = 2
 	Network_NETWORK_SOLANA      Network = 3
 )
 
@@ -34,13 +34,13 @@ var (
 	Network_name = map[int32]string{
 		0: "NETWORK_UNSPECIFIED",
 		1: "NETWORK_FAKE",
-		2: "NETWORK_TERITORI",
+		2: "NETWORK_FURYA",
 		3: "NETWORK_SOLANA",
 	}
 	Network_value = map[string]int32{
 		"NETWORK_UNSPECIFIED": 0,
 		"NETWORK_FAKE":        1,
-		"NETWORK_TERITORI":    2,
+		"NETWORK_FURYA":    2,
 		"NETWORK_SOLANA":      3,
 	}
 )
@@ -175,7 +175,7 @@ const (
 	CollectionsRequest_KIND_BY_MARKETCAP      CollectionsRequest_Kind = 2
 	CollectionsRequest_KIND_FAKE              CollectionsRequest_Kind = 3
 	CollectionsRequest_KIND_UPCOMING          CollectionsRequest_Kind = 4
-	CollectionsRequest_KIND_TERITORI_FEATURES CollectionsRequest_Kind = 5
+	CollectionsRequest_KIND_FURYA_FEATURES CollectionsRequest_Kind = 5
 )
 
 // Enum value maps for CollectionsRequest_Kind.
@@ -186,7 +186,7 @@ var (
 		2: "KIND_BY_MARKETCAP",
 		3: "KIND_FAKE",
 		4: "KIND_UPCOMING",
-		5: "KIND_TERITORI_FEATURES",
+		5: "KIND_FURYA_FEATURES",
 	}
 	CollectionsRequest_Kind_value = map[string]int32{
 		"KIND_UNSPECIFIED":       0,
@@ -194,7 +194,7 @@ var (
 		"KIND_BY_MARKETCAP":      2,
 		"KIND_FAKE":              3,
 		"KIND_UPCOMING":          4,
-		"KIND_TERITORI_FEATURES": 5,
+		"KIND_FURYA_FEATURES": 5,
 	}
 )
 

@@ -10,8 +10,8 @@ import { WalletItem } from "./WalletItem";
 export const Wallets: React.FC = () => {
   const selectedWallet = useSelectedWallet();
 
-  const { totalAmount: totalAmountTeritori } = useRewardsTotal(
-    process.env.TERITORI_NETWORK_ID || "",
+  const { totalAmount: totalAmountFurya } = useRewardsTotal(
+    process.env.FURYA_NETWORK_ID || "",
     selectedWallet?.address
   );
 
@@ -19,9 +19,9 @@ export const Wallets: React.FC = () => {
     ? [
         {
           id: 0,
-          title: "Teritori",
+          title: "Furya",
           address: selectedWallet.address,
-          pendingReward: totalAmountTeritori || 0,
+          pendingReward: totalAmountFurya || 0,
           staked: 42,
         },
       ]

@@ -6,9 +6,9 @@ import (
 	"time"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
-	"github.com/TERITORI/teritori-dapp/go/pkg/coingeckoprices"
-	"github.com/TERITORI/teritori-dapp/go/pkg/tmws"
+	"github.com/furysport/furya-dapp-2/go/internal/indexerdb"
+	"github.com/furysport/furya-dapp-2/go/pkg/coingeckoprices"
+	"github.com/furysport/furya-dapp-2/go/pkg/tmws"
 	"github.com/allegro/bigcache/v3"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	cosmostx "github.com/cosmos/cosmos-sdk/types/tx"
@@ -228,7 +228,7 @@ func (h *Handler) handleExecuteMint(e *Message, execMsg *wasmtypes.MsgExecuteCon
 	contractAddress := execMsg.Contract
 
 	var collections []*indexerdb.Collection
-	if err := h.db.Preload("TeritoriCollection").Limit(1).Find(&collections, &indexerdb.Collection{ID: indexerdb.TeritoriCollectionID(contractAddress)}).Error; err != nil {
+	if err := h.db.Preload("FuryaCollection").Limit(1).Find(&collections, &indexerdb.Collection{ID: indexerdb.FuryaCollectionID(contractAddress)}).Error; err != nil {
 		return errors.Wrap(err, "find collection error")
 	}
 	if len(collections) == 0 {
@@ -236,9 +236,9 @@ func (h *Handler) handleExecuteMint(e *Message, execMsg *wasmtypes.MsgExecuteCon
 		return nil
 	}
 	collection := collections[0]
-	if collection.TeritoriCollection == nil {
+	if collection.FuryaCollection == nil {
 		spew.Dump(collection)
-		return errors.New("no teritori info in collection")
+		return errors.New("no furya info in collection")
 	}
 
 	// FIXME: do message analysis instead of events
@@ -249,7 +249,7 @@ func (h *Handler) handleExecuteMint(e *Message, execMsg *wasmtypes.MsgExecuteCon
 	}
 	tokenId := tokenIds[0]
 
-	if collection.TeritoriCollection != nil && collection.TeritoriCollection.MintContractAddress == h.config.TNSContractAddress {
+	if collection.FuryaCollection != nil && collection.FuryaCollection.MintContractAddress == h.config.TNSContractAddress {
 		if err := h.handleExecuteMintTNS(e, collection, tokenId, execMsg); err != nil {
 			return errors.Wrap(err, "failed to handle tns mint")
 		}

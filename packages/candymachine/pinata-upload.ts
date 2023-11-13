@@ -53,7 +53,7 @@ export async function pinataUpload(apiKey: string, secretKey: string) {
 
   // Create temp upload folder for metadata
   const tmpFolder = fs.mkdtempSync(
-    path.join(os.tmpdir(), "teritori-candymachine-")
+    path.join(os.tmpdir(), "furya-candymachine-")
   );
   console.log("🏠 Using temporary directory at", tmpFolder);
 

@@ -6,15 +6,15 @@ import { GasPrice } from "cosmwasm";
 import { getKeplr } from "../utils/keplr";
 import { cosmosNetwork } from "./cosmos-hub";
 import { cosmosThetaNetwork } from "./cosmos-hub-theta";
-import { teritoriNetwork } from "./teritori";
-import { teritoriTestnetNetwork } from "./teritori-testnet";
+import { furyaNetwork } from "./furya";
+import { furyaTestnetNetwork } from "./furya-testnet";
 import { NativeCurrencyInfo, NetworkInfo } from "./types";
 export * from "./types";
 
 export const allNetworks = [
-  teritoriNetwork,
+  furyaNetwork,
   cosmosNetwork,
-  teritoriTestnetNetwork,
+  furyaTestnetNetwork,
   cosmosThetaNetwork,
 ];
 

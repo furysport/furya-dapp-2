@@ -3,7 +3,7 @@ import { Decimal } from "cosmwasm";
 import { useMemo } from "react";
 
 import { getNativeCurrency, getNetwork } from "../networks";
-import { CosmosRewardsTotalResponse } from "../utils/teritori";
+import { CosmosRewardsTotalResponse } from "../utils/furya";
 import { useCoingeckoPrices } from "./useCoingeckoPrices";
 
 // Getting the total amount of all the rewards, by user's address, and by network

@@ -5,10 +5,10 @@ import {
   GrpcWebImpl,
 } from "../api/marketplace/v1/marketplace";
 
-const backendEndpoint = process.env.TERITORI_BACKEND_ENDPOINT;
+const backendEndpoint = process.env.FURYA_BACKEND_ENDPOINT;
 
 if (!backendEndpoint) {
-  throw new Error("missing TERITORI_BACKEND_ENDPOINT in env");
+  throw new Error("missing FURYA_BACKEND_ENDPOINT in env");
 }
 
 const rpc = new GrpcWebImpl(backendEndpoint, {

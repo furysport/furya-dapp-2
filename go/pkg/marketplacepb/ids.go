@@ -8,8 +8,8 @@ func (n Network) Prefix() string {
 		return "fake"
 	case Network_NETWORK_SOLANA:
 		return "sol"
-	case Network_NETWORK_TERITORI:
-		return "tori"
+	case Network_NETWORK_FURYA:
+		return "fury"
 	case Network_NETWORK_UNSPECIFIED:
 		return "unspecified"
 	default:

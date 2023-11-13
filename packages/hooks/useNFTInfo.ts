@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { TeritoriBunkerMinterQueryClient } from "../contracts-clients/teritori-bunker-minter/TeritoriBunkerMinter.client";
-import { TeritoriNameServiceQueryClient } from "../contracts-clients/teritori-name-service/TeritoriNameService.client";
-import { TeritoriNftVaultQueryClient } from "../contracts-clients/teritori-nft-vault/TeritoriNftVault.client";
-import { TeritoriNftQueryClient } from "../contracts-clients/teritori-nft/TeritoriNft.client";
+import { FuryaBunkerMinterQueryClient } from "../contracts-clients/furya-bunker-minter/FuryaBunkerMinter.client";
+import { FuryaNameServiceQueryClient } from "../contracts-clients/furya-name-service/FuryaNameService.client";
+import { FuryaNftVaultQueryClient } from "../contracts-clients/furya-nft-vault/FuryaNftVault.client";
+import { FuryaNftQueryClient } from "../contracts-clients/furya-nft/FuryaNft.client";
 import { NFTInfo } from "../screens/Marketplace/NFTDetailScreen";
 import { ipfsURLToHTTPURL } from "../utils/ipfs";
 import { getNonSigningCosmWasmClient } from "../utils/keplr";
-import { vaultContractAddress } from "../utils/teritori";
+import { vaultContractAddress } from "../utils/furya";
 
 export const useNFTInfo = (id: string, wallet: string | undefined) => {
   const [info, setInfo] = useState<NFTInfo>();
@@ -30,7 +30,7 @@ export const useNFTInfo = (id: string, wallet: string | undefined) => {
         let nfo;
         if (
           minterContractAddress ===
-          process.env.TERITORI_NAME_SERVICE_CONTRACT_ADDRESS
+          process.env.FURYA_NAME_SERVICE_CONTRACT_ADDRESS
         ) {
           nfo = await getTNSNFTInfo(minterContractAddress, tokenId, wallet);
         } else {
@@ -64,7 +64,7 @@ const getTNSNFTInfo = async (
   // We use a CosmWasm non signing Client
   const cosmwasmClient = await getNonSigningCosmWasmClient();
 
-  const tnsClient = new TeritoriNameServiceQueryClient(
+  const tnsClient = new FuryaNameServiceQueryClient(
     cosmwasmClient,
     contractAddress
   );
@@ -75,7 +75,7 @@ const getTNSNFTInfo = async (
   // ======== Getting NFT owner
   const { owner } = await tnsClient.ownerOf({ tokenId });
   // ======== Getting vault stuff (For selling)
-  const vaultClient = new TeritoriNftVaultQueryClient(
+  const vaultClient = new FuryaNftVaultQueryClient(
     cosmwasmClient,
     vaultContractAddress
   );
@@ -101,14 +101,14 @@ const getTNSNFTInfo = async (
   // NFT base info
   const nfo: NFTInfo = {
     name: tokenId,
-    description: "An username registered on Teritori Name Service",
+    description: "An username registered on Furya Name Service",
     attributes: [],
     nftAddress: contractAddress,
     mintAddress: contractAddress,
     imageURL: ipfsURLToHTTPURL(
       nftInfo.extension.image
         ? nftInfo.extension.image
-        : process.env.TERITORI_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
+        : process.env.FURYA_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
     ),
     tokenId,
     ownerAddress: vaultOwnerAddress || owner,
@@ -121,7 +121,7 @@ const getTNSNFTInfo = async (
     collectionName: contractInfo.name,
     textInsert: tokenId,
     collectionImageURL: ipfsURLToHTTPURL(
-      process.env.TERITORI_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
+      process.env.FURYA_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
     ),
     mintDenom: contractInfo.native_denom,
     royalty: 0,
@@ -139,7 +139,7 @@ const getStandardNFTInfo = async (
   const cosmwasmClient = await getNonSigningCosmWasmClient();
 
   // ======== Getting minter client
-  const minterClient = new TeritoriBunkerMinterQueryClient(
+  const minterClient = new FuryaBunkerMinterQueryClient(
     cosmwasmClient,
     minterContractAddress
   );
@@ -150,7 +150,7 @@ const getStandardNFTInfo = async (
   ).json();
 
   // ======== Getting NFT client
-  const nftClient = new TeritoriNftQueryClient(
+  const nftClient = new FuryaNftQueryClient(
     cosmwasmClient,
     minterConfig.nft_addr
   );
@@ -184,7 +184,7 @@ const getStandardNFTInfo = async (
   // ======== Getting NFT metadata
 
   // ======== Getting vault stuff (For selling)
-  const vaultClient = new TeritoriNftVaultQueryClient(
+  const vaultClient = new FuryaNftVaultQueryClient(
     cosmwasmClient,
     vaultContractAddress
   );

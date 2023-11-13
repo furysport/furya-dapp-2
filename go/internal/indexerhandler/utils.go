@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/TERITORI/teritori-dapp/go/internal/ipfsutil"
-	"github.com/TERITORI/teritori-dapp/go/pkg/networks"
+	"github.com/furysport/furya-dapp-2/go/internal/ipfsutil"
+	"github.com/furysport/furya-dapp-2/go/pkg/networks"
 	"github.com/allegro/bigcache/v3"
 	"github.com/pkg/errors"
 	abcitypes "github.com/tendermint/tendermint/abci/types"

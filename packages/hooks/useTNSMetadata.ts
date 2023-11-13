@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { TeritoriNameServiceQueryClient } from "../contracts-clients/teritori-name-service/TeritoriNameService.client";
+import { FuryaNameServiceQueryClient } from "../contracts-clients/furya-name-service/FuryaNameService.client";
 import { getNonSigningCosmWasmClient } from "../utils/keplr";
 
 // FIXME: use react-query to prevent recalling the api all the time
@@ -14,11 +14,11 @@ export const useTNSMetadata = (address?: string) => {
       }
 
       const contractAddress =
-        process.env.TERITORI_NAME_SERVICE_CONTRACT_ADDRESS || "";
+        process.env.FURYA_NAME_SERVICE_CONTRACT_ADDRESS || "";
       // We just want to read, so we use a non-signing client
       const cosmWasmClient = await getNonSigningCosmWasmClient();
 
-      const tnsClient = new TeritoriNameServiceQueryClient(
+      const tnsClient = new FuryaNameServiceQueryClient(
         cosmWasmClient,
         contractAddress
       );

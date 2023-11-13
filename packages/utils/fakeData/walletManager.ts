@@ -1,6 +1,6 @@
 export const WALLET_CHAIN_ASSETS = [
   {
-    title: "Teritori",
+    title: "Furya",
     apr: 84.36,
     address: "g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5",
     amount: 400,

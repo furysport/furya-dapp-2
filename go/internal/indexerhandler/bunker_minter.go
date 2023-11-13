@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
-	"github.com/TERITORI/teritori-dapp/go/pkg/contracts/bunker_minter_types"
-	"github.com/TERITORI/teritori-dapp/go/pkg/marketplacepb"
+	"github.com/furysport/furya-dapp-2/go/internal/indexerdb"
+	"github.com/furysport/furya-dapp-2/go/pkg/contracts/bunker_minter_types"
+	"github.com/furysport/furya-dapp-2/go/pkg/marketplacepb"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -35,13 +35,13 @@ func (h *Handler) handleInstantiateBunker(e *Message, contractAddress string, in
 	}
 
 	// create collection
-	collectionId := indexerdb.TeritoriCollectionID(contractAddress)
+	collectionId := indexerdb.FuryaCollectionID(contractAddress)
 	if err := h.db.Create(&indexerdb.Collection{
 		ID:       collectionId,
-		Network:  marketplacepb.Network_NETWORK_TERITORI,
+		Network:  marketplacepb.Network_NETWORK_FURYA,
 		Name:     minterInstantiateMsg.NftName,
 		ImageURI: metadata.ImageURI,
-		TeritoriCollection: &indexerdb.TeritoriCollection{
+		FuryaCollection: &indexerdb.FuryaCollection{
 			MintContractAddress: contractAddress,
 			NFTContractAddress:  nftAddr,
 			CreatorAddress:      instantiateMsg.Sender,
@@ -65,9 +65,9 @@ func (h *Handler) handleExecuteMintBunker(e *Message, collection *indexerdb.Coll
 		return errors.New("no recipients")
 	}
 	owner := recipients[0]
-	ownerId := indexerdb.TeritoriUserID(owner)
+	ownerId := indexerdb.FuryaUserID(owner)
 
-	nftId := indexerdb.TeritoriNFTID(collection.TeritoriCollection.MintContractAddress, tokenId)
+	nftId := indexerdb.FuryaNFTID(collection.FuryaCollection.MintContractAddress, tokenId)
 
 	var mintMsg ExecuteCW721MintMsg
 	if err := json.Unmarshal(execMsg.Msg, &mintMsg); err != nil {
@@ -84,7 +84,7 @@ func (h *Handler) handleExecuteMintBunker(e *Message, collection *indexerdb.Coll
 		Name:         metadata.Name,
 		ImageURI:     metadata.ImageURL,
 		CollectionID: collection.ID,
-		TeritoriNFT: &indexerdb.TeritoriNFT{
+		FuryaNFT: &indexerdb.FuryaNFT{
 			TokenID: tokenId,
 		},
 	}
@@ -101,7 +101,7 @@ func (h *Handler) handleExecuteMintBunker(e *Message, collection *indexerdb.Coll
 
 	// create mint activity
 	if err := h.db.Create(&indexerdb.Activity{
-		ID:   indexerdb.TeritoriActiviyID(e.TxHash, e.MsgIndex),
+		ID:   indexerdb.FuryaActiviyID(e.TxHash, e.MsgIndex),
 		Kind: indexerdb.ActivityKindMint,
 		Time: blockTime,
 		Mint: &indexerdb.Mint{
@@ -132,8 +132,8 @@ func (h *Handler) handleExecuteBunkerUpdateConfig(e *Message, execMsg *wasmtypes
 
 	if msg.Payload.Owner != nil {
 		if err := h.db.
-			Model(&indexerdb.TeritoriCollection{}).
-			Where("collection_id = ?", indexerdb.TeritoriCollectionID(execMsg.Contract)).
+			Model(&indexerdb.FuryaCollection{}).
+			Where("collection_id = ?", indexerdb.FuryaCollectionID(execMsg.Contract)).
 			UpdateColumn("CreatorAddress", msg.Payload.Owner).
 			Error; err != nil {
 			return errors.Wrap(err, "failed to update bunker creator")

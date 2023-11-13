@@ -11,7 +11,7 @@ import {
   initialToastError,
   useFeedbacks,
 } from "../../context/FeedbacksProvider";
-import { TeritoriNftVaultClient } from "../../contracts-clients/teritori-nft-vault/TeritoriNftVault.client";
+import { FuryaNftVaultClient } from "../../contracts-clients/furya-nft-vault/FuryaNftVault.client";
 import { useCancelNFTListing } from "../../hooks/useCancelNFTListing";
 import { useMaxResolution } from "../../hooks/useMaxResolution";
 import { useMintEnded } from "../../hooks/useMintEnded";
@@ -21,7 +21,7 @@ import { useSellNFT } from "../../hooks/useSellNFT";
 import { noSecondaryDuringMintList } from "../../utils/collections";
 import { getSigningCosmWasmClient } from "../../utils/keplr";
 import { ScreenFC } from "../../utils/navigation";
-import { vaultContractAddress } from "../../utils/teritori";
+import { vaultContractAddress } from "../../utils/furya";
 import { NFTAttribute } from "../../utils/types/nft";
 
 export interface NFTInfo {
@@ -57,7 +57,7 @@ const Content: React.FC<{
   const { width } = useMaxResolution({ noMargin: true });
 
   const collectionAddress = id.split("-")[1];
-  const collectionId = `tori-${collectionAddress}`;
+  const collectionId = `furya-${collectionAddress}`;
   const mintEnded = useMintEnded(collectionId);
   const showMarketplace =
     !noSecondaryDuringMintList.includes(collectionId) ||
@@ -91,7 +91,7 @@ const Content: React.FC<{
     setToastError(initialToastError);
     try {
       const signingCosmwasmClient = await getSigningCosmWasmClient();
-      const signingVaultClient = new TeritoriNftVaultClient(
+      const signingVaultClient = new FuryaNftVaultClient(
         signingCosmwasmClient,
         wallet.address,
         vaultContractAddress
@@ -149,7 +149,7 @@ const Content: React.FC<{
     return reply;
   }, [cancelListing, refresh]);
 
-  if (!id.startsWith("tori-")) {
+  if (!id.startsWith("furya-")) {
     return (
       <View style={{ alignItems: "center", width: "100%", marginTop: 40 }}>
         <BrandText>Network not supported</BrandText>

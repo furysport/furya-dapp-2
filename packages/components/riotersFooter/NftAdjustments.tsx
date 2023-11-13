@@ -12,7 +12,7 @@ import {
   primaryColor,
   errorColor,
 } from "../../utils/style/colors";
-import { toriCurrency } from "../../utils/teritori";
+import { furyCurrency } from "../../utils/furya";
 import { nftDropedAdjustmentType } from "../../utils/types/nft";
 import Slider from "../Slider";
 import { IconButton } from "../buttons/IconButton";
@@ -113,9 +113,9 @@ const NftAdjustments: React.FC<{
             style={{ fontSize: 16, color: primaryColor, fontWeight: "700" }}
           >
             {prettyPrice(
-              process.env.TERITORI_NETWORK_ID || "",
+              process.env.FURYA_NETWORK_ID || "",
               price?.toString() || "",
-              toriCurrency.coinMinimalDenom
+              furyCurrency.coinMinimalDenom
             )}
           </BrandText>
         </View>

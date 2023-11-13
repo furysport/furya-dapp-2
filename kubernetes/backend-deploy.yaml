@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: teritori-dapp-backend
+  name: furya-dapp-2-backend
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
@@ -13,18 +13,18 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: teritori-dapp-backend
+      app: furya-dapp-2-backend
   template:
     metadata:
       labels:
-        app: teritori-dapp-backend
+        app: furya-dapp-2-backend
     spec:
       containers:
-      - name: teritori-dapp-backend
-        image: YOUR_REGISTRY/teritori/teritori-dapp-backend:BACKEND_COMMIT
+      - name: furya-dapp-2-backend
+        image: YOUR_REGISTRY/furya/furya-dapp-2-backend:BACKEND_COMMIT
         env:
         - name: DB_PATH
-          value: "/data/teritori-index.sqlite"
+          value: "/data/furya-index.sqlite"
         securityContext:
           allowPrivilegeEscalation: false
         imagePullPolicy: IfNotPresent
@@ -44,16 +44,16 @@ spec:
       volumes:
       - name: teritor-indexer-storage
         persistentVolumeClaim:
-          claimName: teritori-indexer-pvc
+          claimName: furya-indexer-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: teritori-dapp-backend
+  name: furya-dapp-2-backend
   annotations:
 spec:
   selector:
-    app: teritori-dapp-backend
+    app: furya-dapp-2-backend
   ports:
   - name: http
     port: 80

@@ -5,7 +5,7 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
     external-dns.alpha.kubernetes.io/hostname: back.YOUR_DOMAIN
     cert-manager.io/cluster-issuer: letsencrypt-prod
-  name: teritori-dapp-backend
+  name: furya-dapp-2-backend
 spec:
   ingressClassName: nginx
   rules:
@@ -14,7 +14,7 @@ spec:
       paths:
       - backend:
           service:
-            name: teritori-dapp-backend
+            name: furya-dapp-2-backend
             port:
               number: 80
         path: /
@@ -22,4 +22,4 @@ spec:
   tls:
   - hosts:
     - back.YOUR_DOMAIN
-    secretName: teritori-dapp-backend-tls
+    secretName: furya-dapp-2-backend-tls

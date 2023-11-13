@@ -15,7 +15,7 @@ import {
 } from "../../utils/style/colors";
 import { fontMedium14 } from "../../utils/style/fonts";
 import { layout, screenContentMaxWidth } from "../../utils/style/layout";
-import { txExplorerLink } from "../../utils/teritori";
+import { txExplorerLink } from "../../utils/furya";
 import { BrandText } from "../BrandText";
 import { ExternalLink } from "../ExternalLink";
 import { Pagination } from "../Pagination";
@@ -157,7 +157,7 @@ const ActivityRow: React.FC<{ activity: Activity }> = ({ activity }) => {
         ]}
       >
         {prettyPrice(
-          process.env.TERITORI_NETWORK_ID || "",
+          process.env.FURYA_NETWORK_ID || "",
           activity.amount,
           activity.denom
         )}
@@ -166,7 +166,7 @@ const ActivityRow: React.FC<{ activity: Activity }> = ({ activity }) => {
         style={{ flex: TABLE_ROWS.buyer.flex, paddingRight: layout.padding_x1 }}
       >
         <Link
-          to={`/user/tori-${buyerAddress}`}
+          to={`/user/furya-${buyerAddress}`}
           style={[fontMedium14, { color: primaryColor }]}
           numberOfLines={1}
           ellipsizeMode="middle"
@@ -181,7 +181,7 @@ const ActivityRow: React.FC<{ activity: Activity }> = ({ activity }) => {
         }}
       >
         <Link
-          to={`/user/tori-${sellerAddress}`}
+          to={`/user/furya-${sellerAddress}`}
           style={[fontMedium14, { color: primaryColor }]}
           numberOfLines={1}
           ellipsizeMode="middle"

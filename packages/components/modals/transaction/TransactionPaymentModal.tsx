@@ -15,7 +15,7 @@ import { WalletStatusCard } from "../../cards/WalletStatusCard";
 import { ConnectKeplrButton } from "../../connectWallet/ConnectKeplrButton";
 import ModalBase from "../ModalBase";
 
-// Modal with price, fee,  Teritori wallet connexion and status and Payment button
+// Modal with price, fee,  Furya wallet connexion and status and Payment button
 export const TransactionPaymentModal: React.FC<{
   label: string;
   price?: string;
@@ -35,7 +35,7 @@ export const TransactionPaymentModal: React.FC<{
 }) => {
   const isKeplrConnected = useSelector(selectIsKeplrConnected);
   const selectedWallet = useSelectedWallet();
-  const networkId = process.env.TERITORI_NETWORK_ID; // FIXME: support other networks
+  const networkId = process.env.FURYA_NETWORK_ID; // FIXME: support other networks
   const balances = useBalances(networkId, selectedWallet?.address);
   const balance = balances.find((bal) => bal.denom === priceDenom)?.amount;
 
@@ -54,7 +54,7 @@ export const TransactionPaymentModal: React.FC<{
           {textComponent}
         </View>
 
-        {/*==== Teritori wallet*/}
+        {/*==== Furya wallet*/}
         {isKeplrConnected ? <WalletStatusCard /> : <ConnectKeplrButton />}
 
         {/*==== Amounts*/}
@@ -73,7 +73,7 @@ export const TransactionPaymentModal: React.FC<{
             {/* TODO: Refresh totalString just after connect Keplr*/}
             <BrandText style={fontSemibold14}>
               {prettyPrice(
-                process.env.TERITORI_NETWORK_ID || "",
+                process.env.FURYA_NETWORK_ID || "",
                 balance || "0",
                 priceDenom
               )}
@@ -91,7 +91,7 @@ export const TransactionPaymentModal: React.FC<{
             </BrandText>
             <BrandText style={fontSemibold14}>
               {prettyPrice(
-                process.env.TERITORI_NETWORK_ID || "",
+                process.env.FURYA_NETWORK_ID || "",
                 price,
                 priceDenom
               )}

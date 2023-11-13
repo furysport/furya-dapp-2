@@ -3,7 +3,7 @@ import { StyleProp, TouchableOpacity, View, ViewStyle } from "react-native";
 
 import chevronDownSVG from "../../assets/icons/chevron-down.svg";
 import chevronUpSVG from "../../assets/icons/chevron-up.svg";
-import teritoriSVG from "../../assets/icons/networks/teritori.svg";
+import furyaSVG from "../../assets/icons/networks/furya.svg";
 import { useDropdowns } from "../context/DropdownsProvider";
 import { Network } from "../utils/network";
 import { neutral17, secondaryColor } from "../utils/style/colors";
@@ -39,7 +39,7 @@ export const NetworkSelector: React.FC<{
         >
           <SVG
             style={{ marginRight: 4 }}
-            source={teritoriSVG}
+            source={furyaSVG}
             width={16}
             height={16}
           />
@@ -70,11 +70,11 @@ export const NetworkSelector: React.FC<{
                 <TouchableOpacity
                   style={{
                     marginBottom: 16,
-                    opacity: network !== Network.Teritori ? 0.5 : 1,
+                    opacity: network !== Network.Furya ? 0.5 : 1,
                   }}
                   key={index}
                   onPress={
-                    network === Network.Teritori ? onPressNetwork : undefined
+                    network === Network.Furya ? onPressNetwork : undefined
                   }
                 >
                   <View style={{ flexDirection: "row", alignItems: "center" }}>

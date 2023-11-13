@@ -14,7 +14,7 @@ import { neutral33 } from "../../utils/style/colors";
 export const MyNFTs: React.FC = () => {
   const selectedWallet = useSelectedWallet();
   const navigation = useAppNavigation();
-  const ownerId = `tori-${selectedWallet?.address}`; // FIXME: make this network-independent
+  const ownerId = `furya-${selectedWallet?.address}`; // FIXME: make this network-independent
   const { nfts, fetchMore } = useNFTs({
     offset: 0,
     limit: 4,

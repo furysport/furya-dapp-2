@@ -15,14 +15,14 @@ import { NFTDetailScreen } from "../../screens/Marketplace/NFTDetailScreen";
 import { MyCollectionScreen } from "../../screens/MyCollection/MyCollectionScreen";
 import { RiotersFooterScreen } from "../../screens/RiotersFooter/RiotersFooterScreen";
 import { StakeScreen } from "../../screens/Stake";
-import { TNSHomeScreen } from "../../screens/TeritoriNameService/TNSHomeScreen";
+import { TNSHomeScreen } from "../../screens/FuryaNameService/TNSHomeScreen";
 import { UserPublicProfileScreen } from "../../screens/UserPublicProfile/UserPublicProfileScreen";
 import { WalletManagerScreen } from "../../screens/WalletManager/WalletManagerScreen";
 import { WalletManagerWalletsScreen } from "../../screens/WalletManager/WalletsScreen";
 import { RootStackParamList } from "../../utils/navigation";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const screenTitle = (title: string) => "Teritori - " + title;
+const screenTitle = (title: string) => "Furya - " + title;
 
 export const Navigator: React.FC = () => {
   return (
@@ -102,7 +102,7 @@ export const Navigator: React.FC = () => {
         options={{ header: () => null, title: screenTitle("Mint Collection") }}
       />
 
-      {/* ==== Teritori Name Service*/}
+      {/* ==== Furya Name Service*/}
       <Stack.Screen
         name="TNSHome"
         component={TNSHomeScreen}

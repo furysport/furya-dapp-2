@@ -6,7 +6,7 @@ import (
 
 type NFT struct {
 	// ID is network-dependent
-	// Teritori: tori-<bech32_mint_contract_address>-<token_id>
+	// Furya: furya-<bech32_mint_contract_address>-<token_id>
 	ID          string
 	Name        string
 	ImageURI    string
@@ -20,14 +20,14 @@ type NFT struct {
 	Collection   *Collection
 
 	// "has one" relations
-	TeritoriNFT *TeritoriNFT
+	FuryaNFT *FuryaNFT
 
 	// "has many" relations
 	Activities []Activity
 	Burnt      bool
 }
 
-type TeritoriNFT struct {
+type FuryaNFT struct {
 	NFTID   string `gorm:"primaryKey"`
 	TokenID string
 }

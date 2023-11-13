@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { TeritoriBunkerMinterQueryClient } from "../contracts-clients/teritori-bunker-minter/TeritoriBunkerMinter.client";
-import { TeritoriNftQueryClient } from "../contracts-clients/teritori-nft/TeritoriNft.client";
+import { FuryaBunkerMinterQueryClient } from "../contracts-clients/furya-bunker-minter/FuryaBunkerMinter.client";
+import { FuryaNftQueryClient } from "../contracts-clients/furya-nft/FuryaNft.client";
 import { prettyPrice } from "../utils/coins";
 import { ipfsURLToHTTPURL } from "../utils/ipfs";
 import { getNonSigningCosmWasmClient } from "../utils/keplr";
@@ -39,24 +39,24 @@ export const useCollectionInfo = (id: string) => {
   const { data, error, refetch } = useQuery(
     ["collectionInfo", id],
     async (): Promise<CollectionInfo> => {
-      const mintAddress = id.startsWith("tori-") ? id.substring(5) : id;
-      if (mintAddress === process.env.TERITORI_NAME_SERVICE_CONTRACT_ADDRESS) {
+      const mintAddress = id.startsWith("furya-") ? id.substring(5) : id;
+      if (mintAddress === process.env.FURYA_NAME_SERVICE_CONTRACT_ADDRESS) {
         return {
-          name: "Teritori Name Service", // FIXME: should fetch from contract or be in env
+          name: "Furya Name Service", // FIXME: should fetch from contract or be in env
           image: ipfsURLToHTTPURL(
-            process.env.TERITORI_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
+            process.env.FURYA_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
           ),
         };
       }
       const cosmwasm = await getNonSigningCosmWasmClient();
 
-      const minterClient = new TeritoriBunkerMinterQueryClient(
+      const minterClient = new FuryaBunkerMinterQueryClient(
         cosmwasm,
         mintAddress
       );
       const conf = await minterClient.config();
 
-      const nftClient = new TeritoriNftQueryClient(cosmwasm, conf.nft_addr);
+      const nftClient = new FuryaNftQueryClient(cosmwasm, conf.nft_addr);
       const nftInfo = await nftClient.contractInfo();
 
       const metadataURL = ipfsURLToHTTPURL(conf.nft_base_uri);
@@ -101,7 +101,7 @@ export const useCollectionInfo = (id: string) => {
         image: ipfsURLToHTTPURL(metadata.image || ""),
         description: metadata.description,
         prettyUnitPrice: prettyPrice(
-          process.env.TERITORI_NETWORK_ID || "",
+          process.env.FURYA_NETWORK_ID || "",
           unitPrice,
           conf.price_denom
         ),

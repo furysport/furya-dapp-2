@@ -135,7 +135,7 @@ export const NFTView: React.FC<{
                         tnsMetadata.metadata?.image
                           ? tnsMetadata.metadata.image
                           : process.env
-                              .TERITORI_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
+                              .FURYA_NAME_SERVICE_DEFAULT_IMAGE_URL || ""
                       ),
                     }} // TODO: proper fallback
                     style={{
@@ -279,7 +279,7 @@ export const NFTView: React.FC<{
                   <>
                     <CurrencyIcon
                       size={24}
-                      networkId={process.env.TERITORI_NETWORK_ID || ""}
+                      networkId={process.env.FURYA_NETWORK_ID || ""}
                       denom={nft.denom}
                     />
                     {/* FIXME: should come from price denom */}
@@ -310,7 +310,7 @@ export const NFTView: React.FC<{
                   <SecondaryButton
                     size="XS"
                     text={prettyPrice(
-                      process.env.TERITORI_NETWORK_ID || "",
+                      process.env.FURYA_NETWORK_ID || "",
                       nft.price,
                       nft.denom
                     )}

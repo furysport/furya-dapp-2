@@ -4,11 +4,11 @@ package networks
 
 var AllNetworks = []*Network{
 	{
-		ID: "teritori",
+		ID: "furya",
 		Currencies: []Currency{
 			&NativeCurrency{
-				Denom:       "utori",
-				CoinGeckoID: "teritori",
+				Denom:       "ufury",
+				CoinGeckoID: "furya",
 				Decimals:    6,
 			},
 			&IBCCurrency{
@@ -29,11 +29,11 @@ var AllNetworks = []*Network{
 		},
 	},
 	{
-		ID: "teritori-testnet",
+		ID: "furya-testnet",
 		Currencies: []Currency{
 			&NativeCurrency{
-				Denom:       "utori",
-				CoinGeckoID: "teritori",
+				Denom:       "ufury",
+				CoinGeckoID: "furya",
 				Decimals:    6,
 			},
 			&IBCCurrency{

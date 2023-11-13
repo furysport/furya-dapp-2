@@ -8,7 +8,7 @@ import {
 } from "../../store/slices/settings";
 // import { addWallet } from "../../store/slices/wallets";
 import { useAppDispatch } from "../../store/store";
-import { teritoriChainId } from "../../utils/teritori";
+import { furyaChainId } from "../../utils/furya";
 import { WalletProvider } from "../../utils/walletProvider";
 import { Wallet } from "./wallet";
 
@@ -45,8 +45,8 @@ export const useKeplr: () => UseKeplrResult = () => {
       return;
     }
     const handleKeyChange = async () => {
-      if (!teritoriChainId) {
-        console.error("no teritori chain id");
+      if (!furyaChainId) {
+        console.error("no furya chain id");
         return;
       }
       const keplr = (window as KeplrWindow).keplr;
@@ -54,7 +54,7 @@ export const useKeplr: () => UseKeplrResult = () => {
         console.error("no keplr");
         return;
       }
-      const offlineSigner = await keplr.getOfflineSignerAuto(teritoriChainId);
+      const offlineSigner = await keplr.getOfflineSignerAuto(furyaChainId);
       const accounts = await offlineSigner.getAccounts();
       setAddresses(accounts.map((account) => account.address));
     };
@@ -75,7 +75,7 @@ export const useKeplr: () => UseKeplrResult = () => {
           console.error("no keplr");
           return;
         }
-        const chainId = teritoriChainId;
+        const chainId = furyaChainId;
         if (!chainId) {
           console.error("missing chain id");
           return;
@@ -103,7 +103,7 @@ export const useKeplr: () => UseKeplrResult = () => {
       dispatch(
         addWallet({
           publicKey: address,
-          network: Network.Teritori,
+          network: Network.Furya,
         })
       );
     });

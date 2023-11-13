@@ -112,11 +112,11 @@ export const WalletManagerWalletsScreen: ScreenFC<
   const wallets = selectedWallet
     ? [
         {
-          title: "Teritori",
+          title: "Furya",
           data: [
             {
               id: 0,
-              title: "Teritori",
+              title: "Furya",
               address: selectedWallet.address,
               pendingReward: 42,
               staked: 42,

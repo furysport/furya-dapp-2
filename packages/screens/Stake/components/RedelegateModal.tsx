@@ -17,7 +17,7 @@ import { SpacerColumn, SpacerRow } from "../../../components/spacer";
 import { useFeedbacks } from "../../../context/FeedbacksProvider";
 import { useErrorHandler } from "../../../hooks/useErrorHandler";
 import useSelectedWallet from "../../../hooks/useSelectedWallet";
-import { useSelectedWalletBondedToris } from "../../../hooks/useSelectedWalletBondedToris";
+import { useSelectedWalletBondedFurys } from "../../../hooks/useSelectedWalletBondedFurys";
 import { useValidators } from "../../../hooks/useValidators";
 import { prettyPrice } from "../../../utils/coins";
 import { getKeplrOfflineSigner } from "../../../utils/keplr";
@@ -35,10 +35,10 @@ import {
 } from "../../../utils/style/fonts";
 import { layout } from "../../../utils/style/layout";
 import {
-  getTeritoriSigningStargateClient,
-  toriCurrency,
-  toriDisplayDenom,
-} from "../../../utils/teritori";
+  getFuryaSigningStargateClient,
+  furyCurrency,
+  furyDisplayDenom,
+} from "../../../utils/furya";
 import { StakeFormValuesType, ValidatorInfo } from "../types";
 import { ValidatorsTable } from "./ValidatorsList";
 
@@ -55,7 +55,7 @@ export const RedelegateModal: React.FC<RedelegateModalProps> = ({
 }) => {
   // variables
   const wallet = useSelectedWallet();
-  const { bondedTokens, refreshBondedTokens } = useSelectedWalletBondedToris(
+  const { bondedTokens, refreshBondedTokens } = useSelectedWalletBondedFurys(
     data?.address
   );
   const [modifiedValidators, setModifiedValidators] = useState<ValidatorInfo[]>(
@@ -118,7 +118,7 @@ export const RedelegateModal: React.FC<RedelegateModalProps> = ({
         return;
       }
       const signer = await getKeplrOfflineSigner();
-      const client = await getTeritoriSigningStargateClient(signer);
+      const client = await getFuryaSigningStargateClient(signer);
       const msg: MsgBeginRedelegate = {
         delegatorAddress: wallet.address,
         validatorSrcAddress: data.address,
@@ -126,9 +126,9 @@ export const RedelegateModal: React.FC<RedelegateModalProps> = ({
         amount: {
           amount: Decimal.fromUserInput(
             formData.amount,
-            toriCurrency.coinDecimals
+            furyCurrency.coinDecimals
           ).atomics,
-          denom: toriCurrency.coinMinimalDenom,
+          denom: furyCurrency.coinMinimalDenom,
         },
       };
 
@@ -167,7 +167,7 @@ export const RedelegateModal: React.FC<RedelegateModalProps> = ({
         <BrandText style={fontSemibold20}>Redelegate Tokens</BrandText>
         <SpacerColumn size={0.5} />
         <BrandText style={[styles.alternateText, fontSemibold16]}>
-          Select an amount of {toriDisplayDenom} to redelegate
+          Select an amount of {furyDisplayDenom} to redelegate
         </BrandText>
       </View>
     ),
@@ -255,7 +255,7 @@ export const RedelegateModal: React.FC<RedelegateModalProps> = ({
           label="Amount"
           control={control}
           placeHolder="0"
-          currency={toriCurrency}
+          currency={furyCurrency}
           defaultValue=""
           rules={{ required: true, max: bondedTokens.toString() }}
         >
@@ -274,9 +274,9 @@ export const RedelegateModal: React.FC<RedelegateModalProps> = ({
         <BrandText style={fontSemibold13}>
           Tokens bonded to source validator:{" "}
           {prettyPrice(
-            process.env.TERITORI_NETWORK_ID || "",
+            process.env.FURYA_NETWORK_ID || "",
             bondedTokens.atomics,
-            toriCurrency.coinMinimalDenom
+            furyCurrency.coinMinimalDenom
           )}
         </BrandText>
         <SpacerColumn size={2.5} />

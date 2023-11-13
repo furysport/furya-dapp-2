@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { TeritoriBunkerMinterQueryClient } from "../contracts-clients/teritori-bunker-minter/TeritoriBunkerMinter.client";
+import { FuryaBunkerMinterQueryClient } from "../contracts-clients/furya-bunker-minter/FuryaBunkerMinter.client";
 import { getNonSigningCosmWasmClient } from "../utils/keplr";
 
 export const useMintEnded = (id: string) => {
@@ -9,15 +9,15 @@ export const useMintEnded = (id: string) => {
       return false;
     }
 
-    const mintAddress = id.replace("tori-", "");
+    const mintAddress = id.replace("furya-", "");
 
-    if (mintAddress === process.env.TERITORI_NAME_SERVICE_CONTRACT_ADDRESS) {
+    if (mintAddress === process.env.FURYA_NAME_SERVICE_CONTRACT_ADDRESS) {
       return false;
     }
 
     const cosmwasm = await getNonSigningCosmWasmClient();
 
-    const minterClient = new TeritoriBunkerMinterQueryClient(
+    const minterClient = new FuryaBunkerMinterQueryClient(
       cosmwasm,
       mintAddress
     );

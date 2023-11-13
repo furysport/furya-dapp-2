@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/TERITORI/teritori-dapp/go/internal/indexerdb"
-	"github.com/TERITORI/teritori-dapp/go/pkg/marketplacepb"
+	"github.com/furysport/furya-dapp-2/go/internal/indexerdb"
+	"github.com/furysport/furya-dapp-2/go/pkg/marketplacepb"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )
@@ -22,13 +22,13 @@ func (h *Handler) handleInstantiateTNS(e *Message, contractAddress string, insta
 	}
 
 	// create collection
-	collectionId := indexerdb.TeritoriCollectionID(contractAddress)
+	collectionId := indexerdb.FuryaCollectionID(contractAddress)
 	if err := h.db.Create(&indexerdb.Collection{
 		ID:       collectionId,
-		Network:  marketplacepb.Network_NETWORK_TERITORI,
+		Network:  marketplacepb.Network_NETWORK_FURYA,
 		Name:     tnsInstantiateMsg.Name,
 		ImageURI: h.config.TNSDefaultImageURL,
-		TeritoriCollection: &indexerdb.TeritoriCollection{
+		FuryaCollection: &indexerdb.FuryaCollection{
 			MintContractAddress: contractAddress,
 			NFTContractAddress:  contractAddress,
 			CreatorAddress:      tnsInstantiateMsg.AdminAddress,
@@ -64,9 +64,9 @@ type ExecuteCW721MintMsg struct {
 
 func (h *Handler) handleExecuteMintTNS(e *Message, collection *indexerdb.Collection, tokenId string, execMsg *wasmtypes.MsgExecuteContract) error {
 	minter := execMsg.Sender
-	ownerId := indexerdb.TeritoriUserID(minter)
+	ownerId := indexerdb.FuryaUserID(minter)
 
-	nftId := indexerdb.TeritoriNFTID(collection.TeritoriCollection.MintContractAddress, tokenId)
+	nftId := indexerdb.FuryaNFTID(collection.FuryaCollection.MintContractAddress, tokenId)
 
 	// get image URI
 	var executePayload ExecuteCW721MintMsg
@@ -89,7 +89,7 @@ func (h *Handler) handleExecuteMintTNS(e *Message, collection *indexerdb.Collect
 		Name:         tokenId,
 		ImageURI:     imageURI,
 		CollectionID: collection.ID,
-		TeritoriNFT: &indexerdb.TeritoriNFT{
+		FuryaNFT: &indexerdb.FuryaNFT{
 			TokenID: tokenId,
 		},
 	}
@@ -136,7 +136,7 @@ func (h *Handler) handleExecuteMintTNS(e *Message, collection *indexerdb.Collect
 
 	// create mint activity
 	if err := h.db.Create(&indexerdb.Activity{
-		ID:   indexerdb.TeritoriActiviyID(e.TxHash, e.MsgIndex),
+		ID:   indexerdb.FuryaActiviyID(e.TxHash, e.MsgIndex),
 		Kind: indexerdb.ActivityKindMint,
 		Time: blockTime,
 		Mint: &indexerdb.Mint{
@@ -173,7 +173,7 @@ func (h *Handler) handleExecuteUpdateTNSMetadata(e *Message, execMsg *wasmtypes.
 	if msg.Payload.Metadata.ImageURI != nil {
 		if err := h.db.
 			Model(&indexerdb.NFT{}).
-			Where("id = ?", indexerdb.TeritoriNFTID(execMsg.Contract, msg.Payload.TokenID)).
+			Where("id = ?", indexerdb.FuryaNFTID(execMsg.Contract, msg.Payload.TokenID)).
 			UpdateColumn("ImageURI", *msg.Payload.Metadata.ImageURI).
 			Error; err != nil {
 			return errors.Wrap(err, "failed to update tns image uri")
@@ -201,8 +201,8 @@ func (h *Handler) handleExecuteTNSSetAdminAddress(e *Message, execMsg *wasmtypes
 	}
 
 	if err := h.db.
-		Model(&indexerdb.TeritoriCollection{}).
-		Where("collection_id = ?", indexerdb.TeritoriCollectionID(execMsg.Contract)).
+		Model(&indexerdb.FuryaCollection{}).
+		Where("collection_id = ?", indexerdb.FuryaCollectionID(execMsg.Contract)).
 		UpdateColumn("CreatorAddress", msg.Payload.AdminAddress).
 		Error; err != nil {
 		return errors.Wrap(err, "failed to update tns creator")

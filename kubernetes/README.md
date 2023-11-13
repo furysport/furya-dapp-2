@@ -1,12 +1,12 @@
-# Teritori DApp Kubernetes config
+# Furya DApp Kubernetes config
 
 ## Deploy
 
 ### Create namespace and set as current
 
 ```sh
-kubectl create namespace teritori
-kubectl config set-context --current --namespace=teritori
+kubectl create namespace furya
+kubectl config set-context --current --namespace=furya
 ```
 
 ### Set env variables

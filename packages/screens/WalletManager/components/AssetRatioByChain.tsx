@@ -5,7 +5,7 @@ import { SvgProps } from "react-native-svg";
 
 import cosmosHubSVG from "../../../../assets/icons/networks/cosmos-hub-circle.svg";
 import ethereumSVG from "../../../../assets/icons/networks/ethereum-circle.svg";
-import teritoriSVG from "../../../../assets/icons/networks/teritori-circle.svg";
+import furyaSVG from "../../../../assets/icons/networks/furya-circle.svg";
 import { BrandText } from "../../../components/BrandText";
 import { ProgressLine } from "../../../components/ProgressLine";
 import { SVG } from "../../../components/SVG";
@@ -19,8 +19,8 @@ interface AssetRatioData {
 
 const DATA: AssetRatioData[] = [
   {
-    icon: teritoriSVG,
-    title: "Teritori",
+    icon: furyaSVG,
+    title: "Furya",
     percent: 100,
   },
   {

@@ -36,13 +36,13 @@ export const NFTCancelListingCard: React.FC<{
             style={[fontSemibold28, { marginRight: 12 }]}
           >
             {prettyPrice(
-              process.env.TERITORI_NETWORK_ID || "",
+              process.env.FURYA_NETWORK_ID || "",
               price,
               priceDenom
             )}
           </GradientText>
           <CurrencyIcon
-            networkId={process.env.TERITORI_NETWORK_ID || ""}
+            networkId={process.env.FURYA_NETWORK_ID || ""}
             denom={priceDenom}
             size={24}
           />

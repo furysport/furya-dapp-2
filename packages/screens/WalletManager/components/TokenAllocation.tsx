@@ -16,7 +16,7 @@ interface TokenAllocationProps {
 export const TokenAllocation: React.FC<TokenAllocationProps> = ({ style }) => {
   const selectedWallet = useSelectedWallet();
   const allBalances = useBalances(
-    process.env.TERITORI_NETWORK_ID,
+    process.env.FURYA_NETWORK_ID,
     selectedWallet?.address
   );
   const balances = allBalances.filter(
@@ -46,7 +46,7 @@ export const TokenAllocation: React.FC<TokenAllocationProps> = ({ style }) => {
           width={216}
           colorScale={balances.map((bal) => {
             const currency = getNativeCurrency(
-              process.env.TERITORI_NETWORK_ID,
+              process.env.FURYA_NETWORK_ID,
               bal.denom
             );
             return currency?.color || "#FFFFFF";
@@ -63,7 +63,7 @@ export const TokenAllocation: React.FC<TokenAllocationProps> = ({ style }) => {
         <View style={{ marginLeft: 32, width: 216 }}>
           {balances.map((item) => {
             const currency = getNativeCurrency(
-              process.env.TERITORI_NETWORK_ID,
+              process.env.FURYA_NETWORK_ID,
               item.denom
             );
             return (
@@ -77,7 +77,7 @@ export const TokenAllocation: React.FC<TokenAllocationProps> = ({ style }) => {
                 }}
               >
                 <CurrencyIcon
-                  networkId={process.env.TERITORI_NETWORK_ID || ""}
+                  networkId={process.env.FURYA_NETWORK_ID || ""}
                   denom={item.denom}
                   size={24}
                 />

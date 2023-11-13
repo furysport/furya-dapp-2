@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { BrandText } from "../../components/BrandText/BrandText";
 import { GovernanceBox } from "../../components/GovernanceBox/GovernanceBox";
 import { ScreenContainer } from "../../components/ScreenContainer";
-import { teritoriRestProvider } from "../../utils/teritori";
+import { furyaRestProvider } from "../../utils/furya";
 import { NavBarGovernance } from "./NavBarGovernance";
 import { Proposal, ProposalStatus } from "./types";
 
@@ -18,7 +18,7 @@ export const GovernanceScreen: React.FC = () => {
     const effect = async () => {
       try {
         const res = await fetch(
-          `${teritoriRestProvider}/cosmos/gov/v1beta1/proposals`
+          `${furyaRestProvider}/cosmos/gov/v1beta1/proposals`
         );
         const data = await res.json();
 

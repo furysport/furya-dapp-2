@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: teritori-indexer
+  name: furya-indexer
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
@@ -13,20 +13,20 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: teritori-indexer
+      app: furya-indexer
   template:
     metadata:
       labels:
-        app: teritori-indexer
+        app: furya-indexer
     spec:
       containers:
-        - name: teritori-indexer
-          image: YOUR_REGISTRY/teritori/teritori-indexer:BACKEND_COMMIT
+        - name: furya-indexer
+          image: YOUR_REGISTRY/furya/furya-indexer:BACKEND_COMMIT
           env:
             - name: TENDERMINT_WEBSOCKET_ENDPOINT
-              value: "http://teritorid:26657/websocket"
+              value: "http://furyad:26657/websocket"
             - name: DB_PATH
-              value: "/data/teritori-index.sqlite"
+              value: "/data/furya-index.sqlite"
           securityContext:
             allowPrivilegeEscalation: false
           imagePullPolicy: IfNotPresent
@@ -44,4 +44,4 @@ spec:
       volumes:
         - name: teritor-indexer-storage
           persistentVolumeClaim:
-            claimName: teritori-indexer-pvc
+            claimName: furya-indexer-pvc

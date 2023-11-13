@@ -56,19 +56,19 @@ const TextDisclaimer: React.FC = () => {
             }}
           >
             <br />
-            Teritori is not a company. Teritori is an open source community
+            Furya is not a company. Furya is an open source community
             project experimenting decentralized social organizations and
             inter-community cooperation. Offering a brand new multi-chain
             experience, this dApp integrate various decentralized protocols and
             ecosystem into an single all-in-one software.
             <br />
             <br />
-            Teritori is a decentralized peer-to-peer blockchain and is made up
+            Furya is a decentralized peer-to-peer blockchain and is made up
             of public and open-source software.
             <br />
             <br />
             1. Restrictions. The services and products presented on this website
-            https://teritori.com/ (the “Website”) may be subject to restrictions
+            https://furya.com/ (the “Website”) may be subject to restrictions
             in certain countries or with respect to certain persons. <br />
             However, any user of the Website should check beforehand, if
             necessary, with his usual advisers that he is entitled to use the
@@ -107,32 +107,32 @@ const TextDisclaimer: React.FC = () => {
             application that is currently considered an experimental alpha
             version. Please be aware of the risks associated with this software
             and be careful to use these early features only in a testing
-            approach. You acknowledge and accept that the use of the Teritori
+            approach. You acknowledge and accept that the use of the Furya
             protocol is entirely at your own risks, and that doing so could lead
             to partial or full loss of deposits. You take full responsibility
-            for your use of Teritori and the Teritori protocol and acknowledge
+            for your use of Furya and the Furya protocol and acknowledge
             that you use it on the basis of your own analysis.
             <br />
             <br />
-            Your use of Teritori involves various risks, including, but not
+            Your use of Furya involves various risks, including, but not
             limited to losses due to notably the fluctuation of prices of tokens
             in a trading pair or liquidity pool, impermanent loss, etc. Before
-            using Teritori, you should review the relevant documentation to make
-            sure you understand how Teritori works.
+            using Furya, you should review the relevant documentation to make
+            sure you understand how Furya works.
             <br />
             <br />
-            AS DESCRIBED IN TERITORI'S DOCUMENTATION, TERITORI IS PROVIDED “AS
+            AS DESCRIBED IN FURYA'S DOCUMENTATION, FURYA IS PROVIDED “AS
             IS”, AT YOUR OWN RISKS, AND WITHOUT WARRANTIES OF ANY KIND.
             <br />
             <br />
             Although the Company developed much of the initial code for the
-            Teritori protocol, it does not provide, own, or control the Teritori
+            Furya protocol, it does not provide, own, or control the Furya
             protocol, which is run by a decentralized validator set. Upgrades
-            and modifications to the Teritori protocol are managed in a
-            community-driven way by holders of the TORI Tokens. No developer or
-            entity involved in creating the Teritori protocol will be liable for
+            and modifications to the Furya protocol are managed in a
+            community-driven way by holders of the FURY Tokens. No developer or
+            entity involved in creating the Furya protocol will be liable for
             any claims or damages whatsoever associated with your use, inability
-            to use, or your interaction with other users of the Teritori
+            to use, or your interaction with other users of the Furya
             protocol, including any direct, indirect, incidental, special,
             exemplary, punitive or consequential damages, or loss of profits,
             cryptocurrencies, tokens, or anything else of value.

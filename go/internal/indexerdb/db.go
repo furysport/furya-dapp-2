@@ -10,7 +10,7 @@ import (
 )
 
 // UserID is network-dependent
-// Teritori: tori-<bech32_address>
+// Furya: furya-<bech32_address>
 type UserID string
 
 type App struct {
@@ -31,11 +31,11 @@ var allModels = []interface{}{
 
 	// collections
 	&Collection{},
-	&TeritoriCollection{},
+	&FuryaCollection{},
 
 	// nfts
 	&NFT{},
-	&TeritoriNFT{},
+	&FuryaNFT{},
 
 	// activity
 	&Activity{},

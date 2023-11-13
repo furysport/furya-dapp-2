@@ -11,7 +11,7 @@ export const protobufPackage = "marketplace.v1";
 export enum Network {
   NETWORK_UNSPECIFIED = 0,
   NETWORK_FAKE = 1,
-  NETWORK_TERITORI = 2,
+  NETWORK_FURYA = 2,
   NETWORK_SOLANA = 3,
   UNRECOGNIZED = -1,
 }
@@ -25,8 +25,8 @@ export function networkFromJSON(object: any): Network {
     case "NETWORK_FAKE":
       return Network.NETWORK_FAKE;
     case 2:
-    case "NETWORK_TERITORI":
-      return Network.NETWORK_TERITORI;
+    case "NETWORK_FURYA":
+      return Network.NETWORK_FURYA;
     case 3:
     case "NETWORK_SOLANA":
       return Network.NETWORK_SOLANA;
@@ -43,8 +43,8 @@ export function networkToJSON(object: Network): string {
       return "NETWORK_UNSPECIFIED";
     case Network.NETWORK_FAKE:
       return "NETWORK_FAKE";
-    case Network.NETWORK_TERITORI:
-      return "NETWORK_TERITORI";
+    case Network.NETWORK_FURYA:
+      return "NETWORK_FURYA";
     case Network.NETWORK_SOLANA:
       return "NETWORK_SOLANA";
     case Network.UNRECOGNIZED:
@@ -204,7 +204,7 @@ export enum CollectionsRequest_Kind {
   KIND_BY_MARKETCAP = 2,
   KIND_FAKE = 3,
   KIND_UPCOMING = 4,
-  KIND_TERITORI_FEATURES = 5,
+  KIND_FURYA_FEATURES = 5,
   UNRECOGNIZED = -1,
 }
 
@@ -226,8 +226,8 @@ export function collectionsRequest_KindFromJSON(object: any): CollectionsRequest
     case "KIND_UPCOMING":
       return CollectionsRequest_Kind.KIND_UPCOMING;
     case 5:
-    case "KIND_TERITORI_FEATURES":
-      return CollectionsRequest_Kind.KIND_TERITORI_FEATURES;
+    case "KIND_FURYA_FEATURES":
+      return CollectionsRequest_Kind.KIND_FURYA_FEATURES;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -247,8 +247,8 @@ export function collectionsRequest_KindToJSON(object: CollectionsRequest_Kind): 
       return "KIND_FAKE";
     case CollectionsRequest_Kind.KIND_UPCOMING:
       return "KIND_UPCOMING";
-    case CollectionsRequest_Kind.KIND_TERITORI_FEATURES:
-      return "KIND_TERITORI_FEATURES";
+    case CollectionsRequest_Kind.KIND_FURYA_FEATURES:
+      return "KIND_FURYA_FEATURES";
     case CollectionsRequest_Kind.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";

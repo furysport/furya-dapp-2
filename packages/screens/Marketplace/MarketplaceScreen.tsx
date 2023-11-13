@@ -57,7 +57,7 @@ const CarouselCollectionItem: React.FC<{
             },
           ]}
         >
-          TERITORI Collections
+          FURYA Collections
         </GradientText>
 
         <PrimaryButton
@@ -88,7 +88,7 @@ const CarouselCollectionItem: React.FC<{
 
 const CollectionsCarouselHeader: React.FC = () => {
   const [collections] = useCollections({
-    kind: CollectionsRequest_Kind.KIND_TERITORI_FEATURES,
+    kind: CollectionsRequest_Kind.KIND_FURYA_FEATURES,
     limit: 16,
     offset: 0,
   });
@@ -139,8 +139,8 @@ export const MarketplaceScreen: ScreenFC<"Marketplace"> = () => {
         <CollectionsCarouselHeader />
 
         <CollectionsCarouselSection
-          title="TERITORI Collections"
-          kind={CollectionsRequest_Kind.KIND_TERITORI_FEATURES}
+          title="FURYA Collections"
+          kind={CollectionsRequest_Kind.KIND_FURYA_FEATURES}
         />
         <CollectionsCarouselSection
           title="Upcoming Launches"

@@ -3,21 +3,21 @@ package indexerdb
 import (
 	"fmt"
 
-	"github.com/TERITORI/teritori-dapp/go/pkg/marketplacepb"
+	"github.com/furysport/furya-dapp-2/go/pkg/marketplacepb"
 )
 
-func TeritoriCollectionID(mintContractAddress string) string {
-	return fmt.Sprintf("%s-%s", marketplacepb.Network_NETWORK_TERITORI.Prefix(), mintContractAddress)
+func FuryaCollectionID(mintContractAddress string) string {
+	return fmt.Sprintf("%s-%s", marketplacepb.Network_NETWORK_FURYA.Prefix(), mintContractAddress)
 }
 
-func TeritoriNFTID(mintContractAddress string, tokenId string) string {
-	return fmt.Sprintf("%s-%s-%s", marketplacepb.Network_NETWORK_TERITORI.Prefix(), mintContractAddress, tokenId)
+func FuryaNFTID(mintContractAddress string, tokenId string) string {
+	return fmt.Sprintf("%s-%s-%s", marketplacepb.Network_NETWORK_FURYA.Prefix(), mintContractAddress, tokenId)
 }
 
-func TeritoriUserID(address string) UserID {
-	return UserID(fmt.Sprintf("%s-%s", marketplacepb.Network_NETWORK_TERITORI.Prefix(), address))
+func FuryaUserID(address string) UserID {
+	return UserID(fmt.Sprintf("%s-%s", marketplacepb.Network_NETWORK_FURYA.Prefix(), address))
 }
 
-func TeritoriActiviyID(txHash string, messageIndex int) string {
-	return fmt.Sprintf("%s-%s-%d", marketplacepb.Network_NETWORK_TERITORI.Prefix(), txHash, messageIndex)
+func FuryaActiviyID(txHash string, messageIndex int) string {
+	return fmt.Sprintf("%s-%s-%d", marketplacepb.Network_NETWORK_FURYA.Prefix(), txHash, messageIndex)
 }

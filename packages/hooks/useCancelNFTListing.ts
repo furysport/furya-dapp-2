@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 
 import { useFeedbacks } from "../context/FeedbacksProvider";
-import { TeritoriNftVaultClient } from "../contracts-clients/teritori-nft-vault/TeritoriNftVault.client";
+import { FuryaNftVaultClient } from "../contracts-clients/furya-nft-vault/FuryaNftVault.client";
 import { getSigningCosmWasmClient } from "../utils/keplr";
-import { vaultContractAddress } from "../utils/teritori";
+import { vaultContractAddress } from "../utils/furya";
 import useSelectedWallet from "./useSelectedWallet";
 
 export const useCancelNFTListing = (
@@ -22,7 +22,7 @@ export const useCancelNFTListing = (
     }
     try {
       const cosmwasmClient = await getSigningCosmWasmClient();
-      const vaultClient = new TeritoriNftVaultClient(
+      const vaultClient = new FuryaNftVaultClient(
         cosmwasmClient,
         wallet.address,
         vaultContractAddress
